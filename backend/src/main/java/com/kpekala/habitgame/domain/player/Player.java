@@ -22,7 +22,7 @@ public class Player {
 
     private Float experience = 0f;
 
-    @OneToOne
+    @OneToOne(mappedBy = "player")
     private User user;
 
     public Player(float hp) {

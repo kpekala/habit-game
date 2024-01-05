@@ -39,7 +39,6 @@ public class DataInitializer implements CommandLineRunner {
         Player player1 = new Player(100);
 
         user1.setPlayer(player1);
-        player1.setUser(user1);
         user1.setRoles(Set.of(adminRole));
 
         userRepository.save(user1);
