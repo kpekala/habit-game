@@ -1,10 +1,7 @@
 package com.kpekala.habitgame.player;
 
 import com.kpekala.habitgame.user.UserDetails;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +16,11 @@ public class Player {
     @GeneratedValue
     private Long id;
 
-    private float hp;
+    private Float hp = 100.0f;
+
+    private Integer lvl = 1;
+
+    private Float experience = 0f;
 
     @OneToOne
     private UserDetails user;
