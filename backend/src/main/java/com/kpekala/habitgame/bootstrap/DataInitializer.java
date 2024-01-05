@@ -2,6 +2,7 @@ package com.kpekala.habitgame.bootstrap;
 
 import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.role.Role;
+import com.kpekala.habitgame.domain.role.RoleRepository;
 import com.kpekala.habitgame.domain.user.User;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,18 @@ public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
 
+    private final RoleRepository roleRepository;
+
     @Override
     public void run(String... args) {
         setUpUsers();
+        setUpRoles();
+    }
+
+    private void setUpRoles() {
+        Role userRole = new Role("user");
+
+        roleRepository.save(userRole);
     }
 
     private void setUpUsers() {

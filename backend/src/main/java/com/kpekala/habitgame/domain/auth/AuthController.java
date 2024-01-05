@@ -2,12 +2,7 @@ package com.kpekala.habitgame.domain.auth;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +16,19 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
+    private final AuthService authService;
+
     @PostMapping("signin")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getEmailAddress(), loginDto.getPassword()));
+    public String authenticateUser(@RequestBody LoginDto loginDto){
+        authService.authenticateUser(loginDto.getEmailAddress(), loginDto.getPassword());
 
-        log.info("Siema");
+        return "User signed-in successfully!";
+    }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
+    @PostMapping("signup")
+    public String signUp(@RequestBody SignupDto signupDto) {
+        authService.createUser(signupDto);
+
+        return "User created successfully!";
     }
 }
