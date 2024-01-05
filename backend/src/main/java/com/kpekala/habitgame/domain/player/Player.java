@@ -1,6 +1,6 @@
-package com.kpekala.habitgame.player;
+package com.kpekala.habitgame.domain.player;
 
-import com.kpekala.habitgame.user.UserDetails;
+import com.kpekala.habitgame.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class Player {
     private Float experience = 0f;
 
     @OneToOne
-    private UserDetails user;
+    private User user;
 
     public Player(float hp) {
         this.hp = hp;

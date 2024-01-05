@@ -1,11 +1,14 @@
 package com.kpekala.habitgame.bootstrap;
 
-import com.kpekala.habitgame.player.Player;
-import com.kpekala.habitgame.user.UserDetails;
-import com.kpekala.habitgame.user.UserRepository;
+import com.kpekala.habitgame.domain.player.Player;
+import com.kpekala.habitgame.domain.role.Role;
+import com.kpekala.habitgame.domain.user.User;
+import com.kpekala.habitgame.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -19,12 +22,15 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void setUpUsers() {
-        UserDetails user1 = new UserDetails("Konrad", "test@test.pl", "123456");
+        User user1 = new User("Konrad", "test@test.pl", "$2a$10$3bGUcRVIwPV5IQj.35J2Fehzcm9En4f94Pc03JKOuQbMpXzTfhbNq");
+
+        Role adminRole = new Role("admin");
 
         Player player1 = new Player(100);
 
         user1.setPlayer(player1);
         player1.setUser(user1);
+        user1.setRoles(Set.of(adminRole));
 
         userRepository.save(user1);
     }
