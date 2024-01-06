@@ -1,3 +1,4 @@
-<button type="submit" class="btn" [ngStyle]="{'width': width}">
+<button type="submit" class="btn" [ngStyle]="{'width': width}"
+    [disabled]="disabled ? 'disabled' : null">
     {{label}}
 </button>

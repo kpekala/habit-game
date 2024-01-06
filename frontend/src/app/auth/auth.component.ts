@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
     });
 
     if(!this.isLoginView) {
-      this.authForm.addControl('username', new FormControl('', Validators.required));
+      this.authForm.addControl('name', new FormControl('', Validators.required));
     }
   }
 
@@ -36,11 +36,16 @@ export class AuthComponent implements OnInit {
       this.onLoginButtonClicked();
     }
   }
+
   onLoginButtonClicked() {
-
   }
-  onRegisterButtonClicked() {
 
+  onRegisterButtonClicked() {
+  }
+
+  changeMethod() {
+    this.isLoginView = !this.isLoginView;
+    this.reloadForm();
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="auth-container">
     <div class="auth-card">
         <h1 class="auth-card__logo">
-            Habit Game
+            {{isLoginView ? 'Welcome back!': 'Hello there!'}}
         </h1>
         <div class="auth-card__form-container">
             <form [formGroup]="authForm" class="auth-card__form" (ngSubmit)="onAuthButtonClicked()">
@@ -17,6 +17,18 @@
                     </div>
                     
                 </div>
+                <div *ngIf="!isLoginView" class="auth-card__input-container">
+                    <div>
+                        <label class="form-label">Name</label>
+                    </div>
+                    <div>
+                        <input type="text"
+                        class="form-control"
+                        formControlName="name"
+                        placeholder="Name"/>
+                    </div>
+                </div>
+
                 <div class="auth-card__input-container">
                     <div>
                         <label class="form-label">Passport</label>
@@ -27,11 +39,19 @@
                         formControlName="password"
                         placeholder="Passport"/>
                     </div>
-                   
                 </div>
 
+
                 <div class="auth-card__button-container">
-                    <app-button [label]="isLoginView ? 'Login' : 'Sign up'"></app-button>
+                    <app-button [label]="isLoginView ? 'Login' : 'Sign up'" [disabled]="!authForm.valid">
+                    </app-button>
+                </div>
+
+                <div class="auth-card__change-method">
+                    {{isLoginView ? 'Don\'t have an account? ': 'Already have an account?'}} 
+                    <span class="login-text-button" (click)="changeMethod()">
+                        {{isLoginView ? 'Sign up' : 'Login'}}
+                    </span>
                 </div>
             </form>
         </div>

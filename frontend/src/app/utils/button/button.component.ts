@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-  @Input() label;
+  @Input() label: String;
   @Input() isFormButton = true;
   @Input() width = '18rem';
-
+  @Input() disabled = false;
 }

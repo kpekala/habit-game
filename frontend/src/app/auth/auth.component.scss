@@ -15,15 +15,15 @@
     position: absolute;
     background-color: $color-white;
     border-radius: 16px;
-    box-shadow: 0 3rem 4rem rgba($color-black, .15);
+    box-shadow: 1rem 1rem 4rem rgba($color-black, .3);
     padding: 2rem;
     padding-top: 1rem;
 
     &__logo {
         text-align: center;
-        font-size: 3rem;
-        font-weight: 100;
-        color: $color-primary;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
     }
 
     &__form-container {
@@ -46,6 +46,12 @@
         border: none;
         color: $color-white;
     }
+
+    &__change-method {
+        font-size: .8rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
 }
 
 .form-label {
@@ -65,4 +71,10 @@
         outline: none;
         border: 1px solid rgba($color-primary, 1);
     }
+}
+
+.login-text-button {
+    color: $color-primary;
+    font-weight: 500;
+    cursor: pointer;
 }

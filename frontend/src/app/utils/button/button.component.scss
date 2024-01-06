@@ -19,4 +19,9 @@
         background-color: rgba($color-primary, .8);
         box-shadow: 0 .4rem 1rem rgba($color-black, .2);
     }
+
+    &:disabled {
+        background-color: rgba($color-primary, .6);
+        cursor: auto;
+    }
 }
