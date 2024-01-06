@@ -1,5 +1,6 @@
 package com.kpekala.habitgame.domain.auth;
 
+import com.kpekala.habitgame.domain.auth.dto.SignupRequest;
 import com.kpekala.habitgame.domain.auth.exception.UserExistsException;
 import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.role.RoleRepository;
@@ -31,25 +32,25 @@ public class AuthServiceImpl implements AuthService{
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-    public void createUser(SignupDto signupDto) {
-        boolean userExists = userRepository.existsByEmailAddress(signupDto.getEmailAddress());
+    public void createUser(SignupRequest signupRequest) {
+        boolean userExists = userRepository.existsByEmailAddress(signupRequest.getEmailAddress());
         if (userExists)
             throw new UserExistsException("User already exists in database");
 
-        var user = prepareUser(signupDto);
+        var user = prepareUser(signupRequest);
         userRepository.save(user);
 
-        authenticateUser(signupDto.getEmailAddress(), signupDto.getPassword());
+        authenticateUser(signupRequest.getEmailAddress(), signupRequest.getPassword());
     }
 
-    private User prepareUser(SignupDto signupDto) {
+    private User prepareUser(SignupRequest signupRequest) {
         var user = new User();
         var role = roleRepository.findByName("user").get();
         user.setRoles(Set.of(role));
         user.setPlayer(new Player());
-        user.setPassword(passwordEncoder.encode(signupDto.getPassword()));
-        user.setFullName(signupDto.getName());
-        user.setEmailAddress(signupDto.getEmailAddress());
+        user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+        user.setFullName(signupRequest.getName());
+        user.setEmailAddress(signupRequest.getEmailAddress());
         return user;
     }
 }

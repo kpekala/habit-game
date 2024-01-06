@@ -1,11 +1,11 @@
-package com.kpekala.habitgame.domain.auth;
+package com.kpekala.habitgame.domain.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SignupDto {
+public class SignupRequest {
 
     private String name;
     private String emailAddress;

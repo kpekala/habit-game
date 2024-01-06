@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Component
@@ -40,6 +41,7 @@ public class DataInitializer implements CommandLineRunner {
 
         user1.setPlayer(player1);
         user1.setRoles(Set.of(adminRole));
+        user1.setCreationDate(LocalDateTime.now());
 
         userRepository.save(user1);
     }

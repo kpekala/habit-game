@@ -22,6 +22,8 @@ public class Player {
 
     private Float experience = 0f;
 
+    private Float gold = 0f;
+
     @OneToOne(mappedBy = "player")
     private User user;
 

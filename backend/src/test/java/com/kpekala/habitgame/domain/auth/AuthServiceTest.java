@@ -1,5 +1,6 @@
 package com.kpekala.habitgame.domain.auth;
 
+import com.kpekala.habitgame.domain.auth.dto.SignupRequest;
 import com.kpekala.habitgame.domain.auth.exception.UserExistsException;
 import com.kpekala.habitgame.domain.role.Role;
 import com.kpekala.habitgame.domain.role.RoleRepository;
@@ -43,22 +44,22 @@ public class AuthServiceTest {
 
     @Test
     public void testCreateUser_whenUserDoesNotExist_createsUser() {
-        SignupDto signupDto = new SignupDto("Tester", "test@test.pl", "123456");
+        SignupRequest signupRequest = new SignupRequest("Tester", "test@test.pl", "123456");
         when(userRepository.existsByEmailAddress(anyString())).thenReturn(false);
         when(roleRepository.findByName("user")).thenReturn(Optional.of(new Role("user")));
         when(passwordEncoder.encode(anyString())).thenReturn("123456");
         when(authenticationManager.authenticate(any())).thenReturn(null);
 
-        authService.createUser(signupDto);
+        authService.createUser(signupRequest);
 
         verify(userRepository, times(1)).save(any());
     }
 
     @Test
     public void testCreateUser_whenUserExists_throwException() {
-        SignupDto signupDto = new SignupDto("Tester", "test@test.pl", "123456");
+        SignupRequest signupRequest = new SignupRequest("Tester", "test@test.pl", "123456");
         when(userRepository.existsByEmailAddress(anyString())).thenReturn(true);
 
-        assertThrows(UserExistsException.class, () -> authService.createUser(signupDto));
+        assertThrows(UserExistsException.class, () -> authService.createUser(signupRequest));
     }
 }

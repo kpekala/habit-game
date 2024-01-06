@@ -1,5 +1,7 @@
 package com.kpekala.habitgame.domain.auth;
 
+import com.kpekala.habitgame.domain.auth.dto.LoginRequest;
+import com.kpekala.habitgame.domain.auth.dto.SignupRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,15 +18,15 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("signin")
-    public String authenticateUser(@RequestBody LoginDto loginDto){
-        authService.authenticateUser(loginDto.getEmailAddress(), loginDto.getPassword());
+    public String authenticateUser(@RequestBody LoginRequest loginRequest){
+        authService.authenticateUser(loginRequest.getEmailAddress(), loginRequest.getPassword());
 
         return "User signed-in successfully!";
     }
 
     @PostMapping("signup")
-    public String signUp(@RequestBody SignupDto signupDto) {
-        authService.createUser(signupDto);
+    public String signUp(@RequestBody SignupRequest signupRequest) {
+        authService.createUser(signupRequest);
 
         return "User created successfully!";
     }

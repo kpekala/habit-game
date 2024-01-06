@@ -6,7 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -24,6 +26,10 @@ public class User {
     private String emailAddress;
 
     private String password;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime creationDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Player player;
