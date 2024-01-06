@@ -31,10 +31,7 @@
                 </div>
 
                 <div class="auth-card__button-container">
-                    <button type="submit" class="btn"
-                        onclick="">
-                        {{isLoginView ? "Sign up" : "Login"}}
-                    </button>
+                    <app-button [label]="isLoginView ? 'Login' : 'Sign up'"></app-button>
                 </div>
             </form>
         </div>

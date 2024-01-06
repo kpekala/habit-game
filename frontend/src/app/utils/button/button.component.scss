@@ -1,0 +1,22 @@
+@import "./../../../styles.scss";
+
+.btn {
+    padding: 0.7rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+    background-color: $color-primary;
+    border: none;
+    color: $color-white;
+    cursor: pointer;
+    box-shadow: 0 .4rem 1rem rgba($color-black, .15);
+
+
+    &:hover {
+        background-color: rgba($color-primary, .9);
+    }
+
+    &:active {
+        background-color: rgba($color-primary, .8);
+        box-shadow: 0 .4rem 1rem rgba($color-black, .2);
+    }
+}
