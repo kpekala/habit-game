@@ -21,7 +21,9 @@
 
     &__logo {
         text-align: center;
-        color: $color-primary-dark;
+        font-size: 3rem;
+        font-weight: 100;
+        color: $color-primary;
     }
 
     &__form-container {
