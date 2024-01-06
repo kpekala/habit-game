@@ -6,24 +6,28 @@
         <div class="auth-card__form-container">
             <form [formGroup]="authForm" class="auth-card__form" (ngSubmit)="onAuthButtonClicked()">
                 <div class="auth-card__input-container">
-                    <div class="input-container">
-                        <input type="email"
-                        class="form-control"
-                        formControlName="email"/>
-                    </div>
                     <div>
                         <label class="form-label">Email address</label>
                     </div>
+                    <div class="input-container">
+                        <input type="email"
+                        class="form-control"
+                        formControlName="email"
+                        placeholder="Email address"/>
+                    </div>
+                    
                 </div>
                 <div class="auth-card__input-container">
                     <div>
-                        <input type="password"
-                        class="form-control"
-                        formControlName="password"/>
-                    </div>
-                    <div>
                         <label class="form-label">Passport</label>
                     </div>
+                    <div>
+                        <input type="password"
+                        class="form-control"
+                        formControlName="password"
+                        placeholder="Passport"/>
+                    </div>
+                   
                 </div>
 
                 <div class="auth-card__button-container">

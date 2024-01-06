@@ -7,15 +7,15 @@
 }
 
 .auth-card {
-    width: 24rem;
+    width: 28rem;
     margin: 0 auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
     background-color: $color-white;
-    border-radius: 8px;
-    box-shadow: 0 1.5rem 2rem rgba($color-black, .15);
+    border-radius: 16px;
+    box-shadow: 0 3rem 4rem rgba($color-black, .15);
     padding: 2rem;
     padding-top: 1rem;
 
@@ -37,10 +37,15 @@
 }
 
 .form-label {
+    font-size: .8rem;
+    font-weight: 700;
 }
 
 .form-control {
     padding: 0.7rem;
     font-family: inherit;
-    border: 1px solid $color-primary-dark;
+    border: 1px solid rgba($color-text-secondary, .5);
+    border-radius: 12px;
+    width: 16rem;
+    margin-top: .3rem;
 }
