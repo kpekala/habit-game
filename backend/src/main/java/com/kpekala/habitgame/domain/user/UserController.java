@@ -1,5 +1,6 @@
 package com.kpekala.habitgame.domain.user;
 
+import com.kpekala.habitgame.domain.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

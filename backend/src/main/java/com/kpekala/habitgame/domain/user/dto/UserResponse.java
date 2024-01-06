@@ -1,4 +1,4 @@
-package com.kpekala.habitgame.domain.user;
+package com.kpekala.habitgame.domain.user.dto;
 
 import lombok.Data;
 

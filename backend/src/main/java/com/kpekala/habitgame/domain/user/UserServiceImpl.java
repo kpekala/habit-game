@@ -1,5 +1,6 @@
 package com.kpekala.habitgame.domain.user;
 
+import com.kpekala.habitgame.domain.user.dto.UserResponse;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
