@@ -1,5 +1,6 @@
 package com.kpekala.habitgame.domain.auth;
 
+import com.kpekala.habitgame.domain.auth.dto.AuthResponse;
 import com.kpekala.habitgame.domain.auth.dto.LoginRequest;
 import com.kpekala.habitgame.domain.auth.dto.SignupRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,16 +19,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("signin")
-    public String authenticateUser(@RequestBody LoginRequest loginRequest){
-        authService.authenticateUser(loginRequest.getEmailAddress(), loginRequest.getPassword());
-
-        return "User signed-in successfully!";
+    public AuthResponse authenticateUser(@RequestBody LoginRequest loginRequest){
+        return authService.signin(loginRequest.getEmailAddress(), loginRequest.getPassword());
     }
 
     @PostMapping("signup")
-    public String signUp(@RequestBody SignupRequest signupRequest) {
-        authService.createUser(signupRequest);
-
-        return "User created successfully!";
+    public AuthResponse signUp(@RequestBody SignupRequest signupRequest) {
+       return authService.signup(signupRequest);
     }
 }

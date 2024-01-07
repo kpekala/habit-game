@@ -1,11 +1,13 @@
 package com.kpekala.habitgame.domain.auth;
 
+import com.kpekala.habitgame.domain.auth.dto.AuthResponse;
 import com.kpekala.habitgame.domain.auth.dto.SignupRequest;
 import com.kpekala.habitgame.domain.auth.exception.UserExistsException;
 import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.role.RoleRepository;
 import com.kpekala.habitgame.domain.user.User;
 import com.kpekala.habitgame.domain.user.UserRepository;
+import com.kpekala.habitgame.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,16 +25,23 @@ public class AuthServiceImpl implements AuthService{
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     private final AuthenticationManager authenticationManager;
 
-    public void authenticateUser(String email, String password) {
+    public AuthResponse signin(String email, String password) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        var user = userRepository.findByEmailAddress(email)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
+        var jwt = jwtService.generateToken(user);
+
+        return AuthResponse.builder().token(jwt).build();
     }
 
-    public void createUser(SignupRequest signupRequest) {
+    public AuthResponse signup(SignupRequest signupRequest) {
         boolean userExists = userRepository.existsByEmailAddress(signupRequest.getEmailAddress());
         if (userExists)
             throw new UserExistsException("User already exists in database");
@@ -40,7 +49,8 @@ public class AuthServiceImpl implements AuthService{
         var user = prepareUser(signupRequest);
         userRepository.save(user);
 
-        authenticateUser(signupRequest.getEmailAddress(), signupRequest.getPassword());
+        var jwt = jwtService.generateToken(user);
+        return AuthResponse.builder().token(jwt).build();
     }
 
     private User prepareUser(SignupRequest signupRequest) {
