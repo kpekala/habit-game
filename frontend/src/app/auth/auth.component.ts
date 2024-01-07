@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -11,6 +12,10 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
   isLoginView = true;
   isLoading = false;
+
+  constructor(private authService: AuthService) {
+
+  }
   
   ngOnInit(): void {
     this.reloadForm();
@@ -41,6 +46,17 @@ export class AuthComponent implements OnInit {
   }
 
   onRegisterButtonClicked() {
+    const email = this.authForm.get('email').value;
+    const name = this.authForm.get('name').value;
+    const password = this.authForm.get('password').value;
+    this.authService.signup(email, name, password).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   changeMethod() {
