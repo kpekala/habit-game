@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
         userResponse.setMaxExperience(100 + player.getLvl() * 10);
         userResponse.setLevel(player.getLvl());
 
-        userResponse.setName(userResponse.getName());
-        userResponse.setEmailAddress(userResponse.getEmailAddress());
+        userResponse.setName(user.getFullName());
+        userResponse.setEmailAddress(user.getEmailAddress());
         userResponse.setCreationTime(user.getCreationDate());
 
         return userResponse;
