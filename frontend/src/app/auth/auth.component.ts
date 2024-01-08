@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
+import { AuthResponse } from './auth-response.model';
 
 @Component({
   selector: 'app-auth',
@@ -43,6 +44,16 @@ export class AuthComponent implements OnInit {
   }
 
   onLoginButtonClicked() {
+    const email = this.authForm.get('email').value;
+    const password = this.authForm.get('password').value;
+    this.authService.signin(email, password).subscribe({
+      next: (response: AuthResponse) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
   onRegisterButtonClicked() {
@@ -50,7 +61,7 @@ export class AuthComponent implements OnInit {
     const name = this.authForm.get('name').value;
     const password = this.authForm.get('password').value;
     this.authService.signup(email, name, password).subscribe({
-      next: (response) => {
+      next: (response: AuthResponse) => {
         console.log(response);
       },
       error: (error) => {

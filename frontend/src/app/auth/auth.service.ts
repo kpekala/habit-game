@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { tap } from "rxjs";
 import { environment } from "src/environment/environment";
+import { AuthResponse } from "./auth-response.model";
 
 @Injectable({
     providedIn: 'root'
@@ -21,13 +22,25 @@ export class AuthService {
             password: password
         };
         return this.http.post(this.authPath + 'signup', body)
-            .pipe(tap((response: {token: string}) => {
-                this.setUserLoggedIn(response.token);
+            .pipe(tap((response: AuthResponse) => {
+                this.saveAuthDataLocally(response);
             }));
     }
 
-    setUserLoggedIn(token: string) {
-        localStorage.setItem('token', token);
+    public signin(email: string, password: string) {
+        const body = {
+            emailAddress: email,
+            password: password
+        };
+        return this.http.post(this.authPath + 'signin', body)
+            .pipe(tap((response: AuthResponse) => {
+                this.saveAuthDataLocally(response);
+            }));
+    }
+
+    saveAuthDataLocally(response: AuthResponse) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('expiration', response.tokenExpirationDate);
     }
     
 }
