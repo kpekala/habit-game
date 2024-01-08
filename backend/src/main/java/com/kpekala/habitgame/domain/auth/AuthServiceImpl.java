@@ -11,7 +11,6 @@ import com.kpekala.habitgame.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,15 +29,16 @@ public class AuthServiceImpl implements AuthService{
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse signin(String email, String password) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         var user = userRepository.findByEmailAddress(email)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
         var jwt = jwtService.generateToken(user);
+        var expirationDate = jwtService.tokenExpirationDate(jwt);
 
-        return AuthResponse.builder().token(jwt).build();
+        return AuthResponse.builder().token(jwt).tokenExpirationDate(expirationDate).build();
     }
 
     public AuthResponse signup(SignupRequest signupRequest) {
@@ -50,7 +50,9 @@ public class AuthServiceImpl implements AuthService{
         userRepository.save(user);
 
         var jwt = jwtService.generateToken(user);
-        return AuthResponse.builder().token(jwt).build();
+        var expirationDate = jwtService.tokenExpirationDate(jwt);
+
+        return AuthResponse.builder().token(jwt).tokenExpirationDate(expirationDate).build();
     }
 
     private User prepareUser(SignupRequest signupRequest) {

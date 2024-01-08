@@ -36,6 +36,11 @@ public class JwtServiceImpl implements JwtService {
         return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
+    @Override
+    public Date tokenExpirationDate(String token) {
+        return extractClaim(token,Claims::getExpiration);
+    }
+
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);
         return claimsResolvers.apply(claims);
@@ -44,7 +49,7 @@ public class JwtServiceImpl implements JwtService {
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder().claims(extraClaims).subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 3600 * 24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
