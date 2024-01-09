@@ -1,0 +1,25 @@
+
+<div class="player-container">
+    <div class="player-info-row">
+        <div class="player">
+            <div class="player__image-container">
+                <img src="assets/img/profile.png" alt="User profile" class="player__image">
+            </div>
+        
+            <div class="player__info">
+                <ng-template ngIf="isPlayerInfoLoaded">
+                    <div class="info-label info-name">{{userInfo.name}}</div>
+                    <div class="info-label">{{userInfo.emailAddress}}</div>
+                    <div class="info-label">{{userInfo.health}} / 100 hp</div>
+                    <div class="info-label">{{userInfo.experience}} / {{userInfo.maxExperience}} exp</div>
+                </ng-template>
+            </div>
+        </div>
+        <div class="last-tasks">
+            <h3 class="last-tasks__header">Last tasks</h3>
+        </div>
+    </div>
+    <div class="eq">
+        <h3 class="eq__header">Your equipment</h3>
+    </div>
+</div>

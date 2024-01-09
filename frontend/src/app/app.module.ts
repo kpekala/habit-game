@@ -9,6 +9,7 @@ import { ButtonComponent } from './utils/button/button.component';
 import {HttpClientModule} from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './main/header/header.component';
+import { PlayerComponent } from './main/player/player.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HeaderComponent } from './main/header/header.component';
     AuthComponent,
     ButtonComponent,
     MainComponent,
-    HeaderComponent
+    HeaderComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
