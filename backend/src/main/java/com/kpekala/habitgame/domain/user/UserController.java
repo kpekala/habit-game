@@ -15,7 +15,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public UserResponse getUserInformation(@RequestParam String userName) {
-        return userService.getUserInformation(userName);
+    public UserResponse getUserInformation(@RequestParam String email) {
+        return userService.getUserInformation(email);
     }
 }

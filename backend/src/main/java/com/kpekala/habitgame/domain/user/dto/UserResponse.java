@@ -13,5 +13,6 @@ public class UserResponse {
     private float experience;
     private float maxExperience;
     private float gold;
+    private float health;
     private LocalDateTime creationTime;
 }

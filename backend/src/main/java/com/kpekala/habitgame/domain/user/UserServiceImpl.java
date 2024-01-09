@@ -14,8 +14,8 @@ public class UserServiceImpl implements UserService {
     private final PlayerService playerService;
 
     @Override
-    public UserResponse getUserInformation(String fullName) {
-        var userOptional = userRepository.findByFullName(fullName);
+    public UserResponse getUserInformation(String email) {
+        var userOptional = userRepository.findByEmailAddress(email);
         var user = userOptional.orElseThrow(UserNotFoundException::new);
 
         return prepareUserResponse(user);
@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
         userResponse.setExperience(player.getExperience());
         userResponse.setMaxExperience(playerService.calculateMaxExperience(player.getLvl()));
         userResponse.setLevel(player.getLvl());
+        userResponse.setHealth(player.getHp());
 
         userResponse.setName(user.getFullName());
         userResponse.setEmailAddress(user.getEmailAddress());

@@ -23,7 +23,7 @@ export class AuthService {
         };
         return this.http.post(this.authPath + 'signup', body)
             .pipe(tap((response: AuthResponse) => {
-                this.saveAuthDataLocally(response);
+                this.saveAuthDataLocally(response, email);
             }));
     }
 
@@ -34,13 +34,31 @@ export class AuthService {
         };
         return this.http.post(this.authPath + 'signin', body)
             .pipe(tap((response: AuthResponse) => {
-                this.saveAuthDataLocally(response);
+                this.saveAuthDataLocally(response, email);
             }));
     }
 
-    saveAuthDataLocally(response: AuthResponse) {
+    saveAuthDataLocally(response: AuthResponse, email: string) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('expiration', response.tokenExpirationDate);
+        localStorage.setItem('email', email);
+    }
+
+    isUserLoggedIn(): boolean {
+        const token = localStorage.getItem('token');
+        const tokenExpirationDateString = localStorage.getItem('expiration');
+        if (token == null || tokenExpirationDateString == null)
+            return false;
+        const tokenExpirationDate = Date.parse(tokenExpirationDateString);
+        return tokenExpirationDate > Date.now();
+    }
+
+    getTokenHeader(): string { 
+        return `Bearer ${localStorage.getItem('token')}`;
+    }
+
+    getEmail(): string {
+        return localStorage.getItem('email');
     }
     
 }
