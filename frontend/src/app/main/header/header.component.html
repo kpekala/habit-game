@@ -5,5 +5,14 @@
         <li class="nav__item"><span>Equipment</span></li>
         <li class="nav__item"><span>Shop</span></li>
     </ul>
+    <span class="material-symbols-outlined nav__menu-icon"
+        (click)="changeMenuState()">
+        more_vert
+    </span>
     
+    <span class="nav__menu" *ngIf="showingMenu">
+        <ul>
+            <li>Log out</li>
+        </ul>
+    </span>
 </nav>
