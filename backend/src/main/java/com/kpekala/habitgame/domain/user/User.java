@@ -2,6 +2,7 @@ package com.kpekala.habitgame.domain.user;
 
 import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.role.Role;
+import com.kpekala.habitgame.domain.task.Task;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -44,10 +47,17 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<>();
+
     public User(String fullName, String emailAddress, String password) {
         this.fullName = fullName;
         this.emailAddress = emailAddress;
         this.password = password;
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
     @Override

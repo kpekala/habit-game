@@ -5,6 +5,7 @@ import com.kpekala.habitgame.domain.auth.exception.UserExistsException;
 import com.kpekala.habitgame.domain.role.Role;
 import com.kpekala.habitgame.domain.role.RoleRepository;
 import com.kpekala.habitgame.domain.user.UserRepository;
+import com.kpekala.habitgame.security.jwt.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,22 +25,25 @@ import static org.mockito.Mockito.*;
 public class AuthServiceTest {
 
     @Mock
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Mock
-    private RoleRepository roleRepository;
+    RoleRepository roleRepository;
 
     @Mock
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Mock
     AuthenticationManager authenticationManager;
+
+    @Mock
+    JwtService jwtService;
 
     private AuthService authService;
 
     @BeforeEach
     public void setup() {
-        authService = new AuthServiceImpl(userRepository, roleRepository, passwordEncoder, authenticationManager);
+        authService = new AuthServiceImpl(userRepository, roleRepository, passwordEncoder, jwtService, authenticationManager);
     }
 
     @Test
