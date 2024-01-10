@@ -21,7 +21,7 @@ public class Task {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne()
+    @ManyToOne
     private User user;
 
     private String title;

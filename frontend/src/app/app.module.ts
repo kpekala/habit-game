@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './main/header/header.component';
 import { PlayerComponent } from './main/player/player.component';
+import { TasksComponent } from './main/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PlayerComponent } from './main/player/player.component';
     ButtonComponent,
     MainComponent,
     HeaderComponent,
-    PlayerComponent
+    PlayerComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
