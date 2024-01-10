@@ -1,0 +1,44 @@
+@import "./../../../styles.scss";
+
+@mixin card {
+    box-shadow: 0px 4px 20px 0px rgba(66, 68, 90, 0.15);
+    background-color: $color-white;
+}
+
+.tasks-container {
+    background-color: $color-grey-light;
+    padding: 2rem;
+    height: 100%;
+}
+
+.tasks-card {
+    @include card;
+    height: 100%;
+    width: 72rem;
+    margin: 0 auto;
+    padding: 1rem;
+
+    @media (max-width: 1250px) {
+        width: 100%;
+    }
+
+    &__header {
+        margin: 0;
+        font-weight: 500;
+    }
+
+    &__list {
+        list-style: none;
+    }
+
+    &__task-item {
+        cursor: pointer;
+    }
+}
+
+.line-separator {
+    height: 1px;
+    background-color: $color-divider;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}

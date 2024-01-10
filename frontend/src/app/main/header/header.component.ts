@@ -21,6 +21,9 @@ export class HeaderComponent {
     switch(item) {
       case 'tasks': 
         this.router.navigate(['./tasks'], {relativeTo: this.route});
+        break;
+      case 'player':
+        this.router.navigate(['./player'], {relativeTo: this.route});
     }
   }
 }

@@ -59,10 +59,22 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void setUpTasks() {
-        var newTask = Task.builder()
+        var newTask1 = Task.builder()
                 .title("First task!")
                 .description("Lorem ipsum")
                 .difficulty(Task.Difficulty.EASY)
+                .deadline(new Date()).build();
+
+        var newTask2 = Task.builder()
+                .title("Do 20 push-ups")
+                .description("Just do it")
+                .difficulty(Task.Difficulty.MEDIUM)
+                .deadline(new Date()).build();
+
+        var newTask3 = Task.builder()
+                .title("Do 50 push-ups")
+                .description("its going to be hard asf")
+                .difficulty(Task.Difficulty.MEDIUM)
                 .deadline(new Date()).build();
 
 
@@ -72,10 +84,16 @@ public class DataInitializer implements CommandLineRunner {
 
                 var user = userRepository.findByEmailAddress("test@test.pl").orElseThrow(UserNotFoundException::new);
 
-                user.addTask(newTask);
-                newTask.setUser(user);
+                user.addTask(newTask1);
+                user.addTask(newTask2);
+                user.addTask(newTask3);
+                newTask1.setUser(user);
+                newTask2.setUser(user);
+                newTask3.setUser(user);
 
-                taskRepository.save(newTask);
+                taskRepository.save(newTask1);
+                taskRepository.save(newTask2);
+                taskRepository.save(newTask3);
             }
         });
     }
