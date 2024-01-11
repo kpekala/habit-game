@@ -3,10 +3,15 @@
         <h2 class="tasks-card__header">Your tasks</h2>
 
         <ul class="tasks-card__list" *ngIf="tasks && tasks.length !== 0">
-            <li *ngFor="let task of tasks; index as i" class="tasks-card__task-item">
+            <li *ngFor="let task of tasks; index as i" class="tasks-card__task-item"
+                [ngClass]="{'divider': i !== tasks.length - 1}"
+                (click) = "onTaskClicked(i)">
                 {{task.title}}
-                <div *ngIf="i !== tasks.length - 1" class="line-separator"></div>
             </li>
         </ul>
     </div>
+    <div *ngIf="isTaskChosen">
+        <app-task-modal (clickOutside)="onClickOutsideModal()"></app-task-modal>
+    </div>
+    
 </div>

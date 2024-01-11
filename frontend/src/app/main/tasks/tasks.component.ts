@@ -11,6 +11,8 @@ export class TasksComponent implements OnInit{
 
   tasks: Task[];
 
+  isTaskChosen = true;
+
   constructor (private tasksService: TasksService) {
 
   }
@@ -22,5 +24,13 @@ export class TasksComponent implements OnInit{
         console.log(this.tasks);
       }
     });
+  }
+
+  onTaskClicked(index: number) {
+    this.isTaskChosen = true;
+  }
+
+  onClickOutsideModal() {
+    this.isTaskChosen = false;
   }
 }

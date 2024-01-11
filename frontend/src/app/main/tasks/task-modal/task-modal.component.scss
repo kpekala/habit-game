@@ -1,0 +1,27 @@
+@import "./../tasks.component.scss";
+
+
+.task-modal {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(black, .7);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-card {
+    width: 42rem;
+    @include card;
+
+    border-radius: .5rem;
+    min-height: 16rem;
+
+    &__header {
+        font-weight: 500;
+        margin-left: 1rem;
+    }
+}

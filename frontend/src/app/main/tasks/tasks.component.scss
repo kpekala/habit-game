@@ -33,12 +33,11 @@
 
     &__task-item {
         cursor: pointer;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
     }
 }
 
-.line-separator {
-    height: 1px;
-    background-color: $color-divider;
-    margin-top: .5rem;
-    margin-bottom: .5rem;
+.divider {
+    border-bottom: 1px solid $color-divider;
 }

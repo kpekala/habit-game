@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './main/header/header.component';
 import { PlayerComponent } from './main/player/player.component';
 import { TasksComponent } from './main/tasks/tasks.component';
+import { TaskModalComponent } from './main/tasks/task-modal/task-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TasksComponent } from './main/tasks/tasks.component';
     MainComponent,
     HeaderComponent,
     PlayerComponent,
-    TasksComponent
+    TasksComponent,
+    TaskModalComponent
   ],
   imports: [
     BrowserModule,
