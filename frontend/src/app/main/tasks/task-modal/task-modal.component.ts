@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Task } from '../task.model';
 
 @Component({
   selector: 'app-task-modal',
@@ -6,12 +7,15 @@ import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, O
   styleUrls: ['./task-modal.component.scss']
 })
 export class TaskModalComponent implements OnInit, OnDestroy{
+
   @Output() clickOutside = new EventEmitter<any>();
+  @Input() task: Task;
+  
   @ViewChild('card') card: ElementRef;
 
   readyForClickOutside = false;
 
-  constructor(private eRef: ElementRef) {}
+  constructor() {}
 
   @HostListener('document:click', ['$event'])
   clickOut(event) {
@@ -30,6 +34,7 @@ export class TaskModalComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    console.log(typeof this.task.deadline)
     setTimeout(() => {this.readyForClickOutside = true}, 100);
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Task, TasksResponse } from "./task.model";
-import { Observable } from "rxjs";
+import { Observable, map } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environment/environment";
@@ -12,10 +12,16 @@ export class TasksService {
 
         }
 
-    fetchTasks(): Observable<TasksResponse> {
+    fetchTasks() {
         const token = this.authService.getTokenHeader();
         const headers = {'Authorization': token};
         const params = {'email': this.authService.getEmail()};
-        return this.http.get<TasksResponse>(environment.backendPath + 'api/task', {headers: headers, params: params});
+        return this.http.get<any>(environment.backendPath + 'api/task', {headers: headers, params: params})
+            .pipe(map(response => {
+                response.tasks.forEach((task: Task) => {
+                    task.deadline = new Date(task.deadline);
+                });
+                return response;
+            }))
     }
 }

@@ -1,5 +1,14 @@
 <div class="task-modal">
     <div class="task-card" #card>
-        <h2 class="task-card__header">Task details</h2>
+        <h2 class="task-card__header">Task details of <b>{{task.title}}</b></h2>
+        <div class="task-card__field-container">
+            <b>Description: </b>{{task.description}}
+        </div>
+        <div class="task-card__field-container">
+            <b>Difficulty: </b>{{task.difficulty}}
+        </div>
+        <div class="task-card__field-container">
+            <b>Deadline: </b>{{task.deadline.toLocaleDateString()}} {{task.deadline.toLocaleTimeString()}}
+        </div>
     </div>
 </div>

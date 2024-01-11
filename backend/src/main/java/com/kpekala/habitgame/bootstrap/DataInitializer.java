@@ -17,6 +17,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -59,23 +60,21 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void setUpTasks() {
-        var newTask1 = Task.builder()
-                .title("First task!")
-                .description("Lorem ipsum")
-                .difficulty(Task.Difficulty.EASY)
-                .deadline(new Date()).build();
-
-        var newTask2 = Task.builder()
-                .title("Do 20 push-ups")
-                .description("Just do it")
-                .difficulty(Task.Difficulty.MEDIUM)
-                .deadline(new Date()).build();
-
-        var newTask3 = Task.builder()
-                .title("Do 50 push-ups")
-                .description("its going to be hard asf")
-                .difficulty(Task.Difficulty.MEDIUM)
-                .deadline(new Date()).build();
+        var sampleTasks = List.of(Task.builder()
+                        .title("First task!")
+                        .description("Lorem ipsum")
+                        .difficulty(Task.Difficulty.EASY)
+                        .deadline(new Date()).build(),
+                Task.builder()
+                        .title("Do 20 push-ups")
+                        .description("Just do it")
+                        .difficulty(Task.Difficulty.MEDIUM)
+                        .deadline(new Date()).build(),
+                Task.builder()
+                        .title("Do 50 push-ups")
+                        .description("its going to be hard asf")
+                        .difficulty(Task.Difficulty.MEDIUM)
+                        .deadline(new Date()).build());
 
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -84,16 +83,11 @@ public class DataInitializer implements CommandLineRunner {
 
                 var user = userRepository.findByEmailAddress("test@test.pl").orElseThrow(UserNotFoundException::new);
 
-                user.addTask(newTask1);
-                user.addTask(newTask2);
-                user.addTask(newTask3);
-                newTask1.setUser(user);
-                newTask2.setUser(user);
-                newTask3.setUser(user);
-
-                taskRepository.save(newTask1);
-                taskRepository.save(newTask2);
-                taskRepository.save(newTask3);
+                sampleTasks.forEach(task -> {
+                    user.addTask(task);
+                    task.setUser(user);
+                    taskRepository.save(task);
+                });
             }
         });
     }

@@ -12,6 +12,7 @@ export class TasksComponent implements OnInit{
   tasks: Task[];
 
   isTaskChosen = true;
+  chosenTaskIndex = 0;
 
   constructor (private tasksService: TasksService) {
 
@@ -28,6 +29,7 @@ export class TasksComponent implements OnInit{
 
   onTaskClicked(index: number) {
     this.isTaskChosen = true;
+    this.chosenTaskIndex = index;
   }
 
   onClickOutsideModal() {

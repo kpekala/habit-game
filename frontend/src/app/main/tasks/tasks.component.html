@@ -11,7 +11,9 @@
         </ul>
     </div>
     <div *ngIf="isTaskChosen">
-        <app-task-modal (clickOutside)="onClickOutsideModal()"></app-task-modal>
+        <app-task-modal (clickOutside)="onClickOutsideModal()"
+            [task]="tasks[chosenTaskIndex]">
+        </app-task-modal>
     </div>
     
 </div>
