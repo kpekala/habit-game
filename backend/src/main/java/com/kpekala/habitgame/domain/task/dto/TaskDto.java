@@ -16,4 +16,6 @@ public class TaskDto {
     private Difficulty difficulty;
 
     private Date deadline;
+
+    private int id;
 }

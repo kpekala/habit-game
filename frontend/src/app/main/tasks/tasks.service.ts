@@ -20,8 +20,17 @@ export class TasksService {
             .pipe(map(response => {
                 response.tasks.forEach((task: Task) => {
                     task.deadline = new Date(task.deadline);
+                    console.log(task);
                 });
                 return response;
             }))
+    }
+
+    finishTask(taskId: string) {
+        const token = this.authService.getTokenHeader();
+        const headers = {'Authorization': token};
+        const body = {'taskId': taskId};
+
+        return this.http.post(environment.backendPath + 'api/task/finish', body, {headers: headers})
     }
 }

@@ -1,6 +1,7 @@
 package com.kpekala.habitgame.domain.task;
 
 import com.kpekala.habitgame.domain.task.dto.AddTaskRequest;
+import com.kpekala.habitgame.domain.task.dto.FinishTaskRequest;
 import com.kpekala.habitgame.domain.task.dto.TasksResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,13 @@ public class TaskController {
         return tasksResponse;
     }
 
-    @PostMapping
+    @PostMapping("add")
     public void addTask(@RequestBody AddTaskRequest request) {
         taskService.addTask(request);
+    }
+
+    @PostMapping("finish")
+    public void finishTask(@RequestBody FinishTaskRequest request) {
+        taskService.finishTask(request.getTaskId());
     }
 }

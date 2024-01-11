@@ -46,12 +46,18 @@ public class TaskServiceImpl implements TaskService{
         return user.getTasks().stream().map(this::mapTask).toList();
     }
 
+    @Override
+    public void finishTask(int id) {
+        taskRepository.deleteById(id);
+    }
+
     private TaskDto mapTask(Task task) {
         return TaskDto.builder()
                 .title(task.getTitle())
                 .description(task.getDescription())
                 .difficulty(mapDifficulty(task.getDifficulty()))
                 .deadline(task.getDeadline())
+                .id(task.getId())
                 .build();
     }
 

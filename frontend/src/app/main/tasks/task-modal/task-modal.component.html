@@ -1,6 +1,10 @@
 <div class="task-modal">
     <div class="task-card" #card>
         <h2 class="task-card__header">Task details of <b>{{task.title}}</b></h2>
+        <span class="material-symbols-outlined task-card__close-icon"
+                (click)="onCloseClick()">
+            close
+        </span>
         <div class="task-card__field-container">
             <b>Description: </b>{{task.description}}
         </div>
@@ -10,5 +14,9 @@
         <div class="task-card__field-container">
             <b>Deadline: </b>{{task.deadline.toLocaleDateString()}} {{task.deadline.toLocaleTimeString()}}
         </div>
+
+        <button class="btn btn-primary task-card__btn-finish" (click)="onFinishClick()">
+            Finish
+        </button>
     </div>
 </div>

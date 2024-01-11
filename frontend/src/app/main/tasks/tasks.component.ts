@@ -32,7 +32,10 @@ export class TasksComponent implements OnInit{
     this.chosenTaskIndex = index;
   }
 
-  onClickOutsideModal() {
+  onCloseModal(isTaskFinished) {
     this.isTaskChosen = false;
+    if (isTaskFinished) {
+      this.tasks.splice(this.chosenTaskIndex, 1);
+    }
   }
 }

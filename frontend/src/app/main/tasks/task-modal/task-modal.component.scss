@@ -20,6 +20,8 @@
     border-radius: .5rem;
     min-height: 16rem;
 
+    position: relative;
+
     &__header {
         font-weight: 500;
         margin-left: 1rem;
@@ -28,5 +30,19 @@
     &__field-container {
         padding-left: 1rem;
         padding-bottom: 1rem;
+    }
+
+    &__close-icon {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        cursor: pointer;
+    }
+
+    &__btn-finish {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        cursor: pointer;
     }
 }

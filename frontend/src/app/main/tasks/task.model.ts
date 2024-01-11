@@ -3,6 +3,7 @@ export interface Task {
     description: string;
     difficulty: string;
     deadline: Date;
+    id: string;
 }
 
 export interface TasksResponse {
