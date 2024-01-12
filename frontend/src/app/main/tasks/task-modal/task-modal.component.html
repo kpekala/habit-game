@@ -15,8 +15,14 @@
             <b>Deadline: </b>{{task.deadline.toLocaleDateString()}} {{task.deadline.toLocaleTimeString()}}
         </div>
 
-        <button class="btn btn-primary task-card__btn-finish" (click)="onFinishClick()">
-            Finish
-        </button>
+        <div class="task-card__btn-finish-container">
+            <button class="btn btn-primary task-card__btn-finish" (click)="onFinishClick()">
+                Finish
+            </button>
+            <span class="circle-container" *ngIf="isLoading">
+                <app-loading-circle classes="lds-ring-small"></app-loading-circle>
+            </span>
+        </div>
+        
     </div>
 </div>

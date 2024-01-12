@@ -39,10 +39,17 @@
         cursor: pointer;
     }
 
-    &__btn-finish {
+    &__btn-finish-container {
         position: absolute;
         bottom: 1rem;
         left: 1rem;
+    }
+    &__btn-finish {
         cursor: pointer;
     }
+}
+
+.circle-container {
+    position: absolute;
+    bottom: 0rem;
 }

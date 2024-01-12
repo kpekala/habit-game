@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { AuthResponse } from './auth-response.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,7 @@ export class AuthComponent implements OnInit {
   isLoginView = true;
   isLoading = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
 
   }
   
@@ -49,6 +50,7 @@ export class AuthComponent implements OnInit {
     this.authService.signin(email, password).subscribe({
       next: (response: AuthResponse) => {
         console.log(response);
+        this.router.navigate(['./main']);
       },
       error: (error) => {
         console.log(error);
@@ -63,6 +65,7 @@ export class AuthComponent implements OnInit {
     this.authService.signup(email, name, password).subscribe({
       next: (response: AuthResponse) => {
         console.log(response);
+        this.router.navigate(['./main']);
       },
       error: (error) => {
         console.log(error);

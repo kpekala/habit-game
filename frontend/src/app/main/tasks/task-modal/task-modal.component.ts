@@ -15,6 +15,7 @@ export class TaskModalComponent implements OnInit{
   @ViewChild('card') card: ElementRef;
 
   readyForClickOutside = false;
+  isLoading = false;
 
   constructor(private taskService: TasksService) {}
 
@@ -40,13 +41,16 @@ export class TaskModalComponent implements OnInit{
   }
 
   onFinishClick() {
+    this.isLoading = true;
     this.taskService.finishTask(this.task.id)
       .subscribe({
         next: response => {
+          this.isLoading = false;
           this.onClose.emit(true);
         },
         error: msg => {
           console.log(msg);
+          this.isLoading = false;
           this.onClose.emit();
         }
       })

@@ -12,6 +12,7 @@ import { HeaderComponent } from './main/header/header.component';
 import { PlayerComponent } from './main/player/player.component';
 import { TasksComponent } from './main/tasks/tasks.component';
 import { TaskModalComponent } from './main/tasks/task-modal/task-modal.component';
+import { LoadingCircleComponent } from './utils/loading-circle/loading-circle.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TaskModalComponent } from './main/tasks/task-modal/task-modal.component
     HeaderComponent,
     PlayerComponent,
     TasksComponent,
-    TaskModalComponent
+    TaskModalComponent,
+    LoadingCircleComponent
   ],
   imports: [
     BrowserModule,

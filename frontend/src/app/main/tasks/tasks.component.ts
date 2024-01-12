@@ -11,7 +11,7 @@ export class TasksComponent implements OnInit{
 
   tasks: Task[];
 
-  isTaskChosen = true;
+  isTaskChosen = false;
   chosenTaskIndex = 0;
 
   constructor (private tasksService: TasksService) {
