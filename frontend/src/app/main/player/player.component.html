@@ -8,10 +8,33 @@
         
             <div class="player__info">
                 <div *ngIf="isPlayerInfoLoaded">
-                    <div class="info-label info-name">{{userInfo.name}}</div>
-                    <div class="info-label">{{userInfo.emailAddress}}</div>
-                    <div class="info-label">{{userInfo.health}} / 100 hp</div>
-                    <div class="info-label">{{userInfo.experience}} / {{userInfo.maxExperience}} exp</div>
+                    <div class="info-label info-name">
+                        {{userInfo.name}}
+                    </div>
+                    <div class="info-label">
+                        <span class="material-symbols-outlined info-label__icon">
+                            mail
+                        </span>
+                        {{userInfo.emailAddress}}
+                    </div>
+                    <div class="info-label">
+                        <span class="material-symbols-outlined info-label__icon">
+                            favorite
+                        </span>
+                        {{userInfo.health}} / 100 hp
+                    </div>
+                    <div class="info-label">
+                        <span class="material-symbols-outlined info-label__icon">
+                            monitoring
+                        </span>
+                        {{userInfo.experience}} / {{userInfo.maxExperience}} exp
+                    </div>
+                    <div class="info-label">
+                        <span class="material-symbols-outlined info-label__icon">
+                            monetization_on
+                        </span>
+                        {{userInfo.gold}} gold
+                    </div>
                 </div>
             </div>
         </div>
