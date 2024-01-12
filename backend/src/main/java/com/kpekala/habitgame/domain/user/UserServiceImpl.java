@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
         userResponse.setGold(player.getGold());
         userResponse.setExperience(player.getExperience());
-        userResponse.setMaxExperience(playerService.calculateMaxExperience(player.getLvl()));
+        userResponse.setMaxExperience(player.getMaxExperience());
         userResponse.setLevel(player.getLvl());
         userResponse.setHealth(player.getHp());
 

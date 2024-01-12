@@ -1,12 +1,11 @@
 package com.kpekala.habitgame.domain.player;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
-    @Override
-    public float calculateMaxExperience(int level) {
-        return 50 + level * 20;
-    }
+    private final PlayerRepository playerRepository;
 }

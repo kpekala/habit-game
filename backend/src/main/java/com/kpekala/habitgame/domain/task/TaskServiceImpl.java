@@ -1,5 +1,7 @@
 package com.kpekala.habitgame.domain.task;
 
+import com.kpekala.habitgame.domain.player.PlayerRepository;
+import com.kpekala.habitgame.domain.player.PlayerService;
 import com.kpekala.habitgame.domain.task.dto.AddTaskRequest;
 import com.kpekala.habitgame.domain.task.dto.Difficulty;
 import com.kpekala.habitgame.domain.task.dto.TaskDto;
@@ -19,6 +21,9 @@ public class TaskServiceImpl implements TaskService{
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
+
+    private final PlayerService playerService;
+    private final PlayerRepository playerRepository;
 
     @Override
     @Transactional
@@ -47,8 +52,16 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
+    @Transactional
     public void finishTask(int id) {
+        var task = taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        var player = task.getUser().getPlayer();
+        player.addGold(task.getGold());
+        player.addExp(task.getExperience());
+
         taskRepository.deleteById(id);
+        playerRepository.save(player);
     }
 
     private TaskDto mapTask(Task task) {

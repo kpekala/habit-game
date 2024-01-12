@@ -1,7 +1,10 @@
 package com.kpekala.habitgame.domain.player;
 
 import com.kpekala.habitgame.domain.user.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,5 +32,22 @@ public class Player {
 
     public Player(float hp) {
         this.hp = hp;
+    }
+
+    public void addGold(float gold) {
+        this.gold += gold;
+    }
+
+    public void addExp(float exp) {
+        experience += exp;
+
+        if (experience >= getMaxExperience()) {
+            experience = experience - getMaxExperience();
+            lvl++;
+        }
+    }
+
+    public float getMaxExperience() {
+        return lvl * 25;
     }
 }

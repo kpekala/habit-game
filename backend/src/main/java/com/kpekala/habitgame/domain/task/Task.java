@@ -35,4 +35,20 @@ public class Task {
     public enum Difficulty {
         EASY, MEDIUM, HARD
     }
+
+    public float getExperience() {
+        return switch (difficulty) {
+            case EASY -> 5f;
+            case MEDIUM -> 10f;
+            case HARD -> 20f;
+        };
+    }
+
+    public float getGold() {
+        return switch (difficulty) {
+            case EASY -> 10f;
+            case MEDIUM -> 25f;
+            case HARD -> 50f;
+        };
+    }
 }
