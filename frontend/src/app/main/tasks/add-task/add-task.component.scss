@@ -1,0 +1,42 @@
+@import "./../tasks.component.scss";
+
+.task-modal {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(black, .7);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.task-card {
+    @include card;
+
+    border-radius: .5rem;
+    position: relative;
+    padding: 1rem;
+
+    &__input-container {
+        margin-bottom: .5rem;
+    }
+
+    &__form-control {
+        margin-top: .3rem;
+        padding: .5rem;
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+        border-radius: 6px;
+        border: 1px solid $color-grey;
+    }
+
+    &__form-label {
+        font-size: .8rem;
+    }
+}
+.btn-create-task {
+    float: right;
+    margin-top: 1rem;
+}

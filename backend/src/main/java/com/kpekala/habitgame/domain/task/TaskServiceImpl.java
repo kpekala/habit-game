@@ -28,6 +28,7 @@ public class TaskServiceImpl implements TaskService{
     @Override
     @Transactional
     public void addTask(AddTaskRequest request) {
+        System.out.println(request);
         var newTask = Task.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
@@ -37,10 +38,10 @@ public class TaskServiceImpl implements TaskService{
 
         var user = userRepository.findByEmailAddress(request.getEmail()).orElseThrow(UserNotFoundException::new);
 
-        user.addTask(newTask);
         newTask.setUser(user);
 
         userRepository.save(user);
+        taskRepository.save(newTask);
     }
 
     @Override

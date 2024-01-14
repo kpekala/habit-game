@@ -9,6 +9,7 @@ $color-accent: #536DFE;
 $color-white: #FFFFFF;
 $color-black: #000000;
 $color-grey-light: #EEEEEE;
+$color-grey: #BBBBBB;
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -31,6 +32,7 @@ html, body {
     -webkit-box-shadow: 2px 2px 8px 0px rgba(66, 68, 90, 0.2);
     -moz-box-shadow: 2px 2px 8px 0px rgba(66, 68, 90, 0.2);
     box-shadow: 2px 2px 8px 0px rgba(66, 68, 90, 0.2);
+    cursor: pointer;
 }
 
 .btn-primary {

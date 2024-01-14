@@ -14,6 +14,7 @@ import { TasksComponent } from './main/tasks/tasks.component';
 import { TaskModalComponent } from './main/tasks/task-modal/task-modal.component';
 import { LoadingCircleComponent } from './utils/loading-circle/loading-circle.component';
 import { AuthInterceptorService } from './auth/auth.interceptor.service';
+import { AddTaskComponent } from './main/tasks/add-task/add-task.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AuthInterceptorService } from './auth/auth.interceptor.service';
     PlayerComponent,
     TasksComponent,
     TaskModalComponent,
-    LoadingCircleComponent
+    LoadingCircleComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,

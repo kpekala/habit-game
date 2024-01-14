@@ -29,4 +29,16 @@ export class TasksService {
 
         return this.http.post(environment.backendPath + 'api/task/finish', body)
     }
+
+    addTask(title: string, description: string, deadline: Date, difficulty: string) {
+        const taskBody = {
+            title: title,
+            description: description,
+            deadline: deadline,
+            difficulty: difficulty,
+            email: this.authService.getEmail()
+        }
+
+        return this.http.post(environment.backendPath + 'api/task/add', taskBody);
+    }
 }

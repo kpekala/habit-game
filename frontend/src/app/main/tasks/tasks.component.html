@@ -2,6 +2,9 @@
     <div class="tasks-card">
         <h2 class="tasks-card__header">Your tasks</h2>
 
+        <button class="btn btn-primary tasks-card__add-task-btn" (click)="onAddTaskClick()">
+            Add task</button>
+
         <ul class="tasks-card__list" *ngIf="tasks && tasks.length !== 0">
             <li *ngFor="let task of tasks; index as i" class="tasks-card__task-item"
                 [ngClass]="{'divider': i !== tasks.length - 1}"
@@ -14,6 +17,9 @@
         <app-task-modal (onClose)="onCloseModal($event)"
             [task]="tasks[chosenTaskIndex]">
         </app-task-modal>
+    </div>
+    <div *ngIf="creatingTask">
+        <app-add-task (onClose)="onCloseModal()"></app-add-task>
     </div>
     
 </div>

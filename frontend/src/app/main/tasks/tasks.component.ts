@@ -14,6 +14,8 @@ export class TasksComponent implements OnInit{
   isTaskChosen = false;
   chosenTaskIndex = 0;
 
+  creatingTask = true;
+
   constructor (private tasksService: TasksService) {
 
   }
@@ -22,7 +24,6 @@ export class TasksComponent implements OnInit{
     this.tasksService.fetchTasks().subscribe({
       next: (tasksResponse) => {
         this.tasks = tasksResponse.tasks;
-        console.log(this.tasks);
       }
     });
   }
@@ -32,10 +33,15 @@ export class TasksComponent implements OnInit{
     this.chosenTaskIndex = index;
   }
 
-  onCloseModal(isTaskFinished) {
+  onCloseModal(isTaskFinished = false) {
     this.isTaskChosen = false;
+    this.creatingTask = false;
     if (isTaskFinished) {
       this.tasks.splice(this.chosenTaskIndex, 1);
     }
+  }
+
+  onAddTaskClick(){
+    this.creatingTask = true;
   }
 }

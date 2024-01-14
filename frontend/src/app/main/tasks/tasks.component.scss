@@ -17,6 +17,7 @@
     width: 72rem;
     margin: 0 auto;
     padding: 1rem;
+    position: relative;
 
     @media (max-width: 1250px) {
         width: 100%;
@@ -35,6 +36,12 @@
         cursor: pointer;
         padding-top: .5rem;
         padding-bottom: .5rem;
+    }
+
+    &__add-task-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
     }
 }
 
