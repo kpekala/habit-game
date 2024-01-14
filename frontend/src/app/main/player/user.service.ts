@@ -19,8 +19,7 @@ export class UserService {
 
     public fetchUserInformation(): Observable<UserResponse> {
       const token = this.authService.getTokenHeader();
-      const headers = {'Authorization': token};
       const params = {'email': this.authService.getEmail()};
-        return this.http.get<UserResponse>(this.authPath, {headers: headers, params: params});
+        return this.http.get<UserResponse>(this.authPath, {params: params});
     }
 }

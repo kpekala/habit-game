@@ -13,10 +13,8 @@ export class TasksService {
         }
 
     fetchTasks() {
-        const token = this.authService.getTokenHeader();
-        const headers = {'Authorization': token};
         const params = {'email': this.authService.getEmail()};
-        return this.http.get<any>(environment.backendPath + 'api/task', {headers: headers, params: params})
+        return this.http.get<any>(environment.backendPath + 'api/task', {params: params})
             .pipe(map(response => {
                 response.tasks.forEach((task: Task) => {
                     task.deadline = new Date(task.deadline);
@@ -27,10 +25,8 @@ export class TasksService {
     }
 
     finishTask(taskId: string) {
-        const token = this.authService.getTokenHeader();
-        const headers = {'Authorization': token};
         const body = {'taskId': taskId};
 
-        return this.http.post(environment.backendPath + 'api/task/finish', body, {headers: headers})
+        return this.http.post(environment.backendPath + 'api/task/finish', body)
     }
 }
