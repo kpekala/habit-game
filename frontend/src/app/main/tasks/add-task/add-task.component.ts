@@ -14,6 +14,7 @@ export class AddTaskComponent {
   @Output() onClose = new EventEmitter<boolean>();
 
   readyForClickOutside = false;
+  isLoading = false;
 
   taskForm: FormGroup;
   difficultyOptions = ['EASY', 'MEDIUM', 'HARD'];
@@ -48,13 +49,17 @@ export class AddTaskComponent {
   }
 
   onAddTask() {
+    this.isLoading = true;
     this.tasksService.addTask(this.taskForm.value['title'], this.taskForm.value['description'],
       this.taskForm.value['deadline'], this.taskForm.value['difficulty'])
           .subscribe({
             next: (response) => {
+              this.onClose.emit();
+              this.isLoading = false;
               console.log('creating task successful');
             },error: (errorResponse) => {
               console.log(errorResponse);
+              this.isLoading = false;
             }
           });
   }

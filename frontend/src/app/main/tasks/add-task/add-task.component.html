@@ -51,6 +51,11 @@
             <button type="submit" class="btn btn-primary btn-create-task">
                 Create task
             </button>
+            <span  class="loading-container">
+                <app-loading-circle *ngIf="isLoading" classes="lds-ring-small">
+                </app-loading-circle>
+            </span>
+            
         </form>
     </div>
 </div>

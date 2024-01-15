@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Task, TasksResponse } from "./task.model";
-import { Observable, map } from "rxjs";
+import { Observable, delay, map } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environment/environment";
@@ -39,6 +39,7 @@ export class TasksService {
             email: this.authService.getEmail()
         }
 
-        return this.http.post(environment.backendPath + 'api/task/add', taskBody);
+        return this.http.post(environment.backendPath + 'api/task/add', taskBody)
+            .pipe(delay(1000));
     }
 }
