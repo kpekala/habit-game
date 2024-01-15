@@ -14,13 +14,17 @@ export class TasksComponent implements OnInit{
   isTaskChosen = false;
   chosenTaskIndex = 0;
 
-  creatingTask = true;
+  creatingTask = false;
 
   constructor (private tasksService: TasksService) {
 
   }
 
   ngOnInit(): void {
+    this.reloadTasks();
+  }
+
+  reloadTasks() {
     this.tasksService.fetchTasks().subscribe({
       next: (tasksResponse) => {
         this.tasks = tasksResponse.tasks;
@@ -35,7 +39,6 @@ export class TasksComponent implements OnInit{
 
   onCloseModal(isTaskFinished = false) {
     this.isTaskChosen = false;
-    this.creatingTask = false;
     if (isTaskFinished) {
       this.tasks.splice(this.chosenTaskIndex, 1);
     }
@@ -43,5 +46,10 @@ export class TasksComponent implements OnInit{
 
   onAddTaskClick(){
     this.creatingTask = true;
+  }
+
+  onCloseAddTaskModal(isTaskCreated = false) {
+    this.creatingTask = false;
+    this.reloadTasks();
   }
 }

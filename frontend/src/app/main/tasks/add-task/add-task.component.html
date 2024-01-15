@@ -48,10 +48,14 @@
                         formControlName="deadline"/>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-create-task">
+            <div class="task-card__text-warning" *ngIf="taskForm.invalid && taskForm.touched">
+                Please fill up the form :)
+            </div>
+            <button type="submit" class="btn btn-primary btn-create-task"
+                [disabled]="!taskForm.valid">
                 Create task
             </button>
-            <span  class="loading-container">
+            <span class="loading-container">
                 <app-loading-circle *ngIf="isLoading" classes="lds-ring-small">
                 </app-loading-circle>
             </span>

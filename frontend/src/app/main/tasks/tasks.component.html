@@ -19,7 +19,7 @@
         </app-task-modal>
     </div>
     <div *ngIf="creatingTask">
-        <app-add-task (onClose)="onCloseModal()"></app-add-task>
+        <app-add-task (onClose)="onCloseAddTaskModal($event)"></app-add-task>
     </div>
     
 </div>

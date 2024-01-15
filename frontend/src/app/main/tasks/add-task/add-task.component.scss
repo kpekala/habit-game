@@ -35,6 +35,12 @@
     &__form-label {
         font-size: .8rem;
     }
+
+    &__text-warning {
+        margin-top: 1rem;
+        margin-bottom: .5rem;
+        font-size: .9rem;
+    };
 }
 .btn-create-task {
     float: right;

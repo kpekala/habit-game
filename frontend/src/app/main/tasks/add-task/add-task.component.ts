@@ -54,7 +54,7 @@ export class AddTaskComponent {
       this.taskForm.value['deadline'], this.taskForm.value['difficulty'])
           .subscribe({
             next: (response) => {
-              this.onClose.emit();
+              this.onClose.emit(true);
               this.isLoading = false;
               console.log('creating task successful');
             },error: (errorResponse) => {
