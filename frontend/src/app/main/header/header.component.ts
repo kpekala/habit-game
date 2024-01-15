@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { filter } from 'rxjs';
 export class HeaderComponent {
   showingMenu = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
   }
 
   changeMenuState() {
@@ -25,5 +26,9 @@ export class HeaderComponent {
       case 'player':
         this.router.navigate(['./player'], {relativeTo: this.route});
     }
+  }
+
+  onLogoutClick() {
+    this.authService.logout();
   }
 }

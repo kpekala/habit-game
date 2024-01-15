@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { tap } from "rxjs";
 import { environment } from "src/environment/environment";
 import { AuthResponse } from "./auth-response.model";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
 
     private authPath = environment.backendPath + "api/auth/"
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
 
     }
 
@@ -44,6 +45,12 @@ export class AuthService {
         localStorage.setItem('email', email);
     }
 
+    deleteLocalAuthData() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('expiration');
+        localStorage.removeItem('email');
+    }
+
     isUserLoggedIn(): boolean {
         const token = localStorage.getItem('token');
         const tokenExpirationDateString = localStorage.getItem('expiration');
@@ -59,6 +66,11 @@ export class AuthService {
 
     getEmail(): string {
         return localStorage.getItem('email');
+    }
+
+    logout() {
+        this.deleteLocalAuthData();
+        this.router.navigate(['/auth']);
     }
     
 }
