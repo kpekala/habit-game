@@ -8,4 +8,9 @@ import org.springframework.stereotype.Service;
 public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository playerRepository;
+
+    @Override
+    public float getMaxExperience(int lvl) {
+        return lvl * 25;
+    }
 }

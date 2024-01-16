@@ -37,17 +37,4 @@ public class Player {
     public void addGold(float gold) {
         this.gold += gold;
     }
-
-    public void addExp(float exp) {
-        experience += exp;
-
-        if (experience >= getMaxExperience()) {
-            experience = experience - getMaxExperience();
-            lvl++;
-        }
-    }
-
-    public float getMaxExperience() {
-        return lvl * 25;
-    }
 }

@@ -21,9 +21,9 @@ public class TaskServiceImpl implements TaskService{
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
 
     private final PlayerService playerService;
-    private final PlayerRepository playerRepository;
 
     @Override
     @Transactional
@@ -38,6 +38,7 @@ public class TaskServiceImpl implements TaskService{
         var user = userRepository.findByEmailAddress(request.getEmail()).orElseThrow(UserNotFoundException::new);
 
         newTask.setUser(user);
+        user.addTask(newTask);
 
         userRepository.save(user);
         taskRepository.save(newTask);
@@ -57,11 +58,35 @@ public class TaskServiceImpl implements TaskService{
         var task = taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
         var player = task.getUser().getPlayer();
-        player.addGold(task.getGold());
-        player.addExp(task.getExperience());
+        player.addGold(getGold(task.getDifficulty()));
+
+        float newExp = player.getExperience() + getExperience(task.getDifficulty());
+        float maxExp = playerService.getMaxExperience(player.getLvl());
+
+        if (newExp >= maxExp) {
+            newExp -= maxExp;
+            player.setLvl(player.getLvl() + 1);
+        }
+        player.setExperience(newExp);
 
         taskRepository.deleteById(id);
         playerRepository.save(player);
+    }
+
+    public float getExperience(Task.Difficulty difficulty) {
+        return switch (difficulty) {
+            case EASY -> 5f;
+            case MEDIUM -> 10f;
+            case HARD -> 20f;
+        };
+    }
+
+    public float getGold(Task.Difficulty difficulty) {
+        return switch (difficulty) {
+            case EASY -> 10f;
+            case MEDIUM -> 25f;
+            case HARD -> 50f;
+        };
     }
 
     private TaskDto mapTask(Task task) {

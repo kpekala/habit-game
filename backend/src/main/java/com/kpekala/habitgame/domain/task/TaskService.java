@@ -9,4 +9,7 @@ public interface TaskService {
     void addTask(AddTaskRequest request);
     List<TaskDto> getUserTasks(String userEmail);
     void finishTask(int id);
+
+    float getExperience(Task.Difficulty difficulty);
+    float getGold(Task.Difficulty difficulty);
 }
