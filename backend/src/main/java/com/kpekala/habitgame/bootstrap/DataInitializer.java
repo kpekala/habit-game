@@ -34,26 +34,26 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        setUpUsers();
         setUpRoles();
+        setUpUsers();
         setUpTasks();
     }
 
     private void setUpRoles() {
         Role userRole = new Role("user");
+        Role adminRole = new Role("admin");
 
-        roleRepository.save(userRole);
+        roleRepository.saveAll(List.of(userRole, adminRole));
     }
 
     private void setUpUsers() {
         User user1 = new User("Konrad", "test@test.pl", "$2a$10$3bGUcRVIwPV5IQj.35J2Fehzcm9En4f94Pc03JKOuQbMpXzTfhbNq");
 
-        Role adminRole = new Role("admin");
 
         Player player1 = new Player(100);
 
         user1.setPlayer(player1);
-        user1.setRoles(Set.of(adminRole));
+        user1.setRoles(Set.of(roleRepository.findByName("admin").get()));
         user1.setCreationDate(LocalDateTime.now());
 
         userRepository.save(user1);

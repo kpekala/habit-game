@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -28,6 +29,7 @@ public class AuthServiceImpl implements AuthService{
 
     private final AuthenticationManager authenticationManager;
 
+    @Transactional
     public AuthResponse signin(String email, String password) {
         var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
@@ -41,6 +43,7 @@ public class AuthServiceImpl implements AuthService{
         return AuthResponse.builder().token(jwt).tokenExpirationDate(expirationDate).build();
     }
 
+    @Transactional
     public AuthResponse signup(SignupRequest signupRequest) {
         boolean userExists = userRepository.existsByEmailAddress(signupRequest.getEmailAddress());
         if (userExists)

@@ -28,7 +28,6 @@ public class TaskServiceImpl implements TaskService{
     @Override
     @Transactional
     public void addTask(AddTaskRequest request) {
-        System.out.println(request);
         var newTask = Task.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())

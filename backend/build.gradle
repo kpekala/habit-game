@@ -11,10 +11,21 @@ java {
     sourceCompatibility = '17'
 }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += sourceSets.main.output
+            runtimeClasspath += sourceSets.main.output
+            srcDir file('src/test-integration/java')
+        }
     }
+}
+
+configurations {
+    compileOnly.extendsFrom annotationProcessor
+
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom runtimeOnly
 }
 
 repositories {
@@ -43,4 +54,18 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed"
+    }
 }
