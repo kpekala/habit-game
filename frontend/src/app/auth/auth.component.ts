@@ -49,11 +49,11 @@ export class AuthComponent implements OnInit {
     const password = this.authForm.get('password').value;
     this.authService.signin(email, password).subscribe({
       next: (response: AuthResponse) => {
-        console.log(response);
+        this.isLoading = false;
         this.router.navigate(['./main']);
       },
       error: (error) => {
-        console.log(error);
+        this.isLoading = false;
       }
     })
   }
@@ -64,11 +64,11 @@ export class AuthComponent implements OnInit {
     const password = this.authForm.get('password').value;
     this.authService.signup(email, name, password).subscribe({
       next: (response: AuthResponse) => {
-        console.log(response);
+        this.isLoading = false;
         this.router.navigate(['./main']);
       },
       error: (error) => {
-        console.log(error);
+        this.isLoading = false;
       }
     })
   }

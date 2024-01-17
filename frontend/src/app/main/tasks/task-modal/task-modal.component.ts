@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { Task, TasksResponse } from '../task.model';
+import { FinishTaskResponse, Task, TasksResponse } from '../task.model';
 import { TasksService } from '../tasks.service';
 
 @Component({
@@ -26,13 +26,11 @@ export class TaskModalComponent implements OnInit{
       // which opened this modal.
       if(this.readyForClickOutside) {
         this.onClose.emit();
-        console.log('outside');
       }
     }
   }
 
   ngOnInit(): void {
-    console.log(typeof this.task.deadline)
     setTimeout(() => {this.readyForClickOutside = true}, 100);
   }
 
@@ -44,7 +42,7 @@ export class TaskModalComponent implements OnInit{
     this.isLoading = true;
     this.taskService.finishTask(this.task.id)
       .subscribe({
-        next: response => {
+        next: (response: FinishTaskResponse) => {
           this.isLoading = false;
           this.onClose.emit(true);
         },

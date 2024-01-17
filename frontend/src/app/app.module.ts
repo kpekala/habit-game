@@ -15,6 +15,8 @@ import { TaskModalComponent } from './main/tasks/task-modal/task-modal.component
 import { LoadingCircleComponent } from './utils/loading-circle/loading-circle.component';
 import { AuthInterceptorService } from './auth/auth.interceptor.service';
 import { AddTaskComponent } from './main/tasks/add-task/add-task.component';
+import { NewLevelComponent } from './main/tasks/new-level/new-level.component';
+import { CardComponent } from './utils/card/card.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { AddTaskComponent } from './main/tasks/add-task/add-task.component';
     TasksComponent,
     TaskModalComponent,
     LoadingCircleComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    NewLevelComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

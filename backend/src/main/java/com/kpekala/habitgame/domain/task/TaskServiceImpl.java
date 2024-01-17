@@ -1,9 +1,11 @@
 package com.kpekala.habitgame.domain.task;
 
+import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.player.PlayerRepository;
 import com.kpekala.habitgame.domain.player.PlayerService;
 import com.kpekala.habitgame.domain.task.dto.AddTaskRequest;
 import com.kpekala.habitgame.domain.task.dto.Difficulty;
+import com.kpekala.habitgame.domain.task.dto.FinishTaskResponse;
 import com.kpekala.habitgame.domain.task.dto.TaskDto;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
@@ -54,23 +56,33 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     @Transactional
-    public void finishTask(int id) {
+    public FinishTaskResponse finishTask(int id) {
         var task = taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
         var player = task.getUser().getPlayer();
         player.addGold(getGold(task.getDifficulty()));
 
-        float newExp = player.getExperience() + getExperience(task.getDifficulty());
-        float maxExp = playerService.getMaxExperience(player.getLvl());
-
-        if (newExp >= maxExp) {
-            newExp -= maxExp;
-            player.setLvl(player.getLvl() + 1);
-        }
-        player.setExperience(newExp);
+        boolean leveledUp = addExperienceToPlayer(task, player);
 
         taskRepository.deleteById(id);
         playerRepository.save(player);
+
+        return new FinishTaskResponse(leveledUp, player.getLvl());
+    }
+
+    private boolean addExperienceToPlayer(Task task, Player player) {
+        float newExp = player.getExperience() + getExperience(task.getDifficulty());
+        float maxExp = playerService.getMaxExperience(player.getLvl());
+
+        boolean leveledUp = false;
+        if (newExp >= maxExp) {
+            newExp -= maxExp;
+            player.setLvl(player.getLvl() + 1);
+            leveledUp = true;
+        }
+        player.setExperience(newExp);
+
+        return leveledUp;
     }
 
     public float getExperience(Task.Difficulty difficulty) {

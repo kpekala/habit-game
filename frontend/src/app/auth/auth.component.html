@@ -43,7 +43,7 @@
 
 
                 <div class="auth-card__button-container">
-                    <app-button [label]="isLoginView ? 'Login' : 'Sign up'" [disabled]="!authForm.valid">
+                    <app-button [label]="isLoginView ? 'Login' : 'Sign up'" [disabled]="!authForm.valid || isLoading">
                     </app-button>
                 </div>
 

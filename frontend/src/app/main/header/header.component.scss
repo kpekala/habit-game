@@ -53,6 +53,7 @@
         color: $color-text;
         box-shadow: 4px 4px 24px 0px rgba(0, 0, 0, 0.15);
         background-color: $color-white;
+        z-index: 10;
         ul {
             list-style: none;
             padding: 0;

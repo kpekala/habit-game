@@ -63,17 +63,17 @@ public class DataInitializer implements CommandLineRunner {
         var sampleTasks = List.of(Task.builder()
                         .title("First task!")
                         .description("Lorem ipsum")
-                        .difficulty(Task.Difficulty.EASY)
+                        .difficulty(Task.Difficulty.MEDIUM)
                         .deadline(new Date()).build(),
                 Task.builder()
                         .title("Do 20 push-ups")
                         .description("Just do it")
-                        .difficulty(Task.Difficulty.MEDIUM)
+                        .difficulty(Task.Difficulty.HARD)
                         .deadline(new Date()).build(),
                 Task.builder()
                         .title("Do 50 push-ups")
                         .description("its going to be hard asf")
-                        .difficulty(Task.Difficulty.MEDIUM)
+                        .difficulty(Task.Difficulty.HARD)
                         .deadline(new Date()).build());
 
 

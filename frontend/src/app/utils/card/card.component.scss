@@ -1,0 +1,21 @@
+@import "./../../../styles.scss";
+
+.card-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(black, .7);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    min-width: 28rem;
+    box-shadow: 0px 4px 20px 0px rgba(66, 68, 90, 0.15);
+    background-color: $color-white;
+    border-radius: .5rem;
+    min-height: 16rem;
+}
