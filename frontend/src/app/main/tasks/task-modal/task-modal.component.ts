@@ -7,32 +7,14 @@ import { TasksService } from '../tasks.service';
   templateUrl: './task-modal.component.html',
   styleUrls: ['./task-modal.component.scss']
 })
-export class TaskModalComponent implements OnInit{
+export class TaskModalComponent{
 
   @Output() onClose = new EventEmitter<boolean>();
   @Input() task: Task;
   
-  @ViewChild('card') card: ElementRef;
-
-  readyForClickOutside = false;
   isLoading = false;
 
   constructor(private taskService: TasksService) {}
-
-  @HostListener('document:click', ['$event'])
-  clickOut(event) {
-    if(!this.card.nativeElement.contains(event.target)) {
-      // this is workaround for the fact that without this "if" this listener will register the click 
-      // which opened this modal.
-      if(this.readyForClickOutside) {
-        this.onClose.emit();
-      }
-    }
-  }
-
-  ngOnInit(): void {
-    setTimeout(() => {this.readyForClickOutside = true}, 100);
-  }
 
   onCloseClick() {
     this.onClose.emit();

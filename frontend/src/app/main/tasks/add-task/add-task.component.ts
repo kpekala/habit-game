@@ -13,7 +13,6 @@ export class AddTaskComponent {
   @ViewChild('card') card: ElementRef;
   @Output() onClose = new EventEmitter<boolean>();
 
-  readyForClickOutside = false;
   isLoading = false;
 
   taskForm: FormGroup;
@@ -22,20 +21,7 @@ export class AddTaskComponent {
 
   constructor(private tasksService: TasksService) {}
 
-  @HostListener('document:click', ['$event'])
-  clickOut(event) {
-    if(!this.card.nativeElement.contains(event.target)) {
-      // this is workaround for the fact that without this "if" this listener will register the click 
-      // which opened this modal.
-      if(this.readyForClickOutside) {
-        this.onClose.emit();
-      }
-    }
-  }
-
   ngOnInit(): void {
-    setTimeout(() => {this.readyForClickOutside = true}, 100);
-
     this.taskForm = new FormGroup({
       'title': new FormControl('', Validators.required),
       'description': new FormControl('', Validators.required),

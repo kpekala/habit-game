@@ -1,65 +1,61 @@
-<div class="task-modal">
-    <div class="task-card" #card>
-        <form [formGroup]="taskForm" (ngSubmit)="onAddTask()">
-            <div class="task-card__input-container">
-                <div>
-                    <label class="task-card__form-label">Task title</label>
-                </div>
-                <div class="input-container">
-                    <input type="text"
-                    class="task-card__form-control"
-                    formControlName="title"
-                    placeholder="Task title"/>
-                </div>
-            </div>
-            <div class="task-card__input-container">
-                <div>
-                    <label class="task-card__form-label">Task description</label>
-                </div>
-                <div class="input-container">
-                    <input type="text"
-                    class="task-card__form-control"
-                    formControlName="description"
-                    placeholder="Task description"/>
-                </div>
-            </div>
-            <div class="task-card__input-container">
-                <div>
-                    <label class="task-card__form-label">Task difficulty</label>
-                </div>
-                <div class="input-container">
-                    <select type="text"
-                        class="task-card__form-control"
-                        formControlName="difficulty">
-                        <option *ngFor="let option of difficultyOptions"
-                            [ngValue]="option">
-                            {{option}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="task-card__input-container">
-                <div>
-                    <label class="task-card__form-label">Task deadline</label>
-                </div>
-                <div class="input-container">
-                    <input type="date"
-                        class="task-card__form-control"
-                        formControlName="deadline"/>
-                </div>
-            </div>
-            <div class="task-card__text-warning" *ngIf="taskForm.invalid && taskForm.touched">
-                Please fill up the form :)
-            </div>
-            <button type="submit" class="btn btn-primary btn-create-task"
-                [disabled]="!taskForm.valid">
-                Create task
-            </button>
-            <span class="loading-container">
-                <app-loading-circle *ngIf="isLoading" classes="lds-ring-small">
-                </app-loading-circle>
-            </span>
-            
-        </form>
+<form [formGroup]="taskForm" (ngSubmit)="onAddTask()">
+    <div class="task-card__input-container">
+        <div>
+            <label class="task-card__form-label">Task title</label>
+        </div>
+        <div class="input-container">
+            <input type="text"
+            class="task-card__form-control"
+            formControlName="title"
+            placeholder="Task title"/>
+        </div>
     </div>
-</div>
+    <div class="task-card__input-container">
+        <div>
+            <label class="task-card__form-label">Task description</label>
+        </div>
+        <div class="input-container">
+            <input type="text"
+            class="task-card__form-control"
+            formControlName="description"
+            placeholder="Task description"/>
+        </div>
+    </div>
+    <div class="task-card__input-container">
+        <div>
+            <label class="task-card__form-label">Task difficulty</label>
+        </div>
+        <div class="input-container">
+            <select type="text"
+                class="task-card__form-control"
+                formControlName="difficulty">
+                <option *ngFor="let option of difficultyOptions"
+                    [ngValue]="option">
+                    {{option}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="task-card__input-container">
+        <div>
+            <label class="task-card__form-label">Task deadline</label>
+        </div>
+        <div class="input-container">
+            <input type="date"
+                class="task-card__form-control"
+                formControlName="deadline"/>
+        </div>
+    </div>
+    <div class="task-card__text-warning" *ngIf="taskForm.invalid && taskForm.touched">
+        Please fill out the form :)
+    </div>
+    <button type="submit" class="btn btn-primary btn-create-task"
+        [disabled]="!taskForm.valid">
+        Create task
+    </button>
+    <span class="loading-container">
+        <app-loading-circle *ngIf="isLoading" classes="lds-ring-small">
+        </app-loading-circle>
+    </span>
+    
+</form>

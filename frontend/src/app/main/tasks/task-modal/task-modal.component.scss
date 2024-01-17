@@ -1,48 +1,30 @@
 @import "./../tasks.component.scss";
 
-
-.task-modal {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(black, .7);
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.task-container {
+    position: relative;
+    min-height: 12rem;
 }
 
 .task-card {
-    width: 42rem;
-    @include card;
-
-    border-radius: .5rem;
-    min-height: 16rem;
-
-    position: relative;
 
     &__header {
         font-weight: 500;
-        margin-left: 1rem;
+        margin-right: 1rem;
     }
 
     &__field-container {
-        padding-left: 1rem;
         padding-bottom: 1rem;
     }
 
     &__close-icon {
         position: absolute;
-        right: 1rem;
-        top: 1rem;
+        right: -.5rem;
+        top: -1.5rem;
         cursor: pointer;
     }
 
     &__btn-finish-container {
         position: absolute;
-        bottom: 1rem;
-        left: 1rem;
     }
     &__btn-finish {
         cursor: pointer;

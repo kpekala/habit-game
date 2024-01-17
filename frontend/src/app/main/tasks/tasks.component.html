@@ -14,12 +14,17 @@
         </ul>
     </div>
     <div *ngIf="isTaskChosen">
-        <app-task-modal (onClose)="onCloseModal($event)"
+        <app-card (onClose)="onCloseModal()">
+            <app-task-modal (onClose)="onCloseModal($event)"
             [task]="tasks[chosenTaskIndex]">
-        </app-task-modal>
+            </app-task-modal>
+        </app-card>
     </div>
+
     <div *ngIf="creatingTask">
-        <app-add-task (onClose)="onCloseAddTaskModal($event)"></app-add-task>
+        <app-card (onClose)="onCloseAddTaskModal()">
+            <app-add-task (onClose)="onCloseAddTaskModal($event)"></app-add-task>
+        </app-card>
     </div>
 
     <div *ngIf="showNewLevelCard">
