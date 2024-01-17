@@ -17,7 +17,7 @@ export class TasksComponent implements OnInit, OnDestroy{
 
   creatingTask = false;
 
-  showNewLevelCard = true;
+  showNewLevelCard = false;
   newlvl = -1;
 
   private subscription: Subscription;
