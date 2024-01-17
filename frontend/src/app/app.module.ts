@@ -17,6 +17,7 @@ import { AuthInterceptorService } from './auth/auth.interceptor.service';
 import { AddTaskComponent } from './main/tasks/add-task/add-task.component';
 import { NewLevelComponent } from './main/tasks/new-level/new-level.component';
 import { CardComponent } from './utils/card/card.component';
+import { LastTasksComponent } from './main/player/last-tasks/last-tasks.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CardComponent } from './utils/card/card.component';
     LoadingCircleComponent,
     AddTaskComponent,
     NewLevelComponent,
-    CardComponent
+    CardComponent,
+    LastTasksComponent
   ],
   imports: [
     BrowserModule,
