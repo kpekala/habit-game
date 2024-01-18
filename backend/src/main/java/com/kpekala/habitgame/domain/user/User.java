@@ -1,5 +1,6 @@
 package com.kpekala.habitgame.domain.user;
 
+import com.kpekala.habitgame.domain.habit.Habit;
 import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.role.Role;
 import com.kpekala.habitgame.domain.task.Task;
@@ -49,6 +50,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Habit> habits = new ArrayList<>();
 
     public User(String fullName, String emailAddress, String password) {
         this.fullName = fullName;
