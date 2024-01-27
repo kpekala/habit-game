@@ -1,10 +1,13 @@
 package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.HabitDto;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 public class HabitServiceImpl implements HabitService{
@@ -39,4 +42,19 @@ public class HabitServiceImpl implements HabitService{
 
         habitRepository.save(habit);
     }
+
+    @Override
+    @Transactional
+    public List<HabitDto> getHabits(String userEmail) {
+        var user = userRepository.findByEmailAddress(userEmail).orElseThrow(UserNotFoundException::new);
+
+        return mapToHabitDtos(user.getHabits());
+    }
+
+    private List<HabitDto> mapToHabitDtos(List<Habit> habits) {
+        return habits.stream().map(habit -> new HabitDto(habit.getName(), habit.getDescription(),
+                habit.isGood(), habit.getHabitDifficulty(), habit.getId())).toList();
+    }
+
+
 }

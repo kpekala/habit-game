@@ -11,8 +11,10 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -55,5 +57,27 @@ public class HabitServiceTest {
         assertEquals(expectedHabit.getName(), habit.getName());
         assertEquals(expectedHabit.getDescription(), habit.getDescription());
         assertEquals(expectedHabit.getHabitDifficulty(), habit.getHabitDifficulty());
+    }
+
+    @Test
+    public void testGetHabit() {
+        // Assume
+        var habitEntity = new Habit(1, "Test title", "Test description", true, HabitDifficulty.MEDIUM, null);
+        var user = new User("tester", "test@test.pl", "123456");
+        user.setHabits(List.of(habitEntity));
+
+        when(userRepository.findByEmailAddress("test@test.pl")).thenReturn(Optional.of(user));
+
+        // Act
+        var habitDtos = habitService.getHabits("test@test.pl");
+
+        // Assert
+        assertThat(habitDtos).hasSize(1);
+        var habitDto = habitDtos.get(0);
+        assertEquals(habitEntity.getName(), habitDto.getName());
+        assertEquals(habitEntity.getDescription(), habitDto.getDescription());
+        assertEquals(habitEntity.getHabitDifficulty(), habitDto.getDifficulty());
+        assertEquals(habitEntity.getId(), habitDto.getId());
+        assertEquals(habitEntity.isGood(), habitDto.isGood());
     }
 }
