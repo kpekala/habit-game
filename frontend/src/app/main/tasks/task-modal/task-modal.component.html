@@ -1,5 +1,5 @@
 <div class="task-container">
-    <h2 class="task-card__header">Task details of <b>{{task.title}}</b></h2>
+    <h2 class="task-card__header">{{isHabit() ? 'Habit': 'Task'}} details of <b>{{isHabit() ? task.name: task.title}}</b></h2>
     <span class="material-symbols-outlined task-card__close-icon"
             (click)="onCloseClick()">
         close
@@ -10,8 +10,11 @@
     <div class="task-card__field-container">
         <b>Difficulty: </b>{{task.difficulty}}
     </div>
-    <div class="task-card__field-container">
+    <div *ngIf="!isHabit()" class="task-card__field-container">
         <b>Deadline: </b>{{task.deadline.toLocaleDateString()}} {{task.deadline.toLocaleTimeString()}}
+    </div>
+    <div *ngIf="isHabit()" class="task-card__field-container">
+        <b>Is good: </b>{{task.good === true ? 'YES': 'NO'}}
     </div>
     
     <div class="task-card__btn-finish-container">

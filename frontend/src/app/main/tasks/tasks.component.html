@@ -23,7 +23,7 @@
         <ul class="tasks-card__list" *ngIf="habits && habits.length !== 0">
             <li *ngFor="let task of habits; index as i" class="tasks-card__task-item"
                 [ngClass]="{'divider': i !== habits.length - 1}"
-                (click) = "onTaskClicked(i)">
+                (click) = "onHabitClicked(i)">
                 {{task.name}}
             </li>
         </ul>
@@ -31,8 +31,9 @@
 
     <div *ngIf="isTaskChosen">
         <app-card (onClose)="onCloseModal()">
-            <app-task-modal (onClose)="onCloseModal($event)"
-            [task]="tasks[chosenTaskIndex]">
+            <app-task-modal (onClose)="onCloseModal($event)" 
+                [task]="chosenTaskType === 1 ? tasks[chosenTaskIndex] : habits[chosenTaskIndex]"
+                [type]="chosenTaskType">
             </app-task-modal>
         </app-card>
     </div>

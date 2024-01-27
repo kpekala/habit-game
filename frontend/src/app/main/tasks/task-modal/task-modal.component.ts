@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FinishTaskResponse, Task, TasksResponse } from '../task.model';
+import { FinishTaskResponse, Task, TaskType, TasksResponse } from '../task.model';
 import { TasksService } from '../tasks.service';
+import { HabitDto } from '../habit.model';
 
 @Component({
   selector: 'app-task-modal',
@@ -10,8 +11,8 @@ import { TasksService } from '../tasks.service';
 export class TaskModalComponent{
 
   @Output() onClose = new EventEmitter<boolean>();
-  @Input() task: Task;
-  
+  @Input() task: any;
+  @Input() type: TaskType;
   isLoading = false;
 
   constructor(private taskService: TasksService) {}
@@ -34,5 +35,9 @@ export class TaskModalComponent{
           this.onClose.emit();
         }
       })
+  }
+
+  isHabit() {
+    return this.type === TaskType.HABIT;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TasksService } from './tasks.service';
-import { Task } from './task.model';
+import { Task, TaskType } from './task.model';
 import { Subscription } from 'rxjs';
 import { HabitDto } from './habit.model';
 
@@ -15,6 +15,7 @@ export class TasksComponent implements OnInit, OnDestroy{
   habits: HabitDto[];
 
   isTaskChosen = false;
+  chosenTaskType?: TaskType;
   chosenTaskIndex = 0;
 
   creatingTask = false;
@@ -54,13 +55,24 @@ export class TasksComponent implements OnInit, OnDestroy{
 
   onTaskClicked(index: number) {
     this.isTaskChosen = true;
+    this.chosenTaskType = TaskType.TASK;
+    this.chosenTaskIndex = index;
+  }
+
+  onHabitClicked(index: number) {
+    this.isTaskChosen = true;
+    this.chosenTaskType = TaskType.HABIT;
     this.chosenTaskIndex = index;
   }
 
   onCloseModal(isTaskFinished = false) {
     this.isTaskChosen = false;
     if (isTaskFinished) {
-      this.tasks.splice(this.chosenTaskIndex, 1);
+      if(this.chosenTaskType === TaskType.TASK)
+        this.tasks.splice(this.chosenTaskIndex, 1);
+      else {
+        this.habits.splice(this.chosenTaskIndex, 1);
+      }
     }
   }
 

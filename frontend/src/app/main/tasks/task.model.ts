@@ -3,7 +3,7 @@ export interface Task {
     description: string;
     difficulty: string;
     deadline: Date;
-    id: string;
+    id: number;
 }
 
 export interface TasksResponse {
@@ -22,3 +22,7 @@ export interface FinishTaskResponse {
     leveledUp: boolean;
     currentLevel: number;
 }
+
+export enum TaskType {
+    TASK = 1, HABIT = 2
+  }

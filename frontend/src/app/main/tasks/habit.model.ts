@@ -1,7 +1,7 @@
 export interface HabitDto {
     name: string;
     description: string;
-    isGood: boolean;
+    good: boolean;
     difficulty: string;
     id: number;
 }

@@ -27,7 +27,7 @@ export class TasksService {
             }));
     }
 
-    finishTask(taskId: string) {
+    finishTask(taskId: number) {
         const body = {'taskId': taskId};
 
         return this.http.post(environment.backendPath + 'api/task/finish', body)
