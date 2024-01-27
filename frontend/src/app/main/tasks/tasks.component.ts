@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TasksService } from './tasks.service';
 import { Task } from './task.model';
 import { Subscription } from 'rxjs';
+import { HabitDto } from './habit.model';
 
 @Component({
   selector: 'app-tasks',
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class TasksComponent implements OnInit, OnDestroy{
 
   tasks: Task[];
+  habits: HabitDto[];
 
   isTaskChosen = false;
   chosenTaskIndex = 0;
@@ -41,6 +43,11 @@ export class TasksComponent implements OnInit, OnDestroy{
     this.tasksService.fetchTasks().subscribe({
       next: (tasksResponse) => {
         this.tasks = tasksResponse.tasks;
+      }
+    });
+    this.tasksService.fetchHabits().subscribe({
+      next: (response) => {
+        this.habits = response;
       }
     });
   }

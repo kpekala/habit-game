@@ -13,6 +13,22 @@
             </li>
         </ul>
     </div>
+
+    <div class="tasks-card">
+        <h2 class="tasks-card__header">Your habits</h2>
+
+        <button class="btn btn-primary tasks-card__add-task-btn" (click)="onAddTaskClick()">
+            Add habit</button>
+
+        <ul class="tasks-card__list" *ngIf="habits && habits.length !== 0">
+            <li *ngFor="let task of habits; index as i" class="tasks-card__task-item"
+                [ngClass]="{'divider': i !== habits.length - 1}"
+                (click) = "onTaskClicked(i)">
+                {{task.name}}
+            </li>
+        </ul>
+    </div>
+
     <div *ngIf="isTaskChosen">
         <app-card (onClose)="onCloseModal()">
             <app-task-modal (onClose)="onCloseModal($event)"

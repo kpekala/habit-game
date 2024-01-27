@@ -1,5 +1,8 @@
 package com.kpekala.habitgame.bootstrap;
 
+import com.kpekala.habitgame.domain.habit.Habit;
+import com.kpekala.habitgame.domain.habit.HabitDifficulty;
+import com.kpekala.habitgame.domain.habit.HabitRepository;
 import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.role.Role;
 import com.kpekala.habitgame.domain.role.RoleRepository;
@@ -30,6 +33,8 @@ public class DataInitializer implements CommandLineRunner {
 
     private final TaskRepository taskRepository;
 
+    private final HabitRepository habitRepository;
+
     private final TransactionTemplate transactionTemplate;
 
     @Override
@@ -37,6 +42,7 @@ public class DataInitializer implements CommandLineRunner {
         setUpRoles();
         setUpUsers();
         setUpTasks();
+        setUpHabits();
     }
 
     private void setUpRoles() {
@@ -87,6 +93,29 @@ public class DataInitializer implements CommandLineRunner {
                     user.addTask(task);
                     task.setUser(user);
                     taskRepository.save(task);
+                });
+            }
+        });
+    }
+
+    private void setUpHabits() {
+        var sampleHabits = List.of(Habit.builder()
+                        .name("Drink coffee")
+                        .description("Lorem ipsum")
+                        .habitDifficulty(HabitDifficulty.EASY)
+                        .isGood(true).build());
+
+
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus status) {
+
+                var user = userRepository.findByEmailAddress("test@test.pl").orElseThrow(UserNotFoundException::new);
+
+                sampleHabits.forEach(habit -> {
+                    user.addHabit(habit);
+                    habit.setUser(user);
+                    habitRepository.save(habit);
                 });
             }
         });

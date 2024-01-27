@@ -1,18 +1,20 @@
 package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.HabitDto;
+import com.kpekala.habitgame.domain.task.dto.TasksResponse;
 import com.kpekala.habitgame.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api/habit")
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/habit")
 @RequiredArgsConstructor
 public class HabitController {
 
     private final HabitService habitService;
-    private final UserService userService;
 
     @PostMapping("do")
     public void doHabit(int habitId){
@@ -27,5 +29,10 @@ public class HabitController {
     @PostMapping("add")
     public void addHabit(AddHabitRequest request){
         habitService.addHabit(request);
+    }
+
+    @GetMapping
+    public List<HabitDto> getTasks(@RequestParam String email) {
+        return habitService.getHabits(email);
     }
 }

@@ -5,11 +5,13 @@ import com.kpekala.habitgame.domain.habit.dto.HabitDto;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Service
 public class HabitServiceImpl implements HabitService{
 
     private final HabitRepository habitRepository;

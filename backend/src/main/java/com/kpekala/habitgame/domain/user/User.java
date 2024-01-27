@@ -64,6 +64,10 @@ public class User implements UserDetails {
         tasks.add(task);
     }
 
+    public void addHabit(Habit habit) {
+        habits.add(habit);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();

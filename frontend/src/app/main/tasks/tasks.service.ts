@@ -4,6 +4,7 @@ import { Observable, Subject, delay, map, tap } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environment/environment";
+import { HabitDto } from "./habit.model";
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -23,7 +24,7 @@ export class TasksService {
                     console.log(task);
                 });
                 return response;
-            }))
+            }));
     }
 
     finishTask(taskId: string) {
@@ -46,5 +47,10 @@ export class TasksService {
         }
 
         return this.http.post(environment.backendPath + 'api/task/add', taskBody);
+    }
+
+    fetchHabits() {
+        const params = {'email': this.authService.getEmail()};
+        return this.http.get<HabitDto[]>(environment.backendPath + 'api/habit', {params: params});
     }
 }
