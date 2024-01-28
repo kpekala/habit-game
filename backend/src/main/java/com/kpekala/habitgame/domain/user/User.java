@@ -68,6 +68,14 @@ public class User implements UserDetails {
         habits.add(habit);
     }
 
+    public void removeTask(Task task) {
+        tasks.remove(task);
+    }
+
+    public void removeHabit(Habit habit) {
+        habits.remove(habit);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).toList();

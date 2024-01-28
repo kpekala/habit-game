@@ -11,6 +11,5 @@ public interface TaskService {
     List<TaskDto> getUserTasks(String userEmail);
     FinishTaskResponse finishTask(int id);
 
-    float getExperience(Task.Difficulty difficulty);
     float getGold(Task.Difficulty difficulty);
 }

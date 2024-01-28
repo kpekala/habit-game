@@ -1,7 +1,10 @@
 package com.kpekala.habitgame.domain.habit;
 
+import com.kpekala.habitgame.domain.common.ExperienceAdder;
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.DoHabitResponse;
 import com.kpekala.habitgame.domain.habit.dto.HabitDto;
+import com.kpekala.habitgame.domain.player.PlayerRepository;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -15,17 +18,34 @@ import java.util.List;
 public class HabitServiceImpl implements HabitService{
 
     private final HabitRepository habitRepository;
-
     private final UserRepository userRepository;
+    private final PlayerRepository playerRepository;
+
+    private final ExperienceAdder experienceAdder;
 
     @Override
-    public void doHabit(int habitId) {
+    @Transactional
+    public DoHabitResponse doHabit(int habitId) {
+        var habit = habitRepository.findById(habitId).orElseThrow();
+        var user = habit.getUser();
+        var player = user.getPlayer();
+        float goldGain = getGold(habit);
 
+        boolean isNewLvl = experienceAdder.addExperienceToPlayer(habit, player);
+        player.addGold(goldGain);
+
+        playerRepository.save(player);
+
+        return new DoHabitResponse(isNewLvl, player.getLvl());
     }
 
     @Override
+    @Transactional
     public void removeHabit(int habitId) {
-
+        var habit = habitRepository.findById(habitId).orElseThrow();
+        var user = habit.getUser();
+        user.removeHabit(habit);
+        userRepository.save(user);
     }
 
     @Override
@@ -51,6 +71,16 @@ public class HabitServiceImpl implements HabitService{
         var user = userRepository.findByEmailAddress(userEmail).orElseThrow(UserNotFoundException::new);
 
         return mapToHabitDtos(user.getHabits());
+    }
+
+    public float getGold(Habit habit) {
+        if (!habit.isGood())
+            return 0f;
+        return switch (habit.getHabitDifficulty()){
+            case EASY -> 10f;
+            case MEDIUM -> 25f;
+            case HARD -> 50f;
+        };
     }
 
     private List<HabitDto> mapToHabitDtos(List<Habit> habits) {

@@ -1,5 +1,6 @@
 package com.kpekala.habitgame.domain.task;
 
+import com.kpekala.habitgame.domain.common.ExperienceAdder;
 import com.kpekala.habitgame.domain.player.PlayerRepository;
 import com.kpekala.habitgame.domain.task.dto.AddTaskRequest;
 import com.kpekala.habitgame.domain.task.dto.Difficulty;
@@ -34,6 +35,9 @@ public class TaskServiceTest {
 
     @Autowired
     EntityManager entityManager;
+
+    @Autowired
+    ExperienceAdder experienceAdder;
 
     @Test
     @DirtiesContext
@@ -73,8 +77,7 @@ public class TaskServiceTest {
 
         // Assert
         var player = userRepository.findByEmailAddress("test@test.pl").get().getPlayer();
-        assertEquals(taskService.getExperience(Task.Difficulty.EASY), player.getExperience());
+        assertEquals(experienceAdder.getExperience(Task.Difficulty.EASY), player.getExperience());
         assertEquals(taskService.getGold(Task.Difficulty.EASY), player.getGold());
-
     }
 }

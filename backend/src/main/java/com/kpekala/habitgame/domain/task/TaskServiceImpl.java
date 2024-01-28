@@ -1,6 +1,6 @@
 package com.kpekala.habitgame.domain.task;
 
-import com.kpekala.habitgame.domain.player.Player;
+import com.kpekala.habitgame.domain.common.ExperienceAdder;
 import com.kpekala.habitgame.domain.player.PlayerRepository;
 import com.kpekala.habitgame.domain.player.PlayerService;
 import com.kpekala.habitgame.domain.task.dto.AddTaskRequest;
@@ -26,6 +26,8 @@ public class TaskServiceImpl implements TaskService{
     private final PlayerRepository playerRepository;
 
     private final PlayerService playerService;
+
+    private final ExperienceAdder experienceAdder;
 
     @Override
     @Transactional
@@ -62,35 +64,12 @@ public class TaskServiceImpl implements TaskService{
         var player = task.getUser().getPlayer();
         player.addGold(getGold(task.getDifficulty()));
 
-        boolean leveledUp = addExperienceToPlayer(task, player);
+        boolean leveledUp = experienceAdder.addExperienceToPlayer(task, player);
 
         taskRepository.deleteById(id);
         playerRepository.save(player);
 
         return new FinishTaskResponse(leveledUp, player.getLvl());
-    }
-
-    private boolean addExperienceToPlayer(Task task, Player player) {
-        float newExp = player.getExperience() + getExperience(task.getDifficulty());
-        float maxExp = playerService.getMaxExperience(player.getLvl());
-
-        boolean leveledUp = false;
-        if (newExp >= maxExp) {
-            newExp -= maxExp;
-            player.setLvl(player.getLvl() + 1);
-            leveledUp = true;
-        }
-        player.setExperience(newExp);
-
-        return leveledUp;
-    }
-
-    public float getExperience(Task.Difficulty difficulty) {
-        return switch (difficulty) {
-            case EASY -> 5f;
-            case MEDIUM -> 10f;
-            case HARD -> 20f;
-        };
     }
 
     public float getGold(Task.Difficulty difficulty) {

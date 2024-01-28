@@ -1,13 +1,15 @@
 package com.kpekala.habitgame.domain.habit;
 
+import com.kpekala.habitgame.domain.common.ExperienceAdder;
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.player.PlayerRepository;
 import com.kpekala.habitgame.domain.user.User;
 import com.kpekala.habitgame.domain.user.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -27,15 +29,17 @@ public class HabitServiceTest {
     @Mock
     HabitRepository habitRepository;
 
+    @Mock
+    PlayerRepository playerRepository;
+
+    @Mock
+    ExperienceAdder experienceAdder;
+
     @Captor
     ArgumentCaptor<Habit> habitCaptor;
 
-    HabitService habitService;
-
-    @BeforeEach
-    void setup() {
-        habitService = new HabitServiceImpl(habitRepository, userRepository);
-    }
+    @InjectMocks
+    HabitServiceImpl habitService;
 
     @Test
     public void testAddHabit() {

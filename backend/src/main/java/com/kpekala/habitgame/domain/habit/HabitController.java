@@ -1,9 +1,8 @@
 package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.DoHabitResponse;
 import com.kpekala.habitgame.domain.habit.dto.HabitDto;
-import com.kpekala.habitgame.domain.task.dto.TasksResponse;
-import com.kpekala.habitgame.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +16,8 @@ public class HabitController {
     private final HabitService habitService;
 
     @PostMapping("do")
-    public void doHabit(int habitId){
-        habitService.doHabit(habitId);
+    public DoHabitResponse doHabit(int habitId){
+        return habitService.doHabit(habitId);
     }
 
     @DeleteMapping("delete")
