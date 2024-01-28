@@ -70,9 +70,6 @@ export class TasksComponent implements OnInit, OnDestroy{
     if (isTaskFinished) {
       if(this.chosenTaskType === TaskType.TASK)
         this.tasks.splice(this.chosenTaskIndex, 1);
-      else {
-        this.habits.splice(this.chosenTaskIndex, 1);
-      }
     }
   }
 
