@@ -1,0 +1,30 @@
+<div>
+    <h2 class="task-header">{{ taskType === 1 ? 'Your tasks': 'Your habits'}}</h2>
+
+    <button class="btn btn-primary add-task-btn" (click)="onAddTaskClick()">
+        {{ taskType === 1 ? 'Add task': 'Add habit'}}
+    </button>
+    
+    <ul class="task-list" *ngIf="tasks && tasks.length !== 0">
+        <li *ngFor="let task of tasks; index as i" class="task-item"
+            [ngClass]="{'divider': i !== tasks.length - 1}"
+            (click) = "onTaskClicked(i)">
+            {{taskType === 1 ? task.title : task.name}}
+        </li>
+    </ul>    
+
+    <div *ngIf="isTaskChosen">
+        <app-card (onClose)="onCloseModal()">
+            <app-task-modal (onClose)="onCloseModal($event)" 
+                [task]="tasks[chosenTaskIndex]"
+                [type]="taskType">
+            </app-task-modal>
+        </app-card>
+    </div>
+
+    <div *ngIf="creatingTask">
+        <app-card (onClose)="onCloseAddTaskModal()">
+            <app-add-task (onClose)="onCloseAddTaskModal($event)"></app-add-task>
+        </app-card>
+    </div>
+</div>

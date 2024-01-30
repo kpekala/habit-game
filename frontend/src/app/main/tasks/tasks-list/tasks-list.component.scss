@@ -1,0 +1,27 @@
+@import "./../../../../styles.scss";
+
+.task-header {
+    margin: 0;
+    font-weight: 500;
+}
+
+.task-list {
+    list-style: none;
+}
+
+.task-item {
+    cursor: pointer;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.add-task-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+
+.divider {
+    border-bottom: 1px solid $color-divider;
+}

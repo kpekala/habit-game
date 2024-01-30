@@ -18,6 +18,7 @@ import { AddTaskComponent } from './main/tasks/add-task/add-task.component';
 import { NewLevelComponent } from './main/tasks/new-level/new-level.component';
 import { CardComponent } from './utils/card/card.component';
 import { LastTasksComponent } from './main/player/last-tasks/last-tasks.component';
+import { TasksListComponent } from './main/tasks/tasks-list/tasks-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LastTasksComponent } from './main/player/last-tasks/last-tasks.componen
     AddTaskComponent,
     NewLevelComponent,
     CardComponent,
-    LastTasksComponent
+    LastTasksComponent,
+    TasksListComponent
   ],
   imports: [
     BrowserModule,
