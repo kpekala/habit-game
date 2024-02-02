@@ -98,11 +98,18 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void setUpHabits() {
-        var sampleHabits = List.of(Habit.builder()
+        var sampleHabits = List.of(
+                Habit.builder()
                         .name("Drink coffee")
                         .description("Lorem ipsum")
                         .habitDifficulty(HabitDifficulty.EASY)
-                        .isGood(true).build());
+                        .isGood(true).build(),
+                Habit.builder()
+                        .name("Drink beer")
+                        .description("Lorem ipsum")
+                        .habitDifficulty(HabitDifficulty.MEDIUM)
+                        .isGood(false).build()
+        );
 
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {

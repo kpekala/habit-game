@@ -53,4 +53,9 @@ export class TasksService {
         const params = {'email': this.authService.getEmail()};
         return this.http.get<HabitDto[]>(environment.backendPath + 'api/habit', {params: params});
     }
+
+    doHabit(habitId: number) {
+        const body = {'habitId': habitId};
+        return this.http.post(environment.backendPath + 'api/habit/do', body);
+    }
 }

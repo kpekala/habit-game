@@ -1,6 +1,7 @@
 package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.common.ExperienceAdder;
+import com.kpekala.habitgame.domain.habit.dto.DoHabitRequest;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class HabitServiceTest {
         habitRepository.save(habit);
 
         // Act
-        habitService.doHabit(habit.getId());
+        habitService.doHabit(new DoHabitRequest(habit.getId()));
 
         // Assert
         var player = userRepository.findByEmailAddress("test@test.pl").get().getPlayer();

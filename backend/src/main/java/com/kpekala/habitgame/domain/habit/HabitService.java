@@ -1,6 +1,7 @@
 package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.DoHabitRequest;
 import com.kpekala.habitgame.domain.habit.dto.DoHabitResponse;
 import com.kpekala.habitgame.domain.habit.dto.HabitDto;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface HabitService {
 
-    DoHabitResponse doHabit(int habitId);
+    DoHabitResponse doHabit(DoHabitRequest request);
 
     void removeHabit(int habitId);
 

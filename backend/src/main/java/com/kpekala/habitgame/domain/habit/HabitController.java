@@ -1,6 +1,7 @@
 package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.DoHabitRequest;
 import com.kpekala.habitgame.domain.habit.dto.DoHabitResponse;
 import com.kpekala.habitgame.domain.habit.dto.HabitDto;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ public class HabitController {
     private final HabitService habitService;
 
     @PostMapping("do")
-    public DoHabitResponse doHabit(int habitId){
-        return habitService.doHabit(habitId);
+    public DoHabitResponse doHabit(@RequestBody DoHabitRequest request){
+        return habitService.doHabit(request);
     }
 
     @DeleteMapping("delete")

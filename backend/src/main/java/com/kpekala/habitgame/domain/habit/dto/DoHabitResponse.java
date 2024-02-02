@@ -8,4 +8,5 @@ import lombok.Data;
 public class DoHabitResponse {
     private boolean leveledUp;
     private int currentLevel;
+    private boolean isDead;
 }

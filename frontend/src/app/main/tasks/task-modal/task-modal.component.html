@@ -19,7 +19,7 @@
     
     <div class="task-card__btn-finish-container">
         <button class="btn btn-primary task-card__btn-finish" (click)="onFinishClick()">
-            Finish
+            {{isHabit() ? 'Do habit': 'Finish'}}
         </button>
         <span class="circle-container" *ngIf="isLoading">
             <app-loading-circle classes="lds-ring-small"></app-loading-circle>

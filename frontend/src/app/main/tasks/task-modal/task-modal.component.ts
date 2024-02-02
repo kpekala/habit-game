@@ -23,18 +23,32 @@ export class TaskModalComponent{
 
   onFinishClick() {
     this.isLoading = true;
-    this.taskService.finishTask(this.task.id)
+    if(this.type === TaskType.TASK) {
+      this.taskService.finishTask(this.task.id)
       .subscribe({
         next: (response: FinishTaskResponse) => {
           this.isLoading = false;
           this.onClose.emit(true);
         },
         error: msg => {
-          console.log(msg);
           this.isLoading = false;
           this.onClose.emit();
         }
-      })
+      });
+    }else {
+      this.taskService.doHabit(this.task.id)
+        .subscribe({
+          next: (response: FinishTaskResponse) => {
+            this.isLoading = false;
+            this.onClose.emit(true);
+          },
+          error: msg => {
+            this.isLoading = false;
+            this.onClose.emit();
+          }
+        });
+    }
+    
   }
 
   isHabit() {

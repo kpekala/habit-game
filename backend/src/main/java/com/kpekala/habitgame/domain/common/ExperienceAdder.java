@@ -39,7 +39,7 @@ public class ExperienceAdder {
     }
 
     public float getExperience(HabitDifficulty difficulty, boolean isGood) {
-        if (isGood)
+        if (!isGood)
             return 0f;
         return switch (difficulty){
             case EASY -> 5f;

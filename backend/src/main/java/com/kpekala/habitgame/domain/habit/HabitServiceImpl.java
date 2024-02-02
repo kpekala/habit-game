@@ -2,9 +2,11 @@ package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.common.ExperienceAdder;
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.DoHabitRequest;
 import com.kpekala.habitgame.domain.habit.dto.DoHabitResponse;
 import com.kpekala.habitgame.domain.habit.dto.HabitDto;
 import com.kpekala.habitgame.domain.player.PlayerRepository;
+import com.kpekala.habitgame.domain.player.PlayerService;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,20 +25,27 @@ public class HabitServiceImpl implements HabitService{
 
     private final ExperienceAdder experienceAdder;
 
+    private final PlayerService playerService;
+
     @Override
     @Transactional
-    public DoHabitResponse doHabit(int habitId) {
-        var habit = habitRepository.findById(habitId).orElseThrow();
+    public DoHabitResponse doHabit(DoHabitRequest request) {
+        var habit = habitRepository.findById(request.getHabitId()).orElseThrow();
         var user = habit.getUser();
         var player = user.getPlayer();
         float goldGain = getGold(habit);
 
         boolean isNewLvl = experienceAdder.addExperienceToPlayer(habit, player);
         player.addGold(goldGain);
-
         playerRepository.save(player);
 
-        return new DoHabitResponse(isNewLvl, player.getLvl());
+        boolean isDead = false;
+        if (!habit.isGood()){
+            isDead = playerService.loseHp(user.getEmailAddress(),
+                    playerService.getDamage(habit.getHabitDifficulty()));
+        }
+
+        return new DoHabitResponse(isNewLvl, player.getLvl(), isDead);
     }
 
     @Override
