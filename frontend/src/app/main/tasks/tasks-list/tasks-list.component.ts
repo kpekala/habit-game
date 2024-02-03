@@ -15,6 +15,7 @@ export class TasksListComponent implements OnInit{
   isTaskChosen = false;
   chosenTaskIndex = 0;
   creatingTask = false;
+  isDead = false;
 
   constructor(private tasksService: TasksService) {
 
@@ -34,11 +35,12 @@ export class TasksListComponent implements OnInit{
     });
   }
 
-  onCloseModal(isTaskFinished = false) {
+  onCloseModal({isTaskFinished = false, isDead = false}) {
     this.isTaskChosen = false;
     if (isTaskFinished && this.taskType === TaskType.TASK) {
         this.tasks.splice(this.chosenTaskIndex, 1);
     }
+    this.isDead = isDead;
   }
 
   onAddTaskClick(){
@@ -47,10 +49,17 @@ export class TasksListComponent implements OnInit{
 
   onCloseAddTaskModal(isTaskCreated = false) {
     this.creatingTask = false;
+    if(isTaskCreated){
+      this.reloadTasks();
+    }
   }
 
   onTaskClicked(index: number) {
       this.chosenTaskIndex = index;
       this.isTaskChosen = true;
+  }
+
+  onCloseDeadModal() {
+    this.isDead = false;
   }
 }

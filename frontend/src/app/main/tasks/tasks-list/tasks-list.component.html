@@ -14,7 +14,7 @@
     </ul>    
 
     <div *ngIf="isTaskChosen">
-        <app-card (onClose)="onCloseModal()">
+        <app-card (onClose)="onCloseModal({})">
             <app-task-modal (onClose)="onCloseModal($event)" 
                 [task]="tasks[chosenTaskIndex]"
                 [type]="taskType">
@@ -25,6 +25,12 @@
     <div *ngIf="creatingTask">
         <app-card (onClose)="onCloseAddTaskModal()">
             <app-add-task (onClose)="onCloseAddTaskModal($event)"></app-add-task>
+        </app-card>
+    </div>
+
+    <div *ngIf="isDead">
+        <app-card (onClose)="onCloseDeadModal()">
+            <h3>Oops!</h3>
         </app-card>
     </div>
 </div>

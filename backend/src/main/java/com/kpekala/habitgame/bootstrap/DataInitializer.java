@@ -107,7 +107,7 @@ public class DataInitializer implements CommandLineRunner {
                 Habit.builder()
                         .name("Drink beer")
                         .description("Lorem ipsum")
-                        .habitDifficulty(HabitDifficulty.MEDIUM)
+                        .habitDifficulty(HabitDifficulty.EASY)
                         .isGood(false).build()
         );
 

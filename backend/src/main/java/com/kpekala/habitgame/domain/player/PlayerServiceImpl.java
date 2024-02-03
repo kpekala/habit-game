@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
+    private final float HP_AFTER_DEATH = 20f;
+
     private final PlayerRepository playerRepository;
     private final UserRepository userRepository;
 
@@ -27,6 +29,7 @@ public class PlayerServiceImpl implements PlayerService {
         playerRepository.save(player);
         if (player.getHp() <= 0){
             player.setGold(0f);
+            player.setHp(HP_AFTER_DEATH);
             return true;
         }
         return false;

@@ -5,3 +5,9 @@ export interface HabitDto {
     difficulty: string;
     id: number;
 }
+
+export interface DoHabitResponse {
+    leveledUp: boolean;
+    currentLevel: number;
+    dead: boolean;
+}
