@@ -5,13 +5,15 @@ import { AuthService } from "src/app/auth/auth.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environment/environment";
 import { HabitDto } from "./habit.model";
+import { HeaderService } from "../header/header.service";
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
 
     newLevelSubject = new Subject<number>();
 
-    constructor(private authService: AuthService, private http: HttpClient) {
+    constructor(private authService: AuthService, private http: HttpClient,
+        private headerService: HeaderService) {
 
     }
 
@@ -34,6 +36,7 @@ export class TasksService {
             .pipe(tap((response: FinishTaskResponse) => {
                 if(response.leveledUp)
                     this.newLevelSubject.next(response.currentLevel);
+                this.headerService.updateHeader.next();
             }));
     }
 
@@ -56,6 +59,9 @@ export class TasksService {
 
     doHabit(habitId: number) {
         const body = {'habitId': habitId};
-        return this.http.post(environment.backendPath + 'api/habit/do', body);
+        return this.http.post(environment.backendPath + 'api/habit/do', body)
+            .pipe(tap(() => {
+                this.headerService.updateHeader.next();
+            }));
     }
 }

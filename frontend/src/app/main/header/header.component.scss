@@ -72,4 +72,22 @@
         border: 1px solid rgba($color: black, $alpha: .3);
 
     }
+
+    &__money {
+        position: absolute;
+        right: 4rem;
+        display: inline-block;
+    }
+
+    &__money-img {
+        width: 24px;
+    }
+
+    &__money-label {
+        color: gold;
+        font-weight: bold;
+        display: inline-block;
+        margin-left: .3rem;
+        transform: translateY(-5px);
+    }
 }

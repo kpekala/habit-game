@@ -9,6 +9,13 @@
         (click)="changeMenuState()">
         more_vert
     </span>
+
+    <span class="nav__money">
+        <img src="./assets/dollar.png" class="nav__money-img">
+        <span class="nav__money-label">
+            {{user.gold ?? 0}}
+        </span>
+    </span>
     
     <span class="nav__menu" *ngIf="showingMenu">
         <ul>
