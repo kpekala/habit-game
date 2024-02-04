@@ -33,7 +33,7 @@ public class HabitServiceTest {
     public void testRemoveHabit_whenHabitIsInDatabase_removeIt() {
         // Assume
         var user = userRepository.findByEmailAddress("test@test.pl").orElseThrow();
-        assertThat(user.getHabits()).hasSize(1);
+        assertThat(user.getHabits()).hasSize(2);
         var habitId = user.getHabits().get(0).getId();
 
         // Act
@@ -41,7 +41,7 @@ public class HabitServiceTest {
 
         // Assert
         user = userRepository.findByEmailAddress("test@test.pl").orElseThrow();
-        assertThat(user.getHabits()).isEmpty();
+        assertThat(user.getHabits()).hasSize(1);
     }
 
     @Test

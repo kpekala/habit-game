@@ -2,7 +2,10 @@ package com.kpekala.habitgame.domain.habit;
 
 import com.kpekala.habitgame.domain.common.ExperienceAdder;
 import com.kpekala.habitgame.domain.habit.dto.AddHabitRequest;
+import com.kpekala.habitgame.domain.habit.dto.DoHabitRequest;
+import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.player.PlayerRepository;
+import com.kpekala.habitgame.domain.player.PlayerService;
 import com.kpekala.habitgame.domain.user.User;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -18,6 +21,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +38,9 @@ public class HabitServiceTest {
 
     @Mock
     ExperienceAdder experienceAdder;
+
+    @Mock
+    PlayerService playerService;
 
     @Captor
     ArgumentCaptor<Habit> habitCaptor;
@@ -83,5 +90,27 @@ public class HabitServiceTest {
         assertEquals(habitEntity.getHabitDifficulty(), habitDto.getDifficulty());
         assertEquals(habitEntity.getId(), habitDto.getId());
         assertEquals(habitEntity.isGood(), habitDto.isGood());
+    }
+
+    @Test
+    public void testDoHabit_doPositiveHabit() {
+        // Assume
+        var user = new User();
+        var player = new Player();
+        user.setPlayer(player);
+        player.setLvl(1);
+        var habitEntity = new Habit(1, "Test title", "Test description", true, HabitDifficulty.MEDIUM, user);
+
+        when(habitRepository.findById(1)).thenReturn(Optional.of(habitEntity));
+        when(experienceAdder.addExperienceToPlayer(any(Habit.class), any())).thenReturn(false);
+
+        // Act
+        var request = new DoHabitRequest(1);
+        var response = habitService.doHabit(request);
+
+        // Assert
+        assertFalse(response.isLeveledUp());
+        assertFalse(response.isDead());
+        assertEquals(1, response.getCurrentLevel());
     }
 }

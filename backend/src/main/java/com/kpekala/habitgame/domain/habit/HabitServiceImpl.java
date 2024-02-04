@@ -41,8 +41,7 @@ public class HabitServiceImpl implements HabitService{
 
         boolean isDead = false;
         if (!habit.isGood()){
-            isDead = playerService.loseHp(user.getEmailAddress(),
-                    playerService.getDamage(habit.getHabitDifficulty()));
+            isDead = playerService.loseHp(user.getEmailAddress(), playerService.getDamage(habit.getHabitDifficulty()));
         }
 
         return new DoHabitResponse(isNewLvl, player.getLvl(), isDead);

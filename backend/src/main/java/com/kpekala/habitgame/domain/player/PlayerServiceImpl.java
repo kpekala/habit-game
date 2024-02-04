@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
-    private final float HP_AFTER_DEATH = 20f;
+    public static final float HP_AFTER_DEATH = 20f;
 
     private final PlayerRepository playerRepository;
     private final UserRepository userRepository;
