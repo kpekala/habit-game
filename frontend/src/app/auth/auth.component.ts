@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { AuthResponse } from './auth-response.model';
 import { Router } from '@angular/router';
+import { ButtonComponent } from '../utils/button/button.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+    selector: 'app-auth',
+    templateUrl: './auth.component.html',
+    styleUrls: ['./auth.component.scss'],
+    standalone: true,
+    imports: [ReactiveFormsModule, NgIf, ButtonComponent]
 })
 export class AuthComponent implements OnInit {
   

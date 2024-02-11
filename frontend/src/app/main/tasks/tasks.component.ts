@@ -3,11 +3,17 @@ import { TasksService } from './tasks.service';
 import { Task, TaskType } from './task.model';
 import { Subscription } from 'rxjs';
 import { HabitDto } from './habit.model';
+import { NewLevelComponent } from './new-level/new-level.component';
+import { CardComponent } from '../../utils/card/card.component';
+import { NgIf } from '@angular/common';
+import { TasksListComponent } from './tasks-list/tasks-list.component';
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+    selector: 'app-tasks',
+    templateUrl: './tasks.component.html',
+    styleUrls: ['./tasks.component.scss'],
+    standalone: true,
+    imports: [TasksListComponent, NgIf, CardComponent, NewLevelComponent]
 })
 export class TasksComponent implements OnInit, OnDestroy{
 

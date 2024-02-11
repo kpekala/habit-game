@@ -1,12 +1,15 @@
-import { formatDate } from '@angular/common';
+import { formatDate, NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TasksService } from '../tasks.service';
+import { LoadingCircleComponent } from '../../../utils/loading-circle/loading-circle.component';
 
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.scss']
+    selector: 'app-add-task',
+    templateUrl: './add-task.component.html',
+    styleUrls: ['./add-task.component.scss'],
+    standalone: true,
+    imports: [ReactiveFormsModule, NgFor, NgIf, LoadingCircleComponent]
 })
 export class AddTaskComponent {
 

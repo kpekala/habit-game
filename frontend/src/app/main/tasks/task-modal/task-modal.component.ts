@@ -2,11 +2,15 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, On
 import { FinishTaskResponse, Task, TaskType, TasksResponse } from '../task.model';
 import { TasksService } from '../tasks.service';
 import { DoHabitResponse, HabitDto } from '../habit.model';
+import { LoadingCircleComponent } from '../../../utils/loading-circle/loading-circle.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-task-modal',
-  templateUrl: './task-modal.component.html',
-  styleUrls: ['./task-modal.component.scss']
+    selector: 'app-task-modal',
+    templateUrl: './task-modal.component.html',
+    styleUrls: ['./task-modal.component.scss'],
+    standalone: true,
+    imports: [NgIf, LoadingCircleComponent]
 })
 export class TaskModalComponent{
 

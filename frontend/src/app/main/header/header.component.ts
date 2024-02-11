@@ -5,11 +5,14 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { HeaderService } from './header.service';
 import { UserService } from '../player/user.service';
 import { UserResponse } from '../player/user.model';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: true,
+    imports: [NgIf]
 })
 export class HeaderComponent implements OnInit {
   showingMenu = false;

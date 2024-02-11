@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-button',
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+    selector: 'app-button',
+    templateUrl: './button.component.html',
+    styleUrls: ['./button.component.scss'],
+    standalone: true,
+    imports: [NgStyle]
 })
 export class ButtonComponent {
   @Input() label: String;
