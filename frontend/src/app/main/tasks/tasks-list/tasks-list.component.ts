@@ -23,9 +23,7 @@ export class TasksListComponent implements OnInit{
   creatingTask = false;
   isDead = false;
 
-  constructor(private tasksService: TasksService) {
-
-  }
+  constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
     this.reloadTasks();

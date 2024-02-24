@@ -6,6 +6,8 @@ import com.kpekala.habitgame.domain.habit.HabitRepository;
 import com.kpekala.habitgame.domain.player.Player;
 import com.kpekala.habitgame.domain.role.Role;
 import com.kpekala.habitgame.domain.role.RoleRepository;
+import com.kpekala.habitgame.domain.shop.Item;
+import com.kpekala.habitgame.domain.shop.ItemRepository;
 import com.kpekala.habitgame.domain.task.Task;
 import com.kpekala.habitgame.domain.task.TaskRepository;
 import com.kpekala.habitgame.domain.user.User;
@@ -35,6 +37,8 @@ public class DataInitializer implements CommandLineRunner {
 
     private final HabitRepository habitRepository;
 
+    private final ItemRepository itemRepository;
+
     private final TransactionTemplate transactionTemplate;
 
     @Override
@@ -43,6 +47,7 @@ public class DataInitializer implements CommandLineRunner {
         setUpUsers();
         setUpTasks();
         setUpHabits();
+        setUpItems();
     }
 
     private void setUpRoles() {
@@ -124,6 +129,25 @@ public class DataInitializer implements CommandLineRunner {
                     habitRepository.save(habit);
                 });
             }
+        });
+    }
+
+    private void setUpItems() {
+        var items = List.of(
+                Item.builder().name("Small health potion")
+                        .description("This tiny bottle gives your body energy to conquer the world!")
+                        .cost(20f).build(),
+                Item.builder().name("Medium health potion")
+                        .description("This bottle gives you extra energy and everything you need to do your goddamn job")
+                        .cost(40f).build(),
+                Item.builder().name("Big health potion")
+                        .description("This bottle gives you super power!")
+                        .cost(60f).build()
+        );
+
+        transactionTemplate.execute(status -> {
+            itemRepository.saveAll(items);
+            return null;
         });
     }
 }
