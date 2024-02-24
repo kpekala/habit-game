@@ -1,10 +1,5 @@
 @import "./../../../styles.scss";
 
-@mixin card {
-    box-shadow: 0px 4px 20px 0px rgba(66, 68, 90, 0.15);
-    background-color: $color-white;
-}
-
 .tasks-container {
     background-color: $color-grey-light;
     padding: 2rem;

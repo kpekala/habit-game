@@ -1,10 +1,5 @@
 @import "./../../../styles.scss";
 
-@mixin card {
-    box-shadow: 8px 8px 20px 0px rgba(66, 68, 90, 0.15);
-    background-color: $color-white;
-}
-
 .player-container {
     background-color: $color-grey-light;
     padding: 1rem;
