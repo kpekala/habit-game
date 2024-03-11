@@ -5,6 +5,7 @@ import { MainComponent } from './main/main.component';
 import { canActivateAuthContent, goToMainIfAuthenticated } from './auth/auth-guard';
 import { PlayerComponent } from './main/player/player.component';
 import { TasksComponent } from './main/tasks/tasks.component';
+import { ShopComponent } from './main/shop/shop.component';
 
 const routes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [goToMainIfAuthenticated]},
@@ -14,6 +15,7 @@ const routes: Routes = [
     children: [
       {path: 'player', component: PlayerComponent},
       {path: 'tasks', component: TasksComponent},
+      {path: 'shop', component: ShopComponent},
       {path: '**', redirectTo: 'player'}
     ]
   },

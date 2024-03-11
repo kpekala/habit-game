@@ -43,6 +43,9 @@ export class HeaderComponent implements OnInit {
         break;
       case 'player':
         this.router.navigate(['./player'], {relativeTo: this.route});
+        break;
+      case 'shop':
+        this.router.navigate(['./shop'], {relativeTo: this.route});
     }
   }
 
