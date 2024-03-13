@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShopService } from './shop.service';
 import { ItemDto } from './item.model';
+import { ItemComponent } from './item/item.component';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ItemComponent],
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
