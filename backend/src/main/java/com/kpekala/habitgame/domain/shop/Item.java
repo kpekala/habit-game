@@ -1,9 +1,13 @@
 package com.kpekala.habitgame.domain.shop;
 
+import com.kpekala.habitgame.domain.player.Player;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -22,4 +26,7 @@ public class Item {
     private String name;
 
     private String description;
+
+    @ManyToMany(mappedBy = "items")
+    private List<Player> players;
 }

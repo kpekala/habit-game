@@ -1,13 +1,13 @@
 package com.kpekala.habitgame.domain.player;
 
+import com.kpekala.habitgame.domain.shop.Item;
 import com.kpekala.habitgame.domain.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -30,11 +30,22 @@ public class Player {
     @OneToOne(mappedBy = "player")
     private User user;
 
+    @ManyToMany
+    private List<Item> items;
+
     public Player(float hp) {
         this.hp = hp;
     }
 
     public void addGold(float gold) {
         this.gold += gold;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 }

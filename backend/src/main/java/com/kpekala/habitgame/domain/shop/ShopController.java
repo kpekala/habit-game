@@ -1,10 +1,9 @@
 package com.kpekala.habitgame.domain.shop;
 
+import com.kpekala.habitgame.domain.shop.dto.BuyItemRequest;
 import com.kpekala.habitgame.domain.shop.dto.ItemDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +17,10 @@ public class ShopController {
     @GetMapping("items")
     public List<ItemDto> getItems() {
         return shopService.getAllItems();
+    }
+
+    @PostMapping("buy")
+    public void buy(@RequestBody BuyItemRequest request) {
+        shopService.buyItem(request.getItemId(), request.getUserId());
     }
 }

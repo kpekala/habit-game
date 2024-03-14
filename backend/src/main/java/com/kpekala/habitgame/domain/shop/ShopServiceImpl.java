@@ -1,8 +1,13 @@
 package com.kpekala.habitgame.domain.shop;
 
+import com.kpekala.habitgame.domain.player.PlayerService;
 import com.kpekala.habitgame.domain.shop.dto.ItemDto;
+import com.kpekala.habitgame.domain.shop.exception.NotEnoughGoldException;
+import com.kpekala.habitgame.domain.user.UserRepository;
+import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,10 +16,21 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService{
 
     private final ItemRepository itemRepository;
+    private final PlayerService playerService;
+    private final UserRepository userRepository;
 
     @Override
-    public void buyItem(int itemId, int userId) {
+    @Transactional
+    public void buyItem(int itemId, long userId) {
+        var item = itemRepository.findById(itemId).orElseThrow();
 
+        if (!playerService.userHasEnoughMoney(userId, item.getCost())) {
+            throw new NotEnoughGoldException();
+        }
+        playerService.loseGold(userId, item.getCost());
+
+        var player = userRepository.findById(userId).orElseThrow(UserNotFoundException::new).getPlayer();
+        player.addItem(item);
     }
 
     @Override
@@ -27,6 +43,7 @@ public class ShopServiceImpl implements ShopService{
                 .name(item.getName())
                 .description(item.getDescription())
                 .cost(item.getCost())
+                .id(item.getId())
                 .build();
     }
 }

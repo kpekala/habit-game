@@ -43,4 +43,17 @@ public class PlayerServiceImpl implements PlayerService {
             case HARD -> 5f;
         };
     }
+
+    @Override
+    public boolean userHasEnoughMoney(long userId, float expectedMoney) {
+        var user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        return user.getPlayer().getGold() >= expectedMoney;
+    }
+
+    @Override
+    public void loseGold(long userId, float money) {
+        var user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        var player = user.getPlayer();
+        player.setHp(player.getHp() - money);
+    }
 }

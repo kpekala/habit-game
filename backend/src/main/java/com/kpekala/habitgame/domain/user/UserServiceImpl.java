@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService {
         return prepareUserResponse(user);
     }
 
+
+
     private UserResponse prepareUserResponse(User user) {
         var userResponse = new UserResponse();
         var player = user.getPlayer();
