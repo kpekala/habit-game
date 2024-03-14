@@ -1,4 +1,14 @@
 <div class="item-card">
     <img class="item-card__img" [src]="imageName">
-    <label>{{item.name}}</label>
+    <span class="item-card__name">{{item.name}}</span>
+    <div class="item-card__details">
+        <div class="item-card__description">
+            {{item.description}}
+        </div>
+        <div class="item-card__cost">
+            Cost: {{item.cost}}
+        </div>
+        <app-button label="Buy" width="8rem"></app-button>
+        
+    </div>
 </div>

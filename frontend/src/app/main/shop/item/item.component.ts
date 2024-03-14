@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemDto } from '../item.model';
+import { ButtonComponent } from 'src/app/utils/button/button.component';
 
 @Component({
   selector: 'app-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent],
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })
