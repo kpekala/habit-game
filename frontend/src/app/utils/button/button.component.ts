@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgStyle } from '@angular/common';
 
 @Component({
@@ -13,4 +13,5 @@ export class ButtonComponent {
   @Input() isFormButton = true;
   @Input() width = '18rem';
   @Input() disabled = false;
+  @Output() onClick = new EventEmitter();
 }

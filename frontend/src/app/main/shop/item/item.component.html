@@ -8,7 +8,7 @@
         <div class="item-card__cost">
             Cost: {{item.cost}}
         </div>
-        <app-button label="Buy" width="8rem"></app-button>
+        <app-button label="Buy" width="8rem" (onClick)="onItemClick()" [disabled]="loading"></app-button>
         
     </div>
 </div>

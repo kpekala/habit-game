@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class BuyItemRequest {
     private int itemId;
-    private long userId;
+    private String email;
 }

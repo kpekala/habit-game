@@ -21,15 +21,16 @@ public class ShopServiceImpl implements ShopService{
 
     @Override
     @Transactional
-    public void buyItem(int itemId, long userId) {
+    public void buyItem(int itemId, String email) {
         var item = itemRepository.findById(itemId).orElseThrow();
+        var user = userRepository.findByEmailAddress(email).orElseThrow(UserNotFoundException::new);
 
-        if (!playerService.userHasEnoughMoney(userId, item.getCost())) {
+        if (!playerService.userHasEnoughMoney(user.getId(), item.getCost())) {
             throw new NotEnoughGoldException();
         }
-        playerService.loseGold(userId, item.getCost());
+        playerService.loseGold(user.getId(), item.getCost());
 
-        var player = userRepository.findById(userId).orElseThrow(UserNotFoundException::new).getPlayer();
+        var player = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new).getPlayer();
         player.addItem(item);
     }
 

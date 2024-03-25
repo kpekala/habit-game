@@ -4,3 +4,8 @@ export interface ItemDto {
     cost: number;
     id: number;
 }
+
+export interface BuyItemRequest {
+    itemId: number;
+    email: string;
+}

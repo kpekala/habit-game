@@ -1,5 +1,5 @@
 <div class="shop-container">
-    <ng-container *ngFor="let item of items">
+    <ng-container *ngFor="let item of items; index as i">
         <app-item [item]="item"></app-item>
     </ng-container>
 </div>

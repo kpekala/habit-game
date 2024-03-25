@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ShopService {
 
-    void buyItem(int itemId, long userId);
+    void buyItem(int itemId, String email);
 
     List<ItemDto> getAllItems();
 }

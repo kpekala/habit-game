@@ -1,4 +1,5 @@
 <button type="submit" class="btn" [ngStyle]="{'width': width}"
-    [disabled]="disabled ? 'disabled' : null">
+    [disabled]="disabled ? 'disabled' : null"
+    (click)="onClick.emit()">
     {{label}}
 </button>
