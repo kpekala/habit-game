@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ItemDto } from '../item.model';
 import { ButtonComponent } from 'src/app/utils/button/button.component';
 import { ShopService } from '../shop.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { HeaderService } from '../../header/header.service';
 
 @Component({
   selector: 'app-item',
@@ -16,7 +18,7 @@ export class ItemComponent implements OnInit {
   imageName = '';
   loading = false;
 
-  constructor(private shopService: ShopService) {
+  constructor(private shopService: ShopService, private headerService: HeaderService) {
 
   }
 
@@ -32,9 +34,12 @@ export class ItemComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.loading = false;
-      },error: (errorMsg) => {
-        console.log(errorMsg);
-          this.loading = false;
+          this.headerService.updateHeader.next();
+      },error: (errorMsg: HttpErrorResponse) => {
+        this.loading = false;
+        if(errorMsg.error.message === 'Not enough gold!') {
+          alert(errorMsg.error.message);
+        }
       }
     });
   }

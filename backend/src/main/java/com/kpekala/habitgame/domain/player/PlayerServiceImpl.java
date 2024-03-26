@@ -51,9 +51,10 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    @Transactional
     public void loseGold(long userId, float money) {
         var user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         var player = user.getPlayer();
-        player.setHp(player.getHp() - money);
+        player.setGold(player.getGold() - money);
     }
 }

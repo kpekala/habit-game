@@ -61,6 +61,7 @@ public class DataInitializer implements CommandLineRunner {
         User user1 = new User("Konrad", "test@test.pl", "$2a$10$3bGUcRVIwPV5IQj.35J2Fehzcm9En4f94Pc03JKOuQbMpXzTfhbNq");
 
         Player player1 = new Player(100);
+        player1.setGold(200f);
 
         user1.setPlayer(player1);
         user1.setRoles(Set.of(roleRepository.findByName("admin").get()));
