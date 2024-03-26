@@ -35,10 +35,10 @@ export class ItemComponent implements OnInit {
         next: (response) => {
           this.loading = false;
           this.headerService.updateHeader.next();
-      },error: (errorMsg: HttpErrorResponse) => {
+      },error: (errorResponse: HttpErrorResponse) => {
         this.loading = false;
-        if(errorMsg.error.message === 'Not enough gold!') {
-          alert(errorMsg.error.message);
+        if(errorResponse.error.message === 'Not enough gold!') {
+          alert(errorResponse.error.message);
         }
       }
     });
