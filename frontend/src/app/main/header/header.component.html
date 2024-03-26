@@ -6,6 +6,7 @@
         <li class="nav__item" (click)="onItemClick('shop')"><span>Shop</span></li>
     </ul>
     <span class="material-symbols-outlined nav__menu-icon"
+        #menuIcon
         (click)="changeMenuState()">
         more_vert
     </span>
@@ -17,7 +18,7 @@
         </span>
     </span>
     
-    <span class="nav__menu" *ngIf="showingMenu">
+    <span class="nav__menu" *ngIf="showingMenu" #menu>
         <ul>
             <li (click)="onLogoutClick()">Log out</li>
         </ul>

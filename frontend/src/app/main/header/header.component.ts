@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -17,6 +17,9 @@ import { NgIf } from '@angular/common';
 export class HeaderComponent implements OnInit {
   showingMenu = false;
   user?: UserResponse;
+  @ViewChild('menu') menu: ElementRef;
+  @ViewChild('menuIcon') menuIcon: ElementRef;
+  readyForClickOutside = false;
 
   constructor(private router: Router, private route: ActivatedRoute,
      private authService: AuthService, private headerService: HeaderService,
@@ -30,6 +33,16 @@ export class HeaderComponent implements OnInit {
         this.reloadHeaderData();
       }
     });
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOut(event) {
+    if(!this.menu) {
+      return;
+    }
+    if(!this.menu.nativeElement.contains(event.target) && !this.menuIcon.nativeElement.contains(event.target)) {
+      this.showingMenu = false;
+    }
   }
 
   changeMenuState() {

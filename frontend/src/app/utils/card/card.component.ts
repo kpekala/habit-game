@@ -16,7 +16,7 @@ export class CardComponent implements OnInit{
   @HostListener('document:click', ['$event'])
   clickOut(event) {
     if(!this.card.nativeElement.contains(event.target)) {
-      // this is workaround for the fact that without this "if" this listener will register the click 
+      // this is a workaround for the fact that without "if" this listener will register the click 
       // which opened this modal.
       if(this.readyForClickOutside) {
         this.onClose.emit();
