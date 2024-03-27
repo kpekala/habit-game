@@ -16,6 +16,7 @@ export class SnackbarComponent implements OnInit{
   label = '';
   iconName = 'info'
   iconColor = 'blue';
+  timeout = undefined;
 
   constructor(private snackbarService: SnackbarService) {
 
@@ -43,7 +44,11 @@ export class SnackbarComponent implements OnInit{
 
     this.showing = true;
     
-    setTimeout(() => {
+    if(this.timeout){
+      clearTimeout(this.timeout);
+    }
+
+    this.timeout = setTimeout(() => {
       this.showing = false;
     }, SNACKBAR_LIFTIME_MILLIS)
   }

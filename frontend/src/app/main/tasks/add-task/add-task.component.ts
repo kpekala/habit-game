@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Output, ViewChild } 
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TasksService } from '../tasks.service';
 import { LoadingCircleComponent } from '../../../utils/loading-circle/loading-circle.component';
+import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-add-task',
@@ -22,7 +23,7 @@ export class AddTaskComponent {
   difficultyOptions = ['EASY', 'MEDIUM', 'HARD'];
   defaultDifficulty = 'EASY';
 
-  constructor(private tasksService: TasksService) {}
+  constructor(private tasksService: TasksService, private snackbarService: SnackbarService) {}
 
   ngOnInit(): void {
     this.taskForm = new FormGroup({
@@ -45,9 +46,9 @@ export class AddTaskComponent {
             next: (response) => {
               this.onClose.emit(true);
               this.isLoading = false;
-              console.log('creating task successful');
+              this.snackbarService.success('Succesfully created task!');
             },error: (errorResponse) => {
-              console.log(errorResponse);
+              this.snackbarService.error('Cannot create task');
               this.isLoading = false;
             }
           });

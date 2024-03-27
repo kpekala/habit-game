@@ -4,6 +4,7 @@ import { TasksService } from '../tasks.service';
 import { DoHabitResponse, HabitDto } from '../habit.model';
 import { LoadingCircleComponent } from '../../../utils/loading-circle/loading-circle.component';
 import { NgIf } from '@angular/common';
+import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-task-modal',
@@ -19,7 +20,7 @@ export class TaskModalComponent{
   @Input() type: TaskType;
   isLoading = false;
 
-  constructor(private taskService: TasksService) {}
+  constructor(private taskService: TasksService, private snackbarService: SnackbarService) {}
 
   onCloseClick() {
     this.onClose.emit({});
@@ -33,10 +34,12 @@ export class TaskModalComponent{
         next: (response: FinishTaskResponse) => {
           this.isLoading = false;
           this.onClose.emit({isTaskFinished: true});
+          this.snackbarService.success('Succesfully finished task!');
         },
         error: msg => {
           this.isLoading = false;
           this.onClose.emit();
+          this.snackbarService.error('Error during finishing task');
         }
       });
     }else {
@@ -45,10 +48,12 @@ export class TaskModalComponent{
           next: (response: DoHabitResponse) => {
             this.isLoading = false;
             this.onClose.emit({isTaskFinished: true, isDead: response.dead});
+            this.snackbarService.success('You\'ve done a habit!');
           },
           error: msg => {
             this.isLoading = false;
             this.onClose.emit();
+            this.snackbarService.error('Error during doing habit');
           }
         });
     }
