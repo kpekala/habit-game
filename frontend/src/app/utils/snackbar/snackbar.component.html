@@ -1,6 +1,7 @@
-<div class="snackbar">
+<div *ngIf="showing" class="snackbar">
+    <span class="material-symbols-outlined" [ngStyle]="{'color': iconColor}">{{iconName}}</span>
     <span class="snackbar__label">
         {{label}}
     </span>
-    <span class="material-symbols-outlined snackbar__exit-icon">close</span>
+    <span class="material-symbols-outlined snackbar__exit-icon" (click)="onCloseClick()">close</span>
 </div>

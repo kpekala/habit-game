@@ -5,6 +5,7 @@ import { ButtonComponent } from 'src/app/utils/button/button.component';
 import { ShopService } from '../shop.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HeaderService } from '../../header/header.service';
+import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-item',
@@ -18,7 +19,8 @@ export class ItemComponent implements OnInit {
   imageName = '';
   loading = false;
 
-  constructor(private shopService: ShopService, private headerService: HeaderService) {
+  constructor(private shopService: ShopService, private headerService: HeaderService, 
+      private snackbarService: SnackbarService) {
 
   }
 
@@ -35,12 +37,14 @@ export class ItemComponent implements OnInit {
         next: (response) => {
           this.loading = false;
           this.headerService.updateHeader.next();
+          this.snackbarService.success('You succesfully bought a potion!');
       },error: (errorResponse: HttpErrorResponse) => {
         this.loading = false;
         if(errorResponse.error.message === 'Not enough gold!') {
-          alert(errorResponse.error.message);
+          this.snackbarService.error('Not enough gold!');
         }
       }
     });
   }
+
 }
