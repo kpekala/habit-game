@@ -86,4 +86,11 @@
         font-weight: 500;
         margin: 0;
     }
+
+    &__items {
+        padding-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
 }

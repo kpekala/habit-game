@@ -44,5 +44,10 @@
     </div>
     <div class="eq">
         <h3 class="eq__header">Your equipment</h3>
+        <div class="eq__items">
+            <ng-container *ngFor="let item of items">
+                <app-item [item]="item"></app-item>
+            </ng-container>
+        </div>
     </div>
 </div>

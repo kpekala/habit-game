@@ -1,5 +1,5 @@
 <div class="shop-container">
     <ng-container *ngFor="let item of items; index as i">
-        <app-item [item]="item"></app-item>
+        <app-item [item]="item" [loading]="loading" (click)="onItemBuy($any($event))"></app-item>
     </ng-container>
 </div>

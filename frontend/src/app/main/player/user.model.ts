@@ -8,3 +8,10 @@ export interface UserResponse {
     health: number;
     creationTime: Date;
 }
+
+export interface PlayerItemDto {
+    name: string;
+    description: string;
+    id: number;
+    count: number;
+}

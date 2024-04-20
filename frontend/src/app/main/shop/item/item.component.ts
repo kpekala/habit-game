@@ -6,6 +6,7 @@ import { ShopService } from '../shop.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HeaderService } from '../../header/header.service';
 import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
+import { PlayerItemDto } from '../../player/user.model';
 
 @Component({
   selector: 'app-item',
@@ -15,13 +16,13 @@ import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  @Input() item: ItemDto;
+  @Input() item: ItemDto | PlayerItemDto;
+  @Input() loading = false;
+  @Output() click = new EventEmitter<ItemDto | PlayerItemDto>();
   imageName = '';
-  loading = false;
 
   constructor(private shopService: ShopService, private headerService: HeaderService, 
       private snackbarService: SnackbarService) {
-
   }
 
   ngOnInit(): void {
@@ -31,20 +32,15 @@ export class ItemComponent implements OnInit {
   }
 
   onItemClick() {
-    this.loading = true;
-    this.shopService.buyItem(this.item)
-      .subscribe({
-        next: (response) => {
-          this.loading = false;
-          this.headerService.updateHeader.next();
-          this.snackbarService.success('You succesfully bought a potion!');
-      },error: (errorResponse: HttpErrorResponse) => {
-        this.loading = false;
-        if(errorResponse.error.message === 'Not enough gold!') {
-          this.snackbarService.error('Not enough gold!');
-        }
-      }
-    });
+    this.click.emit(this.item);
+  }
+
+  shopItem() {
+    return this.item as ItemDto;
+  }
+
+  buttonTitle() {
+    return 'cost' in this.item ? 'Buy': 'Use';
   }
 
 }

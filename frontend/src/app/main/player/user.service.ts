@@ -4,14 +4,15 @@ import { Observable } from "rxjs";
 import { AuthResponse } from "src/app/auth/auth-response.model";
 import { AuthService } from "src/app/auth/auth.service";
 import { environment } from "src/environment/environment";
-import { UserResponse } from "./user.model";
+import { PlayerItemDto, UserResponse } from "./user.model";
 
 @Injectable({
     providedIn: 'root'
   })
 export class UserService {
 
-    private authPath = environment.backendPath + "api/user"
+    private userPath = environment.backendPath + "api/user"
+    private itemsPath = environment.backendPath + "api/player/items"
 
     constructor(private http: HttpClient, private authService: AuthService) {
 
@@ -19,6 +20,12 @@ export class UserService {
 
     public fetchUserInformation(): Observable<UserResponse> {
       const params = {'email': this.authService.getEmail()};
-      return this.http.get<UserResponse>(this.authPath, {params: params});
+      return this.http.get<UserResponse>(this.userPath, {params: params});
     }
+
+    public fetchPlayerItems(): Observable<PlayerItemDto[]> {
+      const params = {'email': this.authService.getEmail()};
+      return this.http.get<PlayerItemDto[]>(this.itemsPath, {params: params});
+    }
+
 }
