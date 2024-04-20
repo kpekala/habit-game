@@ -48,5 +48,19 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
+
+    &__count {
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: inline-block;
+        text-align: center;
+        top: -.5rem;
+        right: -.5rem;
+        background-color: $color-primary;
+        color: $color-white;
+        padding: .1rem .3rem .3rem .3rem;
+        border-radius: 50%;
+    }
 }
 

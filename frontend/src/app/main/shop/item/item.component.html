@@ -5,10 +5,10 @@
         <div class="item-card__description">
             {{item.description}}
         </div>
-        <div *ngIf="item typeof ItemDto" class="item-card__cost">
+        <div *ngIf="isShopItem()" class="item-card__cost">
             Cost: {{shopItem().cost}}
         </div>
         <app-button [label]="buttonTitle()" width="8rem" (onClick)="onItemClick()" [disabled]="loading"></app-button>
-        
     </div>
+    <span class="item-card__count">{{eqItem().count}}</span>    
 </div>

@@ -21,8 +21,7 @@ export class ItemComponent implements OnInit {
   @Output() click = new EventEmitter<ItemDto | PlayerItemDto>();
   imageName = '';
 
-  constructor(private shopService: ShopService, private headerService: HeaderService, 
-      private snackbarService: SnackbarService) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -39,8 +38,16 @@ export class ItemComponent implements OnInit {
     return this.item as ItemDto;
   }
 
+  eqItem() {
+    return this.item as PlayerItemDto;
+  }
+
   buttonTitle() {
     return 'cost' in this.item ? 'Buy': 'Use';
+  }
+
+  isShopItem() {
+    return 'cost' in this.item;
   }
 
 }
