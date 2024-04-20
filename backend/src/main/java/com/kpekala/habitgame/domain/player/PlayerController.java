@@ -17,7 +17,7 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @GetMapping("items")
-    public List<ItemDto> getPlayerItems(@RequestParam Integer userId) {
-        return playerService.getPlayerItems(userId);
+    public List<ItemDto> getPlayerItems(@RequestParam String email) {
+        return playerService.getPlayerItems(email);
     }
 }

@@ -50,9 +50,9 @@ public class PlayerServiceTest {
 
     @Test
     public void testGetPLayerItems() {
-        var playerId = 1234L;
+        String email = "test@test.pl";
         var user = new User();
-        user.setId(playerId);
+        user.setEmailAddress(email);
         var player = new Player();
         var items = List.of(
                 new Item(1, 10f, "Small potion", "Small potion", null),
@@ -62,9 +62,9 @@ public class PlayerServiceTest {
         player.setItems(items);
         user.setPlayer(player);
 
-        when(userRepository.findById(playerId)).thenReturn(Optional.of(user));
+        when(userRepository.findByEmailAddress(email)).thenReturn(Optional.of(user));
 
-        var playerItems = playerService.getPlayerItems(playerId);
+        var playerItems = playerService.getPlayerItems(email);
 
         assertThat(playerItems).hasSize(2);
         assertThat(playerItems).containsExactlyInAnyOrder(

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -65,12 +64,11 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<ItemDto> getPlayerItems(long playerId) {
-        var user = userRepository.findById(playerId).orElseThrow(UserNotFoundException::new);
+    @Transactional
+    public List<ItemDto> getPlayerItems(String email) {
+        var user = userRepository.findByEmailAddress(email).orElseThrow(UserNotFoundException::new);
         var player = user.getPlayer();
         var items = player.getItems();
-
-        var itemDtos = new LinkedList<ItemDto>();
 
         var itemsMap = new HashMap<Integer, ItemDto>();
         for (Item item: items) {

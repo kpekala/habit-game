@@ -11,5 +11,5 @@ public interface PlayerService {
     float getDamage(HabitDifficulty habitDifficulty);
     boolean userHasEnoughMoney(long userId, float expectedMoney);
     void loseGold(long userId, float money);
-    List<ItemDto> getPlayerItems(long playerId);
+    List<ItemDto> getPlayerItems(String email);
 }
