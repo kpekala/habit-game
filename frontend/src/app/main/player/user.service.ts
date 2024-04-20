@@ -13,6 +13,7 @@ export class UserService {
 
     private userPath = environment.backendPath + "api/user"
     private itemsPath = environment.backendPath + "api/player/items"
+    private useItemPath = environment.backendPath + "api/player/items/use"
 
     constructor(private http: HttpClient, private authService: AuthService) {
 
@@ -26,6 +27,15 @@ export class UserService {
     public fetchPlayerItems(): Observable<PlayerItemDto[]> {
       const params = {'email': this.authService.getEmail()};
       return this.http.get<PlayerItemDto[]>(this.itemsPath, {params: params});
+    }
+
+    public useItem(id: number): Observable<any> {
+      const body = {
+        id: id,
+        email: this.authService.getEmail()
+      };
+
+      return this.http.post(this.useItemPath, body);
     }
 
 }

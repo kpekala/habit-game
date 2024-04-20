@@ -46,7 +46,8 @@
         <h3 class="eq__header">Your equipment</h3>
         <div class="eq__items">
             <ng-container *ngFor="let item of items">
-                <app-item [item]="item"></app-item>
+                <app-item [item]="item" (click)="onItemClick($any($event))" [loading]="itemLoading">
+                </app-item>
             </ng-container>
         </div>
     </div>

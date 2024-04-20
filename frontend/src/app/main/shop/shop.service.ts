@@ -18,7 +18,7 @@ export class ShopService {
       const buyItemRequest = {
         email: this.authService.getEmail(),
         itemId: item.id
-      }
+      };
 
       return this.http.post<string>(environment.backendPath + 'api/shop/buy', buyItemRequest);
     }

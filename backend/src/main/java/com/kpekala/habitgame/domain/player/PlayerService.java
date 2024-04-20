@@ -12,4 +12,5 @@ public interface PlayerService {
     boolean userHasEnoughMoney(long userId, float expectedMoney);
     void loseGold(long userId, float money);
     List<ItemDto> getPlayerItems(String email);
+    void useItem(String email, int id);
 }

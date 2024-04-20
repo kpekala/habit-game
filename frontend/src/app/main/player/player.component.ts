@@ -6,6 +6,7 @@ import { LastTasksComponent } from './last-tasks/last-tasks.component';
 import { NgFor, NgIf } from '@angular/common';
 import { takeUntil } from 'rxjs';
 import { ItemComponent } from '../shop/item/item.component';
+import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-player',
@@ -18,8 +19,9 @@ export class PlayerComponent implements OnInit{
   isPlayerInfoLoaded = false;
   userInfo: UserResponse;
   items = null;
+  itemLoading = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private snackbarService: SnackbarService) {
 
   }
 
@@ -41,6 +43,21 @@ export class PlayerComponent implements OnInit{
           this.items = items;
         }
       })
+  }
+
+  onItemClick(item: PlayerItemDto) {
+    this.itemLoading = true;
+    this.userService.useItem(item.id)
+      .subscribe({
+        next: () => {
+          this.itemLoading = false;
+          this.snackbarService.success('Item succesfully used!');
+        },
+        error: () => {
+          this.itemLoading = false;
+          this.snackbarService.error('Error when using item!');
+        }
+      });
   }
 
 }

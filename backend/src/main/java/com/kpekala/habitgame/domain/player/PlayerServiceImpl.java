@@ -2,6 +2,7 @@ package com.kpekala.habitgame.domain.player;
 
 import com.kpekala.habitgame.domain.habit.HabitDifficulty;
 import com.kpekala.habitgame.domain.player.dto.ItemDto;
+import com.kpekala.habitgame.domain.player.exception.NoItemException;
 import com.kpekala.habitgame.domain.shop.Item;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
@@ -81,5 +82,18 @@ public class PlayerServiceImpl implements PlayerService {
             }
         }
         return itemsMap.values().stream().toList();
+    }
+
+    @Override
+    @Transactional
+    public void useItem(String email, int id) {
+        var user = userRepository.findByEmailAddress(email).orElseThrow(UserNotFoundException::new);
+        var player = user.getPlayer();
+        var itemsToUse = player.getItems().stream().filter(item -> item.getId() == id).toList();
+
+        if (itemsToUse.size() == 0)
+            throw new NoItemException();
+
+        player.removeItem(itemsToUse.get(0));
     }
 }
