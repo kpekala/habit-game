@@ -1,11 +1,17 @@
 package com.kpekala.habitgame.domain.player;
 
 import com.kpekala.habitgame.domain.habit.HabitDifficulty;
+import com.kpekala.habitgame.domain.player.dto.ItemDto;
+import com.kpekala.habitgame.domain.shop.Item;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +62,26 @@ public class PlayerServiceImpl implements PlayerService {
         var user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         var player = user.getPlayer();
         player.setGold(player.getGold() - money);
+    }
+
+    @Override
+    public List<ItemDto> getPlayerItems(long playerId) {
+        var user = userRepository.findById(playerId).orElseThrow(UserNotFoundException::new);
+        var player = user.getPlayer();
+        var items = player.getItems();
+
+        var itemDtos = new LinkedList<ItemDto>();
+
+        var itemsMap = new HashMap<Integer, ItemDto>();
+        for (Item item: items) {
+            if (!itemsMap.containsKey(item.getId())){
+                itemsMap.put(item.getId(), new ItemDto(item.getName(), item.getDescription(), 1, item.getId()));
+            }else {
+                var itemDto = itemsMap.get(item.getId());
+                itemDto.setCount(itemDto.getCount() + 1);
+                itemsMap.put(item.getId(), itemDto);
+            }
+        }
+        return itemsMap.values().stream().toList();
     }
 }
