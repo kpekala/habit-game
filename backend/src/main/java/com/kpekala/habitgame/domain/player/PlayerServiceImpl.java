@@ -94,6 +94,9 @@ public class PlayerServiceImpl implements PlayerService {
         if (itemsToUse.size() == 0)
             throw new NoItemException();
 
-        player.removeItem(itemsToUse.get(0));
+        var itemToUse = itemsToUse.get(0);
+        player.setHp(Math.min(100, player.getHp() + itemToUse.getHealthIncrease()));
+
+        player.removeItem(itemToUse);
     }
 }

@@ -137,18 +137,15 @@ public class DataInitializer implements CommandLineRunner {
         var items = List.of(
                 Item.builder().name("Small health potion")
                         .description("This tiny bottle gives your body energy to conquer the world!")
-                        .cost(20f).build(),
+                        .cost(20f)
+                        .healthIncrease(10f).build(),
                 Item.builder().name("Medium health potion")
                         .description("This bottle gives you extra energy and everything you need to do your goddamn job")
-                        .cost(40f).build(),
+                        .healthIncrease(20f).cost(40f).build(),
                 Item.builder().name("Big health potion")
                         .description("This bottle gives you super power!")
-                        .cost(60f).build()
+                        .healthIncrease(30f).cost(60f).build()
         );
-
-        transactionTemplate.execute(status -> {
-            itemRepository.saveAll(items);
-            return null;
-        });
+        itemRepository.saveAll(items);
     }
 }

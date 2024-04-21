@@ -10,5 +10,5 @@
         </div>
         <app-button [label]="buttonTitle()" width="8rem" (onClick)="onItemClick()" [disabled]="loading"></app-button>
     </div>
-    <span class="item-card__count">{{eqItem().count}}</span>    
+    <span *ngIf="!isShopItem()" class="item-card__count">{{eqItem().count}}</span>    
 </div>

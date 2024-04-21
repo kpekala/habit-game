@@ -27,6 +27,8 @@ public class Item {
 
     private String description;
 
+    private Float healthIncrease;
+
     @ManyToMany(mappedBy = "items")
     private List<Player> players;
 }
