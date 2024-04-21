@@ -20,6 +20,6 @@ export class ShopService {
         itemId: item.id
       };
 
-      return this.http.post<string>(environment.backendPath + 'api/shop/buy', buyItemRequest);
+      return this.http.post<any>(environment.backendPath + 'api/shop/buy', buyItemRequest);
     }
 }

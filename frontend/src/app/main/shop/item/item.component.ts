@@ -18,7 +18,7 @@ import { PlayerItemDto } from '../../player/user.model';
 export class ItemComponent implements OnInit {
   @Input() item: ItemDto | PlayerItemDto;
   @Input() loading = false;
-  @Output() click = new EventEmitter<ItemDto | PlayerItemDto>();
+  @Output() onClick = new EventEmitter<ItemDto | PlayerItemDto>();
   imageName = '';
 
   constructor() {
@@ -31,7 +31,7 @@ export class ItemComponent implements OnInit {
   }
 
   onItemClick() {
-    this.click.emit(this.item);
+    this.onClick.emit(this.item);
   }
 
   shopItem() {

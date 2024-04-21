@@ -46,6 +46,7 @@ export class PlayerComponent implements OnInit{
   }
 
   onItemClick(item: PlayerItemDto) {
+    console.log('Siema');
     this.itemLoading = true;
     this.userService.useItem(item.id)
       .subscribe({
