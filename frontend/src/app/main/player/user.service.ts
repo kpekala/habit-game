@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { AuthResponse } from "src/app/auth/auth-response.model";
 import { AuthService } from "src/app/auth/auth.service";
 import { environment } from "src/environment/environment";
@@ -14,6 +14,8 @@ export class UserService {
     private userPath = environment.backendPath + "api/user"
     private itemsPath = environment.backendPath + "api/player/items"
     private useItemPath = environment.backendPath + "api/player/items/use"
+
+    public $updatePlayer = new Subject<void>();
 
     constructor(private http: HttpClient, private authService: AuthService) {
 
@@ -38,4 +40,7 @@ export class UserService {
       return this.http.post(this.useItemPath, body);
     }
 
+    public updatePlayer() {
+      this.$updatePlayer.next();
+    }
 }

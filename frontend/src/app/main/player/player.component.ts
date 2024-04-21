@@ -26,6 +26,23 @@ export class PlayerComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.userService.fetchPlayerItems()
+      .subscribe({
+        next: (items: PlayerItemDto[]) => {
+          this.items = items;
+        }
+      })
+
+      this.userService.$updatePlayer.subscribe({
+        next: () => {
+          this.updateUserInformation();
+        }
+      });
+
+      this.updateUserInformation();
+  }
+
+  updateUserInformation() {
     this.userService.fetchUserInformation()
       .subscribe({
         next: (response: UserResponse) => {
@@ -36,23 +53,17 @@ export class PlayerComponent implements OnInit{
           this.isPlayerInfoLoaded = false;
         }
       });
-
-    this.userService.fetchPlayerItems()
-      .subscribe({
-        next: (items: PlayerItemDto[]) => {
-          this.items = items;
-        }
-      })
   }
 
   onItemClick(item: PlayerItemDto) {
-    console.log('Siema');
     this.itemLoading = true;
     this.userService.useItem(item.id)
       .subscribe({
         next: () => {
           this.itemLoading = false;
           this.snackbarService.success('Item succesfully used!');
+          this.updateItemsList(item);
+          this.userService.updatePlayer();
         },
         error: () => {
           this.itemLoading = false;
@@ -61,4 +72,10 @@ export class PlayerComponent implements OnInit{
       });
   }
 
+  updateItemsList(item: PlayerItemDto) {
+    if(item.count > 1)
+      this.items.filter(i => i.name === item.name)[0].count -= 1;
+    else 
+      this.items = this.items.filter(i => i.name !== item.name);
+  }
 }
