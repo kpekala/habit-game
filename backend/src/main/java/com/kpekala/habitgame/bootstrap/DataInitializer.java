@@ -14,6 +14,7 @@ import com.kpekala.habitgame.domain.user.User;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.TransactionStatus;
@@ -27,6 +28,7 @@ import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;
@@ -43,12 +45,22 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if(isDatabaseInitialized()) {
+            log.info("Database is already initialized");
+            return;
+        }
         setUpRoles();
         setUpUsers();
         setUpTasks();
         setUpHabits();
         setUpItems();
     }
+
+    private boolean isDatabaseInitialized() {
+        return roleRepository.findByName("user").isPresent();
+    }
+
+
 
     private void setUpRoles() {
         Role userRole = new Role("user");
