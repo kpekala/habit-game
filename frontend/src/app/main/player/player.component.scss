@@ -39,6 +39,16 @@
         cursor: pointer;
     }
 
+    &__level {
+        background-color: $color-accent;
+        border-radius: 50%;
+        padding: .3rem .6rem .3rem .6rem;
+        position: absolute;
+        left: 9.5rem;
+        bottom: 3.3rem;
+        color: $color-white;
+    }
+
     .info-label {
         font-size: 1.2rem;
         padding-bottom: 1rem;
