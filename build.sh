@@ -3,5 +3,5 @@ cd backend
 cd ../frontend
 npm run build
 cd ../
-java -jar backend/build/libs/habitgame-0.0.1-SNAPSHOT.jar &
-node frontend/server.js &
+docker build -t habitgame/backend ./backend
+docker build -t habitgame/frontend ./frontend

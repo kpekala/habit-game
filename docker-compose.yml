@@ -1,14 +1,14 @@
-version: "3.9"
+version: '3.9'
 services:
   backend:
-    image: kpekala/habitgame
-    container_name: demo
+    image: habitgame/backend
+    container_name: habitgame
     ports:
-      - "8080:8080"
+      - '8080:8080'
   frontend:
-    image: angular-docker
-    container_name: demo-ui
+    image: habitgame/frontend
+    container_name: habitgame-ui
     ports:
-      - "4200:4200"
+      - '4200:4200'
     depends_on:
       - backend
