@@ -55,9 +55,9 @@ public class PlayerServiceTest {
         user.setEmailAddress(email);
         var player = new Player();
         var items = List.of(
-                new Item(1, 10f, "Small potion", "Small potion", null),
-                new Item(1, 10f, "Small potion", "Small potion", null),
-                new Item(2, 20f, "Potion", "Regular potion", null)
+                new Item(1, 10f, "Small potion", "Small potion", null, List.of()),
+                new Item(1, 10f, "Small potion", "Small potion", null, List.of()),
+                new Item(2, 20f, "Potion", "Regular potion", null, List.of())
         );
         player.setItems(items);
         user.setPlayer(player);
