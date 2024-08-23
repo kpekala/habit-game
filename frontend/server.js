@@ -6,7 +6,7 @@ const port = 3070;
 
 app.use(express.static(__dirname + "/dist/frontend/"));
 
-app.get("/", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(__dirname + "/dist/frontend/index.html");
 });
 
