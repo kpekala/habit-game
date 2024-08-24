@@ -1,14 +1,11 @@
-import { Component, DestroyRef, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { filter, switchMap } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
-import { HeaderService } from './header.service';
-import { UserService } from '../player/user.service';
-import { UserResponse } from '../player/user.model';
 import { NgIf } from '@angular/common';
+import { Component, DestroyRef, ElementRef, HostListener, OnInit, signal, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { UserResponse } from '../player/user.model';
+import { UserService } from '../player/user.service';
 import { UserStoreService } from '../player/user.store.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HeaderStoreService } from './header.store.service';
 
 @Component({
     selector: 'app-header',
@@ -19,29 +16,27 @@ import { HeaderStoreService } from './header.store.service';
 })
 export class HeaderComponent implements OnInit {
   showingMenu = false;
-  user?: UserResponse;
+  user = signal(null);
   @ViewChild('menu') menu: ElementRef;
   @ViewChild('menuIcon') menuIcon: ElementRef;
   readyForClickOutside = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
-      private userService: UserService, private readonly destroyRef: DestroyRef, 
-      private readonly headerStoreService: HeaderStoreService) {
+      private userService: UserService, private readonly destroyRef: DestroyRef, private readonly userStoreService: UserStoreService) {
   }
 
   ngOnInit(): void {
-    this.headerStoreService.updateHeader$
-      .pipe(
-        switchMap(() => this.userService.fetchUserInformation()),
-        takeUntilDestroyed(this.destroyRef)
-      )
+    this.userStoreService.user$
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (user) => {
-          this.user = user;
+          this.user.set(user);
         }
     });
-    this.headerStoreService.update();
-  }
+    this.userService.fetchUserInformation()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
+    }
 
   @HostListener('document:click', ['$event'])
   clickOut(event) {

@@ -1,10 +1,11 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
 import { ItemComponent } from '../shop/item/item.component';
 import { LastTasksComponent } from './last-tasks/last-tasks.component';
 import { PlayerItemDto, UserResponse } from './user.model';
 import { UserService } from './user.service';
+import { UserStoreService } from './user.store.service';
 
 @Component({
   selector: 'app-player',
@@ -14,15 +15,11 @@ import { UserService } from './user.service';
   imports: [NgIf, LastTasksComponent, NgFor, ItemComponent],
 })
 export class PlayerComponent implements OnInit {
-  isPlayerInfoLoaded = false;
-  userInfo: UserResponse;
+  user = signal(null);
   items = null;
   itemLoading = false;
 
-  constructor(
-    private userService: UserService,
-    private snackbarService: SnackbarService
-  ) {}
+  constructor(private userService: UserService, private snackbarService: SnackbarService, private readonly userStoreService: UserStoreService) {}
 
   ngOnInit(): void {
     this.userService.fetchPlayerItems().subscribe({
@@ -31,24 +28,11 @@ export class PlayerComponent implements OnInit {
       },
     });
 
-    this.userService.$updatePlayer.subscribe({
-      next: () => {
-        this.updateUserInformation();
-      },
-    });
-
-    this.updateUserInformation();
-  }
-
-  updateUserInformation() {
-    this.userService.fetchUserInformation().subscribe({
-      next: (response: UserResponse) => {
-        this.userInfo = response;
-        this.isPlayerInfoLoaded = true;
-      },
-      error: (msg) => {
-        this.isPlayerInfoLoaded = false;
-      },
+    this.userStoreService.user$.subscribe({
+        next: (user: UserResponse) => {
+          this.user.set(user);
+        }, error: (error) => {
+        }
     });
   }
 

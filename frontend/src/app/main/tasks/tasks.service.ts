@@ -1,20 +1,18 @@
-import { Injectable } from "@angular/core";
-import { FinishTaskResponse, Task, TasksResponse } from "./task.model";
-import { Observable, Subject, delay, map, tap } from "rxjs";
-import { AuthService } from "src/app/auth/auth.service";
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Subject, map, tap } from "rxjs";
+import { AuthService } from "src/app/auth/auth.service";
 import { environment } from "src/environment/environment";
+import { UserService } from "../player/user.service";
 import { HabitDto } from "./habit.model";
-import { HeaderService } from "../header/header.service";
-import { HeaderStoreService } from "../header/header.store.service";
+import { FinishTaskResponse, Task } from "./task.model";
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
 
     newLevelSubject = new Subject<number>();
 
-    constructor(private authService: AuthService, private http: HttpClient,
-        private headerService: HeaderStoreService) {
+    constructor(private authService: AuthService, private http: HttpClient, private userService: UserService) {
 
     }
 
@@ -24,7 +22,6 @@ export class TasksService {
             .pipe(map(response => {
                 response.tasks.forEach((task: Task) => {
                     task.deadline = new Date(task.deadline);
-                    console.log(task);
                 });
                 return response;
             }));
@@ -37,7 +34,7 @@ export class TasksService {
             .pipe(tap((response: FinishTaskResponse) => {
                 if(response.leveledUp)
                     this.newLevelSubject.next(response.currentLevel);
-                this.headerService.update();
+                this.userService.fetchUserInformation().subscribe();
             }));
     }
 
@@ -66,7 +63,7 @@ export class TasksService {
         const body = {'habitId': habitId};
         return this.http.post(environment.backendPath + 'api/habit/do', body)
             .pipe(tap(() => {
-                this.headerService.update();
+                this.userService.fetchUserInformation().subscribe();
             }));
     }
 }

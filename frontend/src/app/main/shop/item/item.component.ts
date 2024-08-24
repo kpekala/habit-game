@@ -1,12 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemDto } from '../item.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ButtonComponent } from 'src/app/utils/button/button.component';
-import { ShopService } from '../shop.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HeaderService } from '../../header/header.service';
-import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
 import { PlayerItemDto } from '../../player/user.model';
+import { ItemDto } from '../item.model';
 
 @Component({
   selector: 'app-item',

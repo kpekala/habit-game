@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
-import { HeaderStoreService } from '../header/header.store.service';
+import { UserService } from '../player/user.service';
 import { ItemDto } from './item.model';
 import { ItemComponent } from './item/item.component';
 import { ShopService } from './shop.service';
@@ -20,8 +20,7 @@ export class ShopComponent implements OnInit {
 
   loading = false;
 
-  constructor(private shopService: ShopService, private headerService: HeaderStoreService,
-     private snackbarService: SnackbarService) {}
+  constructor(private shopService: ShopService, private snackbarService: SnackbarService, private readonly userService: UserService) {}
 
   ngOnInit(): void {
     this.shopService.fetchItems().subscribe({
@@ -37,7 +36,7 @@ export class ShopComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.loading = false;
-          this.headerService.update();
+          this.userService.fetchUserInformation().subscribe();
           this.snackbarService.success('You succesfully bought a potion!');
       },error: (errorResponse: HttpErrorResponse) => {
         this.loading = false;

@@ -36,7 +36,6 @@ export class TasksListComponent implements OnInit{
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
       next: (tasksResponse) => {
-        console.log(tasksResponse);
         this.tasks = this.taskType() === TaskType.TASK ? tasksResponse.tasks : tasksResponse;
       }
     });
