@@ -36,16 +36,18 @@
             </select>
         </div>
     </div>
-    <div class="task-card__input-container">
-        <div>
-            <label class="task-card__form-label">{{taskLabel()}} deadline</label>
+    @if(isTask()) {
+        <div class="task-card__input-container">
+            <div>
+                <label class="task-card__form-label">{{taskLabel()}} deadline</label>
+            </div>
+            <div class="input-container">
+                <input type="date"
+                    class="task-card__form-control"
+                    formControlName="deadline"/>
+            </div>
         </div>
-        <div class="input-container">
-            <input type="date"
-                class="task-card__form-control"
-                formControlName="deadline"/>
-        </div>
-    </div>
+    }
     @if(!isTask()) {
         <div class="task-card__input-container">
             <div style="display: flex; align-items: center;">

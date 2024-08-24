@@ -34,10 +34,11 @@ export class AddTaskComponent {
       'title': new FormControl('', Validators.required),
       'description': new FormControl('', Validators.required),
       'difficulty': new FormControl('EASY', Validators.required),
-      'deadline': new FormControl(formatDate(Date.now(), 'yyyy-MM-dd', 'en'), Validators.required)
     });
     if(!this.isTask()) {
       this.taskForm.addControl('isGood', new FormControl(true, Validators.required));
+    }else {
+        this.taskForm.addControl('deadline', new FormControl(formatDate(Date.now(), 'yyyy-MM-dd', 'en'), Validators.required));
     }
   }
 
@@ -47,14 +48,13 @@ export class AddTaskComponent {
 
   onAddTask() {
     this.isLoading = true;
-    const body = {
+    let body: object = {
       title: this.taskForm.value['title'],
       description: this.taskForm.value['description'],
-      deadline: this.taskForm.value['deadline'],
       difficulty: this.taskForm.value['difficulty'],
-      isGood: this.taskForm.value['isGood']
     }
     if(this.isTask()) {
+      body = {...body, deadline: this.taskForm.value['deadline']};
       this.tasksService.addTask(body)
         .pipe(takeUntilDestroyed(this.destroyRef),
           finalize(() => {
@@ -70,6 +70,7 @@ export class AddTaskComponent {
         }
       );
     } else {
+      body = {...body, isGood: this.taskForm.value['isGood']};
       this.tasksService.addHabit(body)
         .pipe(takeUntilDestroyed(this.destroyRef), 
           finalize(() => {
