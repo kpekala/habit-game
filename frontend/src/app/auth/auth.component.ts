@@ -1,49 +1,54 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { AuthService } from './auth.service';
-import { AuthResponse } from './auth-response.model';
+import { AuthResponse } from './dtos/auth-response.model';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../utils/button/button.component';
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-auth',
-    templateUrl: './auth.component.html',
-    styleUrls: ['./auth.component.scss'],
-    standalone: true,
-    imports: [ReactiveFormsModule, NgIf, ButtonComponent]
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgIf, ButtonComponent],
 })
 export class AuthComponent implements OnInit {
-  
   authForm: FormGroup;
   isLoginView = true;
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  }
-  
   ngOnInit(): void {
     this.reloadForm();
   }
 
-  reloadForm(){
+  reloadForm() {
     this.authForm = new FormGroup({
-      'email': new FormControl('', Validators.required),
-      'password': new FormControl('', Validators.required)
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     });
 
-    if(!this.isLoginView) {
-      this.authForm.addControl('name', new FormControl('', Validators.required));
+    if (!this.isLoginView) {
+      this.authForm.addControl(
+        'name',
+        new FormControl('', Validators.required)
+      );
     }
   }
 
-  onAuthButtonClicked(){
+  onAuthButtonClicked() {
     this.isLoading = true;
 
-    if(!this.isLoginView){
+    if (!this.isLoginView) {
       this.onRegisterButtonClicked();
-    }else {
+    } else {
       this.onLoginButtonClicked();
     }
   }
@@ -58,8 +63,8 @@ export class AuthComponent implements OnInit {
       },
       error: (error) => {
         this.isLoading = false;
-      }
-    })
+      },
+    });
   }
 
   onRegisterButtonClicked() {
@@ -73,13 +78,12 @@ export class AuthComponent implements OnInit {
       },
       error: (error) => {
         this.isLoading = false;
-      }
-    })
+      },
+    });
   }
 
   changeMethod() {
     this.isLoginView = !this.isLoginView;
     this.reloadForm();
   }
-
 }
