@@ -40,16 +40,20 @@ export class TasksService {
             }));
     }
 
-    addTask(title: string, description: string, deadline: Date, difficulty: string) {
+    addTask(body) {
         const taskBody = {
-            title: title,
-            description: description,
-            deadline: deadline,
-            difficulty: difficulty,
+            ...body,
             email: this.authService.getEmail()
         }
 
         return this.http.post(environment.backendPath + 'api/task/add', taskBody);
+    }
+
+    addHabit(body) {
+        body = {
+            ...body, email: this.authService.getEmail()
+        }
+        return this.http.post(environment.backendPath + 'api/habit/add', body);
     }
 
     fetchHabits() {

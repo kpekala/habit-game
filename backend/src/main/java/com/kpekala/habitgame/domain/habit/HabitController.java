@@ -27,7 +27,7 @@ public class HabitController {
     }
 
     @PostMapping("add")
-    public void addHabit(AddHabitRequest request){
+    public void addHabit(@RequestBody AddHabitRequest request){
         habitService.addHabit(request);
     }
 

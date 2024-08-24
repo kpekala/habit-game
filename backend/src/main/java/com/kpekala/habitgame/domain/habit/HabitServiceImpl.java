@@ -60,7 +60,7 @@ public class HabitServiceImpl implements HabitService{
     @Transactional
     public void addHabit(AddHabitRequest request) {
         var habit = Habit.builder()
-                .name(request.getName())
+                .name(request.getTitle())
                 .description(request.getDescription())
                 .habitDifficulty(Enum.valueOf(HabitDifficulty.class, request.getDifficulty()))
                 .isGood(request.isGood())

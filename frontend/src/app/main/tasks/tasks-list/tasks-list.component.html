@@ -1,37 +1,36 @@
 <div>
-    <h2 class="task-header">{{ taskType === 1 ? 'Your tasks': 'Your habits'}}</h2>
+    <h2 class="task-header">{{ taskType() === 1 ? 'Your tasks': 'Your habits'}}</h2>
 
     <button class="btn btn-primary add-task-btn" (click)="onAddTaskClick()">
-        {{ taskType === 1 ? 'Add task': 'Add habit'}}
+        {{ taskType() === 1 ? 'Add task': 'Add habit'}}
     </button>
     
     <ul class="task-list" *ngIf="tasks && tasks.length !== 0">
         <li *ngFor="let task of tasks; index as i" class="task-item"
             [ngClass]="{'divider': i !== tasks.length - 1}"
             (click) = "onTaskClicked(i)">
-            {{taskType === 1 ? task.title : task.name}}
+            {{taskType() === 1 ? task.title : task.name}}
         </li>
     </ul>    
-
-    <div *ngIf="isTaskChosen">
+    @if(isTaskChosen) {
         <app-card (onClose)="onCloseModal({})">
             <app-task-modal (onClose)="onCloseModal($event)" 
                 [task]="tasks[chosenTaskIndex]"
-                [type]="taskType">
+                [type]="taskType()">
             </app-task-modal>
         </app-card>
-    </div>
+    }
 
-    <div *ngIf="creatingTask">
+    @if(creatingTask) {
         <app-card (onClose)="onCloseAddTaskModal()">
-            <app-add-task (onClose)="onCloseAddTaskModal($event)"></app-add-task>
+            <app-add-task (onClose)="onCloseAddTaskModal($event)" [isTask]="taskType() === 1"></app-add-task>
         </app-card>
-    </div>
+    }
 
-    <div *ngIf="isDead">
+    @if(isDead) {
         <app-card (onClose)="onCloseDeadModal()">
             <h3>Oops!</h3>
             <p>You are dead! But don't worry, you just came back to life!</p>
         </app-card>
-    </div>
+    }
 </div>

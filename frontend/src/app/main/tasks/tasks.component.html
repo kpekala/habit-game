@@ -6,10 +6,10 @@
     <div class="tasks-card">
         <app-tasks-list [taskType]="2"></app-tasks-list>
     </div>
-
-    <div *ngIf="showNewLevelCard">
+    @if (showNewLevelCard) {
         <app-card (onClose)="onCloseNewLevelCard()">
             <app-new-level [level]="newlvl"></app-new-level>
         </app-card>
-    </div>
+    }
+    
 </div>
