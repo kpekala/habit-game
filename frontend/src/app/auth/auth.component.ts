@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,10 +6,13 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { AuthService } from './auth.service';
-import { AuthResponse } from './dtos/auth-response.model';
+import { AuthResponse } from './dtos/auth';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../utils/button/button.component';
 import { NgIf } from '@angular/common';
+import { finalize, Subject, takeUntil } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-auth',
@@ -22,8 +25,9 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
   isLoginView = true;
   isLoading = false;
+  errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private readonly destroyRef: DestroyRef) {}
 
   ngOnInit(): void {
     this.reloadForm();
@@ -34,6 +38,11 @@ export class AuthComponent implements OnInit {
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
+
+    this.authForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((changes => {
+        this.errorMessage = '';
+      }))
 
     if (!this.isLoginView) {
       this.authForm.addControl(
@@ -56,13 +65,20 @@ export class AuthComponent implements OnInit {
   onLoginButtonClicked() {
     const email = this.authForm.get('email').value;
     const password = this.authForm.get('password').value;
-    this.authService.signin(email, password).subscribe({
-      next: (response: AuthResponse) => {
+    this.authService.signin(email, password)
+      .pipe(finalize(() => {
         this.isLoading = false;
+      }))
+      .subscribe({
+      next: (response: AuthResponse) => {
         this.router.navigate(['./main']);
       },
-      error: (error) => {
-        this.isLoading = false;
+      error: (error: HttpErrorResponse) => {
+        if(error.status === 403) {
+          this.errorMessage = 'Bad credentials';
+        } else {
+          this.errorMessage = 'Unknown error, please try again';
+        }
       },
     });
   }

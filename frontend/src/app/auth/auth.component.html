@@ -46,6 +46,11 @@
                     <app-button [label]="isLoginView ? 'Login' : 'Sign up'" [disabled]="!authForm.valid || isLoading">
                     </app-button>
                 </div>
+                @if(errorMessage !== '') {
+                    @if (errorMessage === 'Bad credentials') {
+                        <p class="auth-card__error">{{errorMessage}}</p>
+                    }
+                }
 
                 <div class="auth-card__change-method">
                     {{isLoginView ? 'Don\'t have an account? ': 'Already have an account?'}} 

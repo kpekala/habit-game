@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
-import { AuthResponse } from 'src/app/auth/dtos/auth-response.model';
-import { PlayerItemDto, UserResponse } from './user.model';
-import { LastTasksComponent } from './last-tasks/last-tasks.component';
 import { NgFor, NgIf } from '@angular/common';
-import { takeUntil } from 'rxjs';
-import { ItemComponent } from '../shop/item/item.component';
+import { Component, OnInit } from '@angular/core';
 import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
+import { ItemComponent } from '../shop/item/item.component';
+import { LastTasksComponent } from './last-tasks/last-tasks.component';
+import { PlayerItemDto, UserResponse } from './user.model';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-player',

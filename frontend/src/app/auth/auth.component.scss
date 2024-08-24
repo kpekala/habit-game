@@ -47,6 +47,11 @@
         color: $color-white;
     }
 
+    &__error {
+        color: red;
+        margin-top: 1rem;
+    }
+
     &__change-method {
         font-size: .8rem;
         margin-top: 1rem;

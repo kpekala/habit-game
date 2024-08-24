@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { AuthResponse } from 'src/app/auth/dtos/auth-response.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { environment } from 'src/environment/environment';
 import { PlayerItemDto, UserResponse } from './user.model';
