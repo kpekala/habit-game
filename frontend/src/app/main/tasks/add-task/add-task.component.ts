@@ -38,7 +38,7 @@ export class AddTaskComponent {
     if(!this.isTask()) {
       this.taskForm.addControl('isGood', new FormControl(true, Validators.required));
     }else {
-        this.taskForm.addControl('deadline', new FormControl(formatDate(Date.now(), 'yyyy-MM-dd', 'en'), Validators.required));
+      this.taskForm.addControl('deadline', new FormControl(formatDate(Date.now(), 'yyyy-MM-dd', 'en'), Validators.required));
     }
   }
 

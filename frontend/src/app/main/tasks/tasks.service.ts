@@ -36,7 +36,7 @@ export class TasksService {
             .pipe(tap((response: FinishTaskResponse) => {
                 if(response.leveledUp)
                     this.newLevelSubject.next(response.currentLevel);
-                this.headerService.updateHeader.next();
+                this.headerService.updateHeader$.next();
             }));
     }
 
@@ -65,7 +65,7 @@ export class TasksService {
         const body = {'habitId': habitId};
         return this.http.post(environment.backendPath + 'api/habit/do', body)
             .pipe(tap(() => {
-                this.headerService.updateHeader.next();
+                this.headerService.updateHeader$.next();
             }));
     }
 }

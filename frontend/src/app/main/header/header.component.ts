@@ -21,14 +21,13 @@ export class HeaderComponent implements OnInit {
   @ViewChild('menuIcon') menuIcon: ElementRef;
   readyForClickOutside = false;
 
-  constructor(private router: Router, private route: ActivatedRoute,
-     private authService: AuthService, private headerService: HeaderService,
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private headerService: HeaderService,
       private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.reloadHeaderData();
-    this.headerService.updateHeader.subscribe({
+    this.headerService.updateHeader$.subscribe({
       next: () => {
         this.reloadHeaderData();
       }

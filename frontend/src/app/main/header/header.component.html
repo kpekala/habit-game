@@ -14,13 +14,15 @@
     <span class="nav__money">
         <img src="./assets/dollar.png" class="nav__money-img">
         <span class="nav__money-label">
-            {{user.gold ?? 0}}
+            {{user?.gold ?? 0}}
         </span>
     </span>
+    @if(showingMenu) {
+        <span class="nav__menu" #menu>
+            <ul>
+                <li (click)="onLogoutClick()">Log out</li>
+            </ul>
+        </span>
+    }
     
-    <span class="nav__menu" *ngIf="showingMenu" #menu>
-        <ul>
-            <li (click)="onLogoutClick()">Log out</li>
-        </ul>
-    </span>
 </nav>

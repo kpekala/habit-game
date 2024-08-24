@@ -5,5 +5,5 @@ import { Subject } from "rxjs";
     providedIn: 'root'
 })
 export class HeaderService {
-    updateHeader = new Subject<void>();
+    updateHeader$ = new Subject<void>();
 }

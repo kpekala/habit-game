@@ -37,7 +37,7 @@ export class ShopComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.loading = false;
-          this.headerService.updateHeader.next();
+          this.headerService.updateHeader$.next();
           this.snackbarService.success('You succesfully bought a potion!');
       },error: (errorResponse: HttpErrorResponse) => {
         this.loading = false;
