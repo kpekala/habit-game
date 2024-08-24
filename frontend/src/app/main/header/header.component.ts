@@ -1,11 +1,14 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HeaderService } from './header.service';
 import { UserService } from '../player/user.service';
 import { UserResponse } from '../player/user.model';
 import { NgIf } from '@angular/common';
+import { UserStoreService } from '../player/user.store.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HeaderStoreService } from './header.store.service';
 
 @Component({
     selector: 'app-header',
@@ -21,17 +24,23 @@ export class HeaderComponent implements OnInit {
   @ViewChild('menuIcon') menuIcon: ElementRef;
   readyForClickOutside = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private headerService: HeaderService,
-      private userService: UserService) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
+      private userService: UserService, private readonly destroyRef: DestroyRef, 
+      private readonly headerStoreService: HeaderStoreService) {
   }
 
   ngOnInit(): void {
-    this.reloadHeaderData();
-    this.headerService.updateHeader$.subscribe({
-      next: () => {
-        this.reloadHeaderData();
-      }
+    this.headerStoreService.updateHeader$
+      .pipe(
+        switchMap(() => this.userService.fetchUserInformation()),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: (user) => {
+          this.user = user;
+        }
     });
+    this.headerStoreService.update();
   }
 
   @HostListener('document:click', ['$event'])
@@ -63,13 +72,5 @@ export class HeaderComponent implements OnInit {
 
   onLogoutClick() {
     this.authService.logout();
-  }
-
-  reloadHeaderData() {
-    this.userService.fetchUserInformation().subscribe({
-      next: response => {
-        this.user = response;
-      }
-    });
   }
 }

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { environment } from 'src/environment/environment';
 import { PlayerItemDto, UserResponse } from './user.model';
+import { UserStoreService } from './user.store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +16,14 @@ export class UserService {
 
   public $updatePlayer = new Subject<void>();
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService, private readonly userStoreService: UserStoreService) {}
 
   public fetchUserInformation(): Observable<UserResponse> {
     const params = { email: this.authService.getEmail() };
-    return this.http.get<UserResponse>(this.userPath, { params: params });
+    return this.http.get<UserResponse>(this.userPath, { params: params })
+      .pipe(tap((user: UserResponse) => {
+        this.userStoreService.setUser(user);
+      }));
   }
 
   public fetchPlayerItems(): Observable<PlayerItemDto[]> {
