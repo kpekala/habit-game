@@ -4,12 +4,12 @@ services:
     image: habitgame/backend
     container_name: habitgame
     ports:
-      - '8080:8080'
+      - '20205:8080'
   frontend:
     image: habitgame/frontend
     container_name: habitgame-ui
     ports:
-      - '4200:4200'
+      - '80:4200'
     depends_on:
       - backend
   db:

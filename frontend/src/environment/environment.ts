@@ -1,3 +1,3 @@
-export const environment = { 
-    backendPath: 'http://localhost:8080/'
-}
+export const environment = {
+  backendPath: 'https://srv29.mikr.us:20205/',
+};
