@@ -4,12 +4,12 @@ services:
     image: kpekala/habitgame-backend
     container_name: habitgame
     ports:
-      - '20205:8080'
+      - '30205:8080'
   frontend:
     image: kpekala/habitgame-frontend
     container_name: habitgame-ui
     ports:
-      - '30205:4200'
+      - '20205:4200'
     depends_on:
       - backend
   db:

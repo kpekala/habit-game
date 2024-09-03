@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 
 const app = express();
-const port = 20205;
+const port = 4200;
 
 app.use(express.static(__dirname + "/dist/frontend/"));
 
