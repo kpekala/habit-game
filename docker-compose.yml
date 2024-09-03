@@ -1,12 +1,12 @@
 version: '3.9'
 services:
   backend:
-    image: habitgame/backend
+    image: kpekala/habitgame-backend
     container_name: habitgame
     ports:
       - '20205:8080'
   frontend:
-    image: habitgame/frontend
+    image: kpekala/habitgame-frontend
     container_name: habitgame-ui
     ports:
       - '80:4200'
