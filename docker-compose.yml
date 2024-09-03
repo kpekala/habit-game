@@ -9,7 +9,7 @@ services:
     image: kpekala/habitgame-frontend
     container_name: habitgame-ui
     ports:
-      - '80:4200'
+      - '30205:4200'
     depends_on:
       - backend
   db:
