@@ -1,25 +1,27 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BuyItemRequest, ItemDto } from "./item.model";
-import { environment } from "src/environment/environment";
-import { Observable } from "rxjs";
-import { AuthService } from "src/app/auth/auth.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { environment } from 'src/environments/environment';
+import { ItemDto } from './item.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ShopService {
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-    constructor(private http: HttpClient, private authService: AuthService) {}
+  fetchItems(): Observable<ItemDto[]> {
+    return this.http.get<ItemDto[]>(environment.backendPath + 'api/shop/items');
+  }
 
-    fetchItems(): Observable<ItemDto[]> {
-      return this.http.get<ItemDto[]>(environment.backendPath + 'api/shop/items');
-    }
+  buyItem(item: ItemDto): Observable<string> {
+    const buyItemRequest = {
+      email: this.authService.getEmail(),
+      itemId: item.id,
+    };
 
-    buyItem(item: ItemDto): Observable<string> {
-      const buyItemRequest = {
-        email: this.authService.getEmail(),
-        itemId: item.id
-      };
-
-      return this.http.post<any>(environment.backendPath + 'api/shop/buy', buyItemRequest);
-    }
+    return this.http.post<any>(
+      environment.backendPath + 'api/shop/buy',
+      buyItemRequest
+    );
+  }
 }

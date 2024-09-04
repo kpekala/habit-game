@@ -1,20 +1,19 @@
 version: '3.9'
 services:
   backend:
-    image: habitgame/backend
+    image: kpekala/habitgame-backend
     container_name: habitgame
     ports:
-      - '8080:8080'
+      - '30205:8080'
   frontend:
-    image: habitgame/frontend
+    image: kpekala/habitgame-frontend
     container_name: habitgame-ui
     ports:
-      - '4200:4200'
+      - '20205:4200'
     depends_on:
       - backend
   db:
-    image: mysql:5.7
-    restart: always
+    image: mariadb
     environment:
       MYSQL_DATABASE: 'root'
       MYSQL_USER: 'admin'
@@ -26,6 +25,6 @@ services:
       # Opens port 3306 on the container
       - '3306'
     volumes:
-      - my-db:/var/lib/mysql
+      - my-db:/var/lib/mysql/data
 volumes:
   my-db:
