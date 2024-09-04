@@ -13,7 +13,7 @@ services:
     depends_on:
       - backend
   db:
-    image: mariadb
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: 'root'
       MYSQL_USER: 'admin'
@@ -25,6 +25,6 @@ services:
       # Opens port 3306 on the container
       - '3306'
     volumes:
-      - my-db:/var/lib/mysql/data
+      - my-db:/var/lib/mysql
 volumes:
   my-db:
