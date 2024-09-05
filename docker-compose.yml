@@ -15,7 +15,7 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: 'root'
+      MYSQL_DATABASE: 'habits'
       MYSQL_USER: 'admin'
       MYSQL_PASSWORD: 'admin'
       MYSQL_ROOT_PASSWORD: 'admin'
