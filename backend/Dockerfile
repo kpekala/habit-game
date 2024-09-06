@@ -1,4 +1,4 @@
-FROM amazoncorretto:17-alpine
+FROM ubuntu/jre:17-22.04_edge
 RUN addgroup -S spring && adduser -S spring -G spring
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.6 \
