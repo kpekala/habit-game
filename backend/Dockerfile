@@ -2,7 +2,9 @@ FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 RUN apk update
 RUN apk add --no-cache python3 py3-pip pipx pkgconfig
-RUN pipx install mysql
+RUN export MYSQLCLIENT_LDFLAGS=$(pkg-config --libs mysqlclient)
+RUN export MYSQLCLIENT_CFLAGS=$(pkg-config --cflags mysqlclient)
+RUN pip install mysqlclient
 USER spring:spring
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
