@@ -2,7 +2,8 @@ FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 RUN apk update
 RUN apk add --no-cache python3 py3-pip pipx pkgconfig
-RUN pipx install pkgconfig mysql
+RUN pip3 install pkgconfig
+RUN pipx install mysql
 USER spring:spring
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
