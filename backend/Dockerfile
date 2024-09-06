@@ -4,7 +4,7 @@ RUN apk add --no-cache python3 py3-pip pipx pkgconfig
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add --no-cache mariadb-dev
-RUN pip install mysql --break-system-packages
+RUN pip install mysql-connector --break-system-packages
 USER spring:spring
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
