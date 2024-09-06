@@ -1,11 +1,8 @@
-FROM ubuntu/jre:17-22.04_edge
+FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3.6 \
-    python3-pip \
-    && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip3 install mysql
 USER spring:spring
 ARG JAR_FILE=build/libs/*.jar
