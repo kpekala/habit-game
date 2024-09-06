@@ -1,7 +1,7 @@
 FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 RUN apk update
-RUN apk add --no-cache python3 py3-pip pipx pkgconfig
+RUN apk add --no-cache python3 py3-pip pipx pkgconfig python3-devel mysql-devel
 RUN export MYSQLCLIENT_CFLAGS=`pkg-config mysqlclient --cflags`
 RUN export MYSQLCLIENT_LDFLAGS=`pkg-config mysqlclient --libs`
 RUN pip install mysqlclient --break-system-packages
