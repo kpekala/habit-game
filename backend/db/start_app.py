@@ -1,7 +1,8 @@
 import mysql.connector
 import subprocess
-
+import time
 def init_db():
+    time.sleep(10)
     db = mysql.connector.connect(host="db", user="root", password="admin", port="3306")
 
     cursor = db.cursor()
