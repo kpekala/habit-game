@@ -8,7 +8,6 @@ app.use(express.static(__dirname + "/dist/frontend/"));
 
 app.get("/*", (req, res) => {
   res.sendFile(__dirname + "/dist/frontend/index.html");
-  console.log(__dirname + "/dist/frontend/index.html");
 });
 
 http.createServer(app).listen(port, () => {
