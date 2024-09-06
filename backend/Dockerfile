@@ -1,6 +1,6 @@
 FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
-RUN apk add --no-cache python3 py3-pip pipx pkgconfig python3-devel mysql-devel
+RUN apk add --no-cache python3 py3-pip pipx pkgconfig
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add --no-cache mariadb-dev
