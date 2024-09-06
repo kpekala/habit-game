@@ -1,7 +1,6 @@
 FROM amazoncorretto:17-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 RUN apk add --no-cache python3 py3-pip
-RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip3 install mysql
 USER spring:spring
 ARG JAR_FILE=build/libs/*.jar
