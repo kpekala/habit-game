@@ -3,7 +3,7 @@ RUN addgroup -S spring && adduser -S spring -G spring
 RUN apk update
 RUN apk add --no-cache python3 py3-pip pipx pkgconfig
 RUN export PKG_CONFIG_PATH="/usr/local/opt/mysql-client/lib/pkgconfig"
-RUN pip install mysqlclient --break-system-packages
+# RUN pip install mysqlclient --break-system-packages
 USER spring:spring
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
