@@ -5,6 +5,8 @@ services:
     container_name: habitgame
     ports:
       - '30205:8080'
+    depends_on:
+      - db
   frontend:
     image: kpekala/habitgame-frontend
     container_name: habitgame-ui
