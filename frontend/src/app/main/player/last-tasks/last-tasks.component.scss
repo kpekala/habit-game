@@ -1,17 +1,17 @@
 .last-tasks {
-    overflow: auto;
-    overflow-x: hidden;
-    height: 100%;
-    &__header {
-        font-weight: 500;
-    }
+  overflow: auto;
+  overflow-x: hidden;
+  height: 100%;
+  &__header {
+    font-weight: 500;
+  }
 
-    &__list {
-        list-style: none;
-        padding-left: 1rem;
-    }
+  &__list {
+    list-style: none;
+    padding-left: 0.2rem;
+  }
 
-    &__item {
-        padding-bottom: .5rem;
-    }
+  &__item {
+    padding-bottom: 0.5rem;
+  }
 }
