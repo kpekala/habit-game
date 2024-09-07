@@ -1,3 +1,3 @@
 export const environment = {
-  backendPath: 'http://srv29.mikr.us:30205/',
+  backendPath: 'https://habitbackend.bieda.it/',
 };
