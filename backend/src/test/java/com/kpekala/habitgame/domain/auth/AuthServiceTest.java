@@ -52,7 +52,6 @@ public class AuthServiceTest {
         when(userRepository.existsByEmailAddress(anyString())).thenReturn(false);
         when(roleRepository.findByName("user")).thenReturn(Optional.of(new Role("user")));
         when(passwordEncoder.encode(anyString())).thenReturn("123456");
-        when(authenticationManager.authenticate(any())).thenReturn(null);
 
         authService.signup(signupRequest);
 
