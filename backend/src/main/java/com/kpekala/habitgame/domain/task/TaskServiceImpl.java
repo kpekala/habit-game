@@ -58,6 +58,15 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     @Transactional
+    public List<TaskDto> getCompletedTasks(String userEmail) {
+        var user = userRepository.findByEmailAddress(userEmail).orElseThrow(UserNotFoundException::new);
+
+        return user.getTasks().stream()
+                .map(this::mapTask).toList();
+    }
+
+    @Override
+    @Transactional
     public FinishTaskResponse finishTask(int id) {
         var task = taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 

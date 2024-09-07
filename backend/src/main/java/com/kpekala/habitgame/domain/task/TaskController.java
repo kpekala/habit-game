@@ -31,4 +31,12 @@ public class TaskController {
     public FinishTaskResponse finishTask(@RequestBody FinishTaskRequest request) {
         return taskService.finishTask(request.getTaskId());
     }
+
+    @GetMapping("completed")
+    public TasksResponse getCompletedTasks(@RequestParam String email) {
+        var tasks = taskService.getUserTasks(email);
+        var tasksResponse = new TasksResponse();
+        tasksResponse.setTasks(tasks);
+        return tasksResponse;
+    }
 }
