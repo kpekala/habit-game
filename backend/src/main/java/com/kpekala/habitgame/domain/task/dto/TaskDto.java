@@ -18,4 +18,6 @@ public class TaskDto {
     private Date deadline;
 
     private int id;
+
+    private boolean completed;
 }

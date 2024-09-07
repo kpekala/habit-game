@@ -33,6 +33,8 @@ public class Task {
 
     private Date deadline;
 
+    private boolean completed;
+
     public enum Difficulty {
         EASY, MEDIUM, HARD
     }

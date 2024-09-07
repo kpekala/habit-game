@@ -34,7 +34,7 @@ public class TaskController {
 
     @GetMapping("completed")
     public TasksResponse getCompletedTasks(@RequestParam String email) {
-        var tasks = taskService.getUserTasks(email);
+        var tasks = taskService.getCompletedTasks(email);
         var tasksResponse = new TasksResponse();
         tasksResponse.setTasks(tasks);
         return tasksResponse;

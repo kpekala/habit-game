@@ -1,8 +1,6 @@
 package com.kpekala.habitgame.domain.task;
 
 import com.kpekala.habitgame.domain.common.ExperienceAdder;
-import com.kpekala.habitgame.domain.player.PlayerRepository;
-import com.kpekala.habitgame.domain.player.PlayerService;
 import com.kpekala.habitgame.domain.task.dto.AddTaskRequest;
 import com.kpekala.habitgame.domain.task.dto.Difficulty;
 import com.kpekala.habitgame.domain.task.dto.FinishTaskResponse;
@@ -23,9 +21,6 @@ public class TaskServiceImpl implements TaskService{
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
-    private final PlayerRepository playerRepository;
-
-    private final PlayerService playerService;
 
     private final ExperienceAdder experienceAdder;
 
@@ -53,7 +48,7 @@ public class TaskServiceImpl implements TaskService{
     public List<TaskDto> getUserTasks(String userEmail) {
         var user = userRepository.findByEmailAddress(userEmail).orElseThrow(UserNotFoundException::new);
 
-        return user.getTasks().stream().map(this::mapTask).toList();
+        return user.getTasks().stream().filter(task -> !task.isCompleted()).map(this::mapTask).toList();
     }
 
     @Override
@@ -62,6 +57,7 @@ public class TaskServiceImpl implements TaskService{
         var user = userRepository.findByEmailAddress(userEmail).orElseThrow(UserNotFoundException::new);
 
         return user.getTasks().stream()
+                .filter(Task::isCompleted)
                 .map(this::mapTask).toList();
     }
 
@@ -75,8 +71,7 @@ public class TaskServiceImpl implements TaskService{
 
         boolean leveledUp = experienceAdder.addExperienceToPlayer(task, player);
 
-        taskRepository.deleteById(id);
-        playerRepository.save(player);
+        task.setCompleted(true);
 
         return new FinishTaskResponse(leveledUp, player.getLvl());
     }
@@ -96,6 +91,7 @@ public class TaskServiceImpl implements TaskService{
                 .difficulty(mapDifficulty(task.getDifficulty()))
                 .deadline(task.getDeadline())
                 .id(task.getId())
+                .completed(task.isCompleted())
                 .build();
     }
 

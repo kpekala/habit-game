@@ -31,6 +31,13 @@ export class TasksService {
       );
   }
 
+  fetchCompletedTasks() {
+    const params = { email: this.authService.getEmail() };
+    return this.http.get<any>(environment.backendPath + 'api/task/completed', {
+      params: params,
+    });
+  }
+
   finishTask(taskId: number) {
     const body = { taskId: taskId };
 
