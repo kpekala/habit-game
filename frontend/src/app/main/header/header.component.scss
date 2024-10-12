@@ -1,4 +1,4 @@
-@import "./../../../styles.scss";
+@import './../../../styles.scss';
 
 .nav {
     background-color: $color-primary;
@@ -16,9 +16,9 @@
     }
 
     &__item {
-        display: inline-block;  
-        padding-left: 1rem;      
-        padding-right: 1rem;      
+        display: inline-block;
+        padding-left: 1rem;
+        padding-right: 1rem;
         cursor: pointer;
         height: 100%;
         vertical-align: middle;
@@ -33,7 +33,7 @@
         }
     }
 
-    &__logo { 
+    &__logo {
         margin-right: 1rem;
         margin-left: 1rem;
         font-size: 1.4rem;
@@ -49,7 +49,7 @@
         position: absolute;
         right: 1rem;
         top: 3.5rem;
-        border-radius: .5rem;
+        border-radius: 0.5rem;
         color: $color-text;
         box-shadow: 4px 4px 24px 0px rgba(0, 0, 0, 0.15);
         background-color: $color-white;
@@ -62,21 +62,24 @@
                 cursor: pointer;
                 padding-right: 1rem;
                 padding-left: 1rem;
-                padding-top: .5rem;
-                padding-bottom: .5rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
                 &:hover {
-                    background-color: rgba(black, .15);
+                    background-color: rgba(black, 0.15);
                 }
             }
         }
-        border: 1px solid rgba($color: black, $alpha: .3);
-
+        border: 1px solid rgba($color: black, $alpha: 0.3);
     }
 
     &__money {
         position: absolute;
         right: 4rem;
         display: inline-block;
+
+        @media (max-width: 768px) {
+            display: none;
+        }
     }
 
     &__money-img {
@@ -87,7 +90,7 @@
         color: gold;
         font-weight: bold;
         display: inline-block;
-        margin-left: .3rem;
+        margin-left: 0.3rem;
         transform: translateY(-5px);
     }
 }
