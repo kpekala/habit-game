@@ -3,4 +3,7 @@
     padding: 1rem;
     gap: 1rem;
     flex-wrap: wrap;
+    @media (max-width: 425px) {
+        justify-content: center;
+    }
 }

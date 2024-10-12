@@ -1,106 +1,119 @@
-@import "./../../../styles.scss";
+@import './../../../styles.scss';
 
 .player-container {
-  background-color: $color-grey-light;
-  padding: 1rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  .player-info-row {
+    background-color: $color-grey-light;
+    padding: 1rem;
+    height: 100%;
     display: flex;
-    gap: 1rem;
-  }
+    flex-direction: column;
+    .player-info-row {
+        display: flex;
+        gap: 1rem;
+    }
 }
 
 .player {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  width: 40rem;
-  height: 16rem;
-
-  @include card;
-
-  &__image-container {
-    padding: 1rem;
-    flex-grow: 0.1;
-  }
-
-  &__info {
-    flex-grow: 4;
-    padding: 1rem;
-  }
-
-  &__image {
-    width: 12rem;
-    height: 12rem;
-    border-radius: 15rem;
-    border: 6px solid $color-primary;
-    cursor: pointer;
-  }
-
-  &__level {
-    background-color: $color-accent;
-    border-radius: 50%;
-    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
-    position: absolute;
-    left: 9.5rem;
-    bottom: 3.3rem;
-    color: $color-white;
-  }
-
-  .info-label {
-    font-size: 1.2rem;
-    padding-bottom: 1rem;
-    padding-left: 0.5rem;
-    width: 100%;
-    text-align: left;
+    display: flex;
+    justify-content: center;
     position: relative;
-    &__icon {
-      top: -1rem;
-      left: -1.5rem;
-      position: absolute;
-      margin-top: 1rem;
-    }
-  }
+    width: 40rem;
+    height: 16rem;
 
-  .info-name {
-    font-size: 2rem;
-  }
+    @media (max-width: 768px) {
+        width: auto;
+    }
+
+    @include card;
+
+    &__image-container {
+        padding: 1rem;
+        flex-grow: 0.1;
+    }
+
+    &__info {
+        flex-grow: 4;
+        padding: 1rem;
+    }
+
+    &__image {
+        width: 12rem;
+        height: 12rem;
+        border-radius: 15rem;
+        border: 6px solid $color-primary;
+        cursor: pointer;
+    }
+
+    &__level {
+        background-color: $color-accent;
+        border-radius: 50%;
+        padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+        position: absolute;
+        left: 9.5rem;
+        bottom: 3.3rem;
+        color: $color-white;
+    }
+
+    .info-label {
+        font-size: 1.2rem;
+        padding-bottom: 1rem;
+        padding-left: 0.5rem;
+        width: 100%;
+        text-align: left;
+        position: relative;
+        &__icon {
+            top: -1rem;
+            left: -1.5rem;
+            position: absolute;
+            margin-top: 1rem;
+        }
+    }
+
+    .info-name {
+        font-size: 2rem;
+    }
 }
 
 .last-tasks {
-  @include card;
-  display: inline-block;
-  width: 100%;
-  height: 16rem;
-  padding: 1rem;
-  padding-top: 0;
-  padding-bottom: 0;
-  flex-grow: 1;
-  min-width: 24rem;
+    @include card;
+    display: inline-block;
+    width: 100%;
+    height: 16rem;
+    padding: 1rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-grow: 1;
+    min-width: 24rem;
 
-  &__header {
-    font-weight: 500;
-    margin: 0;
-  }
+    &__header {
+        font-weight: 500;
+        margin: 0;
+    }
+}
+
+.player-info-row {
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 }
 
 .eq {
-  @include card;
-  margin-top: 1rem;
-  flex-grow: 1;
-  padding: 1rem;
+    @include card;
+    margin-top: 1rem;
+    flex-grow: 1;
+    padding: 1rem;
 
-  &__header {
-    font-weight: 500;
-    margin: 0;
-  }
+    &__header {
+        font-weight: 500;
+        margin: 0;
+    }
 
-  &__items {
-    padding-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
+    &__items {
+        padding-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        @media (max-width: 768px) {
+            justify-content: center;
+        }
+    }
 }
