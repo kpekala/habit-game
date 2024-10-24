@@ -58,6 +58,21 @@
             </div>
         </div>
     }
+    @if(isTask()) {
+        <div class="task-card__input-container">
+            <div>
+                <label class="task-card__form-label">{{taskLabel()}} location</label>
+            </div>
+            <div>
+                <input
+                    class="task-card__form-control"
+                    formControlName="location" style="width: calc(100% - 32px);">
+                <span class="material-symbols-outlined task-card__btn-location" >
+                    my_location
+                </span>
+            </div>
+        </div>
+    }
     <div class="task-card__text-warning" *ngIf="taskForm.invalid && taskForm.touched">
         Please fill out the form :)
     </div>

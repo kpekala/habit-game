@@ -37,6 +37,7 @@ export class AddTaskComponent {
     });
     if(!this.isTask()) {
       this.taskForm.addControl('isGood', new FormControl(true, Validators.required));
+      this.taskForm.addControl('location', '');
     }else {
       this.taskForm.addControl('deadline', new FormControl(formatDate(Date.now(), 'yyyy-MM-dd', 'en'), Validators.required));
     }
@@ -52,6 +53,7 @@ export class AddTaskComponent {
       title: this.taskForm.value['title'],
       description: this.taskForm.value['description'],
       difficulty: this.taskForm.value['difficulty'],
+      location: this.taskForm.value['location']
     }
     if(this.isTask()) {
       body = {...body, deadline: this.taskForm.value['deadline']};
