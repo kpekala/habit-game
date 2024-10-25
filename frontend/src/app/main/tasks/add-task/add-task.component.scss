@@ -1,6 +1,12 @@
 @import './../tasks.component.scss';
 
 .task-card {
+    width: 26rem;
+
+    @media (max-width: 768px) {
+        width: 20rem;
+    }
+
     &__input-container {
         margin-bottom: 1rem;
         position: relative;
@@ -13,6 +19,11 @@
         border-radius: 6px;
         border: 1px solid $color-grey;
         font-size: 1.2rem;
+        width: 100%;
+
+        &--short {
+            width: 10rem;
+        }
     }
 
     &__text-warning {

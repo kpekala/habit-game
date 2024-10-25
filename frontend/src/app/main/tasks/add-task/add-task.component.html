@@ -1,88 +1,92 @@
-<form [formGroup]="taskForm" (ngSubmit)="onAddTask()">
-    <div class="task-card__input-container">
-        <div>
-            <label class="task-card__form-label">{{taskLabel()}} title</label>
-        </div>
-        <div class="input-container">
-            <input type="text"
-            class="task-card__form-control"
-            formControlName="title"
-            placeholder="Task title"/>
-        </div>
-    </div>
-    <div class="task-card__input-container">
-        <div>
-            <label class="task-card__form-label">{{taskLabel()}} description</label>
-        </div>
-        <div class="input-container">
-            <input type="text"
-            class="task-card__form-control"
-            formControlName="description"
-            placeholder="Task description"/>
-        </div>
-    </div>
-    <div class="task-card__input-container">
-        <div>
-            <label class="task-card__form-label">{{taskLabel()}} difficulty</label>
-        </div>
-        <div class="input-container">
-            <select type="text"
-                class="task-card__form-control"
-                formControlName="difficulty">
-                <option *ngFor="let option of DIFFICULTY_OPTIONS"
-                    [ngValue]="option">
-                    {{option}}
-                </option>
-            </select>
-        </div>
-    </div>
-    @if(isTask()) {
+<div class="task-card">
+    <form [formGroup]="taskForm" (ngSubmit)="onAddTask()">
         <div class="task-card__input-container">
             <div>
-                <label class="task-card__form-label">{{taskLabel()}} deadline</label>
+                <label class="task-card__form-label">{{taskLabel()}} title</label>
             </div>
             <div class="input-container">
-                <input type="date"
-                    class="task-card__form-control"
-                    formControlName="deadline"/>
+                <input type="text"
+                class="task-card__form-control"
+                formControlName="title"
+                placeholder="Task title"/>
             </div>
         </div>
-    }
-    @if(!isTask()) {
-        <div class="task-card__input-container">
-            <div style="display: flex; align-items: center;">
-                <label class="task-card__form-label">Is this {{taskLabel()}} good?</label>
-                <input type="checkbox"
-                    class="task-card__form-control"
-                    formControlName="isGood"/>
-            </div>
-        </div>
-    }
-    @if(isTask()) {
         <div class="task-card__input-container">
             <div>
-                <label class="task-card__form-label">{{taskLabel()}} location</label>
+                <label class="task-card__form-label">{{taskLabel()}} description</label>
             </div>
-            <div>
-                <input
-                    class="task-card__form-control"
-                    formControlName="location" style="width: calc(100% - 32px);">
-                <span class="material-symbols-outlined task-card__btn-location" >
-                    my_location
-                </span>
+            <div class="input-container">
+                <input type="text"
+                class="task-card__form-control"
+                formControlName="description"
+                placeholder="Task description"/>
             </div>
         </div>
-    }
-    <div class="task-card__text-warning" *ngIf="taskForm.invalid && taskForm.touched">
-        Please fill out the form :)
-    </div>
-    <button type="submit" class="btn btn-primary btn-create-task"
-        [disabled]="!taskForm.valid">
-        Create task
-    </button>
-    <span class="loading-container">
-        <app-loading-circle *ngIf="isLoading" classes="lds-ring-small">
-        </app-loading-circle>
-    </span>
-    
-</form>
+        <div class="task-card__input-container">
+            <div>
+                <label class="task-card__form-label">{{taskLabel()}} difficulty</label>
+            </div>
+            <div class="input-container">
+                <select type="text"
+                    class="task-card__form-control task-card__form-control--short"
+                    formControlName="difficulty">
+                    <option *ngFor="let option of DIFFICULTY_OPTIONS"
+                        [ngValue]="option">
+                        {{option}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        @if(isTask()) {
+            <div class="task-card__input-container">
+                <div>
+                    <label class="task-card__form-label" >
+                        {{taskLabel()}} deadline
+                    </label>
+                </div>
+                <div class="input-container">
+                    <input type="date"
+                        class="task-card__form-control  task-card__form-control--short"
+                        formControlName="deadline"/>
+                </div>
+            </div>
+        }
+        @if(!isTask()) {
+            <div class="task-card__input-container">
+                <div style="display: flex; align-items: center;">
+                    <label class="task-card__form-label">Is this {{taskLabel()}} good?</label>
+                    <input type="checkbox"
+                        class="task-card__form-control"
+                        formControlName="isGood"/>
+                </div>
+            </div>
+        }
+        @if(isTask()) {
+            <div class="task-card__input-container">
+                <div>
+                    <label class="task-card__form-label">{{taskLabel()}} location</label>
+                </div>
+                <div>
+                    <input
+                        class="task-card__form-control"
+                        formControlName="location" style="width: calc(100% - 32px);">
+                    <span class="material-symbols-outlined task-card__btn-location" >
+                        my_location
+                    </span>
+                </div>
+            </div>
+        }
+        <div class="task-card__text-warning" *ngIf="taskForm.invalid && taskForm.touched">
+            Please fill out the form :)
+        </div>
+        <button type="submit" class="btn btn-primary btn-create-task"
+            [disabled]="!taskForm.valid">
+            Create task
+        </button>
+        <span class="loading-container">
+            <app-loading-circle *ngIf="isLoading" classes="lds-ring-small">
+            </app-loading-circle>
+        </span>
+        
+    </form>
+</div>

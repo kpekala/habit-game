@@ -60,8 +60,6 @@ public class DataInitializer implements CommandLineRunner {
         return roleRepository.findByName("user").isPresent();
     }
 
-
-
     private void setUpRoles() {
         Role userRole = new Role("user");
         Role adminRole = new Role("admin");
