@@ -6,6 +6,7 @@ import { LoadingCircleComponent } from '../../../utils/ui/loading-circle/loading
 import { SnackbarService } from 'src/app/utils/ui/snackbar/snackbar.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
+import { GeolocationService } from 'src/app/utils/data/geolocation.service';
 
 @Component({
     selector: 'app-add-task',
@@ -26,7 +27,7 @@ export class AddTaskComponent {
   @Output() onClose = new EventEmitter<boolean>();
 
   constructor(private readonly tasksService: TasksService, private readonly snackbarService: SnackbarService, 
-    private readonly destroyRef: DestroyRef
+    private readonly destroyRef: DestroyRef, private readonly geolocationService: GeolocationService
   ) {}
 
   ngOnInit(): void {
@@ -37,8 +38,8 @@ export class AddTaskComponent {
     });
     if(!this.isTask()) {
       this.taskForm.addControl('isGood', new FormControl(true, Validators.required));
-      this.taskForm.addControl('location', '');
     }else {
+      this.taskForm.addControl('location', new FormControl(''));
       this.taskForm.addControl('deadline', new FormControl(formatDate(Date.now(), 'yyyy-MM-dd', 'en'), Validators.required));
     }
   }
@@ -94,6 +95,14 @@ export class AddTaskComponent {
   }
 
   public onClickGeolocation() {
-    
+    this.geolocationService.getGeolocation()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (position: GeolocationPosition) => {
+          this.taskForm.controls['location'].setValue(`${position.coords.latitude} ${position.coords.longitude}`);
+        },
+        error: (error: Error) => {
+        }
+      });
   }
  }
