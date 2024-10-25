@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
+import { SnackbarService } from 'src/app/utils/ui/snackbar/snackbar.service';
 import { UserService } from '../player/user.service';
 import { ItemDto } from './item.model';
 import { ItemComponent } from './item/item.component';

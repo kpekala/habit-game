@@ -3,7 +3,7 @@ import { TasksService } from '../tasks.service';
 import { Task, TaskType } from '../task.model';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
-import { CardComponent } from '../../../utils/card/card.component';
+import { CardComponent } from '../../../utils/ui/card/card.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

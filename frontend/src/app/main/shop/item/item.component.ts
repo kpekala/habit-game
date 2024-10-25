@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ButtonComponent } from 'src/app/utils/button/button.component';
+import { ButtonComponent } from 'src/app/utils/ui/button/button.component';
 import { PlayerItemDto } from '../../player/user.model';
 import { ItemDto } from '../item.model';
 

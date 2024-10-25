@@ -8,7 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { AuthResponse } from './dtos/auth';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '../utils/button/button.component';
+import { ButtonComponent } from '../utils/ui/button/button.component';
 import { NgIf } from '@angular/common';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';

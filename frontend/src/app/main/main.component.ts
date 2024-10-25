@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
-import { SnackbarComponent } from '../utils/snackbar/snackbar.component';
+import { SnackbarComponent } from '../utils/ui/snackbar/snackbar.component';
 
 @Component({
     selector: 'app-main',

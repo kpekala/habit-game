@@ -2,8 +2,8 @@ import { formatDate, NgFor, NgIf } from '@angular/common';
 import { Component, DestroyRef, ElementRef, EventEmitter, HostListener, input, Output, signal, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TasksService } from '../tasks.service';
-import { LoadingCircleComponent } from '../../../utils/loading-circle/loading-circle.component';
-import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
+import { LoadingCircleComponent } from '../../../utils/ui/loading-circle/loading-circle.component';
+import { SnackbarService } from 'src/app/utils/ui/snackbar/snackbar.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
 
@@ -91,5 +91,9 @@ export class AddTaskComponent {
 
   public taskLabel() {
     return this.isTask() ? 'Task' : 'Habit';
+  }
+
+  public onClickGeolocation() {
+    
   }
  }

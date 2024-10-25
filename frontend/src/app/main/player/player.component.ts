@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
-import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
+import { SnackbarService } from 'src/app/utils/ui/snackbar/snackbar.service';
 import { ItemComponent } from '../shop/item/item.component';
 import { LastTasksComponent } from './last-tasks/last-tasks.component';
 import { PlayerItemDto, UserResponse } from './user.model';

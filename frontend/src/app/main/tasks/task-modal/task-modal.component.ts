@@ -2,9 +2,9 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, On
 import { FinishTaskResponse, Task, TaskType, TasksResponse } from '../task.model';
 import { TasksService } from '../tasks.service';
 import { DoHabitResponse, HabitDto } from '../habit.model';
-import { LoadingCircleComponent } from '../../../utils/loading-circle/loading-circle.component';
+import { LoadingCircleComponent } from '../../../utils/ui/loading-circle/loading-circle.component';
 import { NgIf } from '@angular/common';
-import { SnackbarService } from 'src/app/utils/snackbar/snackbar.service';
+import { SnackbarService } from 'src/app/utils/ui/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-task-modal',
