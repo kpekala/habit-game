@@ -15,4 +15,5 @@ public class AddTaskRequest {
     private Difficulty difficulty;
     private Date deadline;
     private String email;
+    private Location location;
 }

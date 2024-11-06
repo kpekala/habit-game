@@ -1,10 +1,7 @@
 package com.kpekala.habitgame.domain.task;
 
 import com.kpekala.habitgame.domain.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -32,6 +29,9 @@ public class Task {
     private Difficulty difficulty;
 
     private Date deadline;
+
+    @OneToOne
+    private Geolocation location;
 
     private boolean completed;
 

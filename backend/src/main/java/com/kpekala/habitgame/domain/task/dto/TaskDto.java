@@ -20,4 +20,6 @@ public class TaskDto {
     private int id;
 
     private boolean completed;
+
+    private Location location;
 }

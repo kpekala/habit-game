@@ -1,10 +1,7 @@
 package com.kpekala.habitgame.domain.task;
 
 import com.kpekala.habitgame.domain.common.ExperienceAdder;
-import com.kpekala.habitgame.domain.task.dto.AddTaskRequest;
-import com.kpekala.habitgame.domain.task.dto.Difficulty;
-import com.kpekala.habitgame.domain.task.dto.FinishTaskResponse;
-import com.kpekala.habitgame.domain.task.dto.TaskDto;
+import com.kpekala.habitgame.domain.task.dto.*;
 import com.kpekala.habitgame.domain.user.UserRepository;
 import com.kpekala.habitgame.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +29,7 @@ public class TaskServiceImpl implements TaskService{
                 .description(request.getDescription())
                 .deadline(request.getDeadline())
                 .difficulty(mapDifficulty(request.getDifficulty()))
+                .location(mapToGeolocation(request.getLocation()))
                 .build();
 
         var user = userRepository.findByEmailAddress(request.getEmail()).orElseThrow(UserNotFoundException::new);
@@ -92,6 +90,7 @@ public class TaskServiceImpl implements TaskService{
                 .deadline(task.getDeadline())
                 .id(task.getId())
                 .completed(task.isCompleted())
+                .location(mapToLocation(task.getLocation()))
                 .build();
     }
 
@@ -109,5 +108,17 @@ public class TaskServiceImpl implements TaskService{
             case MEDIUM -> MEDIUM;
             case HARD -> HARD;
         };
+    }
+
+    private Geolocation mapToGeolocation(Location location) {
+        var loc = new Geolocation();
+        loc.setLatitude(location.getLatitude());
+        loc.setLongitude(location.getLongitude());
+        loc.setPlace(location.getPlace());
+        return loc;
+    }
+
+    private Location mapToLocation(Geolocation geolocation) {
+        return new Location(geolocation.getLatitude(), geolocation.getLongitude(), geolocation.getPlace());
     }
 }
