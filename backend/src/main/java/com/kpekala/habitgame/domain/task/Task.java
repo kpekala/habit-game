@@ -30,7 +30,7 @@ public class Task {
 
     private Date deadline;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Geolocation location;
 
     private boolean completed;

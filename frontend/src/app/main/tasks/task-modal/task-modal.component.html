@@ -1,25 +1,38 @@
 <div class="task-container">
-    <h2 class="task-card__header">{{isHabit() ? 'Habit': 'Task'}} details of <b>{{isHabit() ? task.name: task.title}}</b></h2>
-    <span class="material-symbols-outlined task-card__close-icon"
-            (click)="onCloseClick()">
+    <h2 class="task-card__header">
+        {{ isHabit() ? 'Habit' : 'Task' }} details of
+        <b>{{ isHabit() ? task.name : task.title }}</b>
+    </h2>
+    <span
+        class="material-symbols-outlined task-card__close-icon"
+        (click)="onCloseClick()"
+    >
         close
     </span>
     <div class="task-card__field-container">
-        <b>Description: </b>{{task.description}}
+        <b>Description: </b>{{ task.description }}
     </div>
     <div class="task-card__field-container">
-        <b>Difficulty: </b>{{task.difficulty}}
+        <b>Difficulty: </b>{{ task.difficulty }}
     </div>
     <div *ngIf="!isHabit()" class="task-card__field-container">
-        <b>Deadline: </b>{{task.deadline.toLocaleDateString()}} {{task.deadline.toLocaleTimeString()}}
+        <b>Deadline: </b>{{ task.deadline.toLocaleDateString() }}
+        {{ task.deadline.toLocaleTimeString() }}
     </div>
     <div *ngIf="isHabit()" class="task-card__field-container">
-        <b>Is good: </b>{{task.good === true ? 'YES': 'NO'}}
+        <b>Is good: </b>{{ task.good === true ? 'YES' : 'NO' }}
     </div>
-    
+    <div class="task-card__field-container">
+        <b>Location: </b>{{ task.location.latitude }}
+        {{ task.location.longitude }}
+    </div>
+
     <div class="task-card__btn-finish-container">
-        <button class="btn btn-primary task-card__btn-finish" (click)="onFinishClick()">
-            {{isHabit() ? 'Do habit': 'Finish'}}
+        <button
+            class="btn btn-primary task-card__btn-finish"
+            (click)="onFinishClick()"
+        >
+            {{ isHabit() ? 'Do habit' : 'Finish' }}
         </button>
         <span class="circle-container" *ngIf="isLoading">
             <app-loading-circle classes="lds-ring-small"></app-loading-circle>

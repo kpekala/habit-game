@@ -1,4 +1,4 @@
-@import "./../tasks.component.scss";
+@import './../tasks.component.scss';
 
 .task-container {
     position: relative;
@@ -6,7 +6,6 @@
 }
 
 .task-card {
-
     &__header {
         font-weight: 500;
         margin-right: 1rem;
@@ -18,13 +17,9 @@
 
     &__close-icon {
         position: absolute;
-        right: -.5rem;
+        right: -0.5rem;
         top: -1.5rem;
         cursor: pointer;
-    }
-
-    &__btn-finish-container {
-        position: absolute;
     }
     &__btn-finish {
         cursor: pointer;

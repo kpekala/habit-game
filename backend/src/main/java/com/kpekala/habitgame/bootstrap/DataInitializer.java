@@ -8,6 +8,7 @@ import com.kpekala.habitgame.domain.role.Role;
 import com.kpekala.habitgame.domain.role.RoleRepository;
 import com.kpekala.habitgame.domain.shop.Item;
 import com.kpekala.habitgame.domain.shop.ItemRepository;
+import com.kpekala.habitgame.domain.task.Geolocation;
 import com.kpekala.habitgame.domain.task.Task;
 import com.kpekala.habitgame.domain.task.TaskRepository;
 import com.kpekala.habitgame.domain.user.User;
@@ -85,16 +86,19 @@ public class DataInitializer implements CommandLineRunner {
                         .title("First task!")
                         .description("Lorem ipsum")
                         .difficulty(Task.Difficulty.MEDIUM)
+                        .location(new Geolocation(null, 52.237049f, 21.017532f, "Warsaw"))
                         .deadline(new Date()).build(),
                 Task.builder()
                         .title("Do 20 push-ups")
                         .description("Just do it")
                         .difficulty(Task.Difficulty.HARD)
+                        .location(new Geolocation(null, 52.237049f, 21.017532f, "Warsaw"))
                         .deadline(new Date()).build(),
                 Task.builder()
                         .title("Do 50 push-ups")
                         .description("its going to be hard asf")
                         .difficulty(Task.Difficulty.HARD)
+                        .location(new Geolocation(null, 52.237049f, 21.017532f, "Warsaw"))
                         .deadline(new Date()).build());
 
 
