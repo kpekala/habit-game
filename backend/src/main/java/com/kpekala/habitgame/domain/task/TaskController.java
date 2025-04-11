@@ -63,7 +63,7 @@ public class TaskController {
 
             Files.write(filePath, file.getBytes());
 
-            return ResponseEntity.ok("Photo uploaded successfully with ID: " + photoId);
+            return ResponseEntity.ok().build();
         } catch (IOException e) {
             return ResponseEntity.status(500).body("Upload failed: " + e.getMessage());
         }

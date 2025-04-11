@@ -93,7 +93,7 @@ export class AddTaskComponent {
                 ...body,
                 deadline: this.taskForm.value['deadline'],
                 photoId: `${this.photoId}.${
-                    this.selectedFile.name.split('.')[1]
+                    this.selectedFile?.name.split('.')[1] ?? ''
                 }`,
             }
             this.tasksService
@@ -110,16 +110,17 @@ export class AddTaskComponent {
                     takeUntilDestroyed(this.destroyRef),
                     finalize(() => {
                         this.isLoading = false
+                        this.onClose.emit(true)
                     })
                 )
                 .subscribe({
                     next: () => {
-                        this.onClose.emit(true)
                         this.snackbarService.success(
                             'Succesfully created task!'
                         )
                     },
                     error: (errorResponse) => {
+                        console.log(errorResponse)
                         this.snackbarService.error('Cannot create task')
                     },
                 })
