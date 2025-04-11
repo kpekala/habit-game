@@ -5,6 +5,10 @@ import com.kpekala.habitgame.domain.task.dto.FinishTaskRequest;
 import com.kpekala.habitgame.domain.task.dto.FinishTaskResponse;
 import com.kpekala.habitgame.domain.task.dto.TasksResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,6 +66,34 @@ public class TaskController {
             return ResponseEntity.ok("Photo uploaded successfully with ID: " + photoId);
         } catch (IOException e) {
             return ResponseEntity.status(500).body("Upload failed: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("uploads/{filename}")
+    public ResponseEntity<Resource> downloadImage(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get(UPLOAD_DIR).resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // Auto-detect content type (image/png, image/jpeg, etc.)
+            String contentType = Files.probeContentType(filePath);
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+
+            System.out.println(filePath);
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 

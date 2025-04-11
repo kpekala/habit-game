@@ -92,6 +92,7 @@ public class TaskServiceImpl implements TaskService{
                 .id(task.getId())
                 .completed(task.isCompleted())
                 .location(mapToLocation(task.getLocation()))
+                .photoId(task.getPhotoId())
                 .build();
     }
 

@@ -27,6 +27,14 @@
         <b>Location: </b>{{ task.location.latitude }}
         {{ task.location.longitude }}
     </div>
+    } @if(task.photoId) {
+    <div>
+        <img
+            [src]="photoUrl()"
+            alt="Image Preview"
+            style="max-width: 300px; margin-top: 10px"
+        />
+    </div>
     }
     <div class="task-card__btn-finish-container">
         <button

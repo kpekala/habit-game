@@ -92,7 +92,9 @@ export class AddTaskComponent {
             body = {
                 ...body,
                 deadline: this.taskForm.value['deadline'],
-                photoId: this.photoId,
+                photoId: `${this.photoId}.${
+                    this.selectedFile.name.split('.')[1]
+                }`,
             }
             this.tasksService
                 .addTask(body)

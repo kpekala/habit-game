@@ -105,4 +105,8 @@ export class TasksService {
             formData
         )
     }
+
+    public photoUrl(photoId: string) {
+        return `${environment.backendPath}api/task/uploads/${photoId}`
+    }
 }

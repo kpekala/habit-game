@@ -22,4 +22,6 @@ public class TaskDto {
     private boolean completed;
 
     private Location location;
+
+    private String photoId;
 }
