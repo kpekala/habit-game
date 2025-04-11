@@ -5,7 +5,14 @@ import com.kpekala.habitgame.domain.task.dto.FinishTaskRequest;
 import com.kpekala.habitgame.domain.task.dto.FinishTaskResponse;
 import com.kpekala.habitgame.domain.task.dto.TasksResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController {
 
     private final TaskService taskService;
+
+    private static final String UPLOAD_DIR = "uploads/";
 
     @GetMapping
     public TasksResponse getTasks(@RequestParam String email) {
@@ -30,6 +39,30 @@ public class TaskController {
     @PostMapping("finish")
     public FinishTaskResponse finishTask(@RequestBody FinishTaskRequest request) {
         return taskService.finishTask(request.getTaskId());
+    }
+
+    @PostMapping("upload-photo")
+    public ResponseEntity<String> uploadPhoto(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("photoId") String photoId
+    ) {
+        try {
+            // Ensure upload dir exists
+            Files.createDirectories(Paths.get(UPLOAD_DIR));
+
+            // Build the file path
+            String originalFileName = file.getOriginalFilename();
+            String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+            String filename = photoId + extension;
+
+            Path filePath = Paths.get(UPLOAD_DIR + filename);
+
+            Files.write(filePath, file.getBytes());
+
+            return ResponseEntity.ok("Photo uploaded successfully with ID: " + photoId);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Upload failed: " + e.getMessage());
+        }
     }
 
     @GetMapping("completed")

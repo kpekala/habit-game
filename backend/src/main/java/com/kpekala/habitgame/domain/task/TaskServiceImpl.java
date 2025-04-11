@@ -30,6 +30,7 @@ public class TaskServiceImpl implements TaskService{
                 .deadline(request.getDeadline())
                 .difficulty(mapDifficulty(request.getDifficulty()))
                 .location(mapToGeolocation(request.getLocation()))
+                .photoId(request.getPhotoId())
                 .build();
 
         var user = userRepository.findByEmailAddress(request.getEmail()).orElseThrow(UserNotFoundException::new);
@@ -111,6 +112,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     private Geolocation mapToGeolocation(Location location) {
+        if(location == null) return null;
         var loc = new Geolocation();
         loc.setLatitude(location.getLatitude());
         loc.setLongitude(location.getLongitude());
@@ -119,6 +121,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     private Location mapToLocation(Geolocation geolocation) {
+        if(geolocation == null) return null;
         return new Location(geolocation.getLatitude(), geolocation.getLongitude(), geolocation.getPlace());
     }
 }

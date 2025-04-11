@@ -20,8 +20,9 @@ import { TasksService } from '../tasks.service'
 import { LoadingCircleComponent } from '../../../utils/ui/loading-circle/loading-circle.component'
 import { SnackbarService } from 'src/app/utils/ui/snackbar/snackbar.service'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { finalize } from 'rxjs'
+import { finalize, Observable, of, switchMap } from 'rxjs'
 import { GeolocationService } from 'src/app/utils/data/geolocation.service'
+import { v4 as uuidv4 } from 'uuid'
 
 @Component({
     selector: 'app-add-task',
@@ -37,6 +38,10 @@ export class AddTaskComponent {
     public isTask = input.required<boolean>()
     public isLoading = false
     public taskForm: FormGroup
+
+    public selectedFile: File | null = null
+    public imagePreview: string | null = null
+    public photoId = ''
 
     @ViewChild('card') card: ElementRef
     @Output() onClose = new EventEmitter<boolean>()
@@ -84,10 +89,22 @@ export class AddTaskComponent {
             location: this.parseLocationInput(this.taskForm.value['location']),
         }
         if (this.isTask()) {
-            body = { ...body, deadline: this.taskForm.value['deadline'] }
+            body = {
+                ...body,
+                deadline: this.taskForm.value['deadline'],
+                photoId: this.photoId,
+            }
             this.tasksService
                 .addTask(body)
                 .pipe(
+                    switchMap(() => {
+                        if (this.selectedFile)
+                            return this.tasksService.uploadPhoto(
+                                this.selectedFile,
+                                this.photoId
+                            )
+                        else return of()
+                    }),
                     takeUntilDestroyed(this.destroyRef),
                     finalize(() => {
                         this.isLoading = false
@@ -144,6 +161,19 @@ export class AddTaskComponent {
                 },
                 error: (error: Error) => {},
             })
+    }
+
+    public onFileSelected(event: Event): void {
+        const input = event.target as HTMLInputElement
+        if (input.files && input.files.length > 0) {
+            this.selectedFile = input.files[0]
+            const reader = new FileReader()
+            reader.onload = () => {
+                this.imagePreview = reader.result as string
+            }
+            reader.readAsDataURL(this.selectedFile)
+            this.photoId = uuidv4()
+        }
     }
 
     private parseLocationInput(location: string) {

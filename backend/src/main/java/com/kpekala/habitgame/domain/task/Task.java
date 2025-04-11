@@ -35,6 +35,8 @@ public class Task {
 
     private boolean completed;
 
+    private String photoId;
+
     public enum Difficulty {
         EASY, MEDIUM, HARD
     }

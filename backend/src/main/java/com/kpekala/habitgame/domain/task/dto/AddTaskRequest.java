@@ -16,4 +16,5 @@ public class AddTaskRequest {
     private Date deadline;
     private String email;
     private Location location;
+    private String photoId;
 }

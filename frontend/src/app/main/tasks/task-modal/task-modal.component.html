@@ -22,11 +22,12 @@
     <div *ngIf="isHabit()" class="task-card__field-container">
         <b>Is good: </b>{{ task.good === true ? 'YES' : 'NO' }}
     </div>
+    @if (task.location) {
     <div class="task-card__field-container">
         <b>Location: </b>{{ task.location.latitude }}
         {{ task.location.longitude }}
     </div>
-
+    }
     <div class="task-card__btn-finish-container">
         <button
             class="btn btn-primary task-card__btn-finish"
