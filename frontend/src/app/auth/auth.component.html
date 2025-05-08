@@ -47,9 +47,8 @@
                     </app-button>
                 </div>
                 @if(errorMessage !== '') {
-                    @if (errorMessage === 'Bad credentials') {
-                        <p class="auth-card__error">{{errorMessage}}</p>
-                    }
+                    <p class="auth-card__error">{{errorMessage}}</p>
+                    
                 }
 
                 <div class="auth-card__change-method">

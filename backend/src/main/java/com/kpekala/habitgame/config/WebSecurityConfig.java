@@ -65,9 +65,12 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // not very secure, i know
+//        registry.addMapping("/**")
+//                .allowedOrigins("http://localhost:4200", "http://localhost:3070", "http://192.168.100.4:4200",
+//                        "http://srv29.mikr.us:20205", "https://habitgame.bieda.it");
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200", "http://localhost:3070", "http://192.168.100.4:4200",
-                        "http://srv29.mikr.us:20205", "https://habitgame.bieda.it");
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*");
     }
 }

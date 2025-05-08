@@ -77,7 +77,7 @@ export class AuthComponent implements OnInit {
         if(error.status === 403) {
           this.errorMessage = 'Bad credentials';
         } else {
-          this.errorMessage = 'Unknown error, please try again';
+          this.errorMessage = error.message;
         }
       },
     });
