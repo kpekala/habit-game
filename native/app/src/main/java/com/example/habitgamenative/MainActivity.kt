@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
+import com.example.habitgamenative.game.GameActivity
 import java.time.Instant
 
 class MainActivity : ComponentActivity() {
