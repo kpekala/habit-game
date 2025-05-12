@@ -2,6 +2,8 @@ package com.example.habitgamenative.services
 
 import android.content.SharedPreferences
 import android.util.Log
+import com.example.habitgamenative.api.FinishTaskRequest
+import com.example.habitgamenative.api.FinishTaskResponse
 import com.example.habitgamenative.api.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +28,7 @@ data class TasksResponse(
 )
 
 
-interface TasksListener {
+interface GetTasksListener {
     fun onGetTasksSuccess(tasks: List<Task>)
 }
 
@@ -36,7 +38,7 @@ interface HabitsListener {
 
 class TasksService(private val sharedPreferences: SharedPreferences) {
 
-    fun fetchTasks(tasksListener: TasksListener) {
+    fun fetchTasks(tasksListener: GetTasksListener) {
 
         val email = sharedPreferences.getString("email", "") ?: return
         var token = sharedPreferences.getString("token", "") ?: return
@@ -59,5 +61,28 @@ class TasksService(private val sharedPreferences: SharedPreferences) {
                 Log.e("API", "Error: ${t.message}")
             }
         })
+    }
+
+    fun finishTask(taskId: Int, onSuccess: (response: FinishTaskResponse) -> Unit) {
+        var token = sharedPreferences.getString("token", "") ?: return
+        token = "Bearer $token"
+
+        RetrofitClient.instance.finishTask(FinishTaskRequest(taskId), token)
+            .enqueue(object : Callback<FinishTaskResponse> {
+                override fun onResponse(
+                    call: Call<FinishTaskResponse>,
+                    response: Response<FinishTaskResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        onSuccess(response.body()!!)
+                    } else {
+                        Log.e("API", "Failed: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<FinishTaskResponse>, t: Throwable) {
+                    Log.e("API", "Error: ${t.message}")
+                }
+            })
     }
 }

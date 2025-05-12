@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,10 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.habitgamenative.R
 import com.example.habitgamenative.services.Task
-import com.example.habitgamenative.services.TasksListener
+import com.example.habitgamenative.services.GetTasksListener
 import com.example.habitgamenative.services.TasksService
 
-class TasksFragment : Fragment(), TasksListener {
+class TasksFragment : Fragment(), GetTasksListener {
 
     private lateinit var listTasks: RecyclerView
     private lateinit var listHabits: RecyclerView
@@ -48,7 +49,7 @@ class TasksFragment : Fragment(), TasksListener {
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setPositiveButton("Finish", { dialog, id ->
-
+                tasksService.finishTask(position, {response ->  onTaskFinished(position)})
             })
             .setNegativeButton("Cancel", { dialog, id ->
 
@@ -68,13 +69,19 @@ class TasksFragment : Fragment(), TasksListener {
         taskDifficulty.text = "Difficulty: ${task.difficulty}"
         taskLocation.text = "Location: ${task.location.latitude} ${task.location.longitude}"
 
-        if(task.photoId.isNotEmpty()) {
+        if(task.photoId != null && task.photoId.isNotEmpty()) {
             taskImage.visibility = View.VISIBLE
             Glide.with(requireContext())
                 .load("http://10.0.2.2:8080/api/task/uploads/${task.photoId}")
                 .into(taskImage)
         }
         dialog.show()
+    }
+
+    private fun onTaskFinished(position: Int) {
+        tasksService.fetchTasks(this)
+        Toast.makeText(this.requireContext(), "Task finished successfully!", Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun initLists(view: View) {
