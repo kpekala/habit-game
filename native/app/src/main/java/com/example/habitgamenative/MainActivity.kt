@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
     private fun checkTokenDate() {
 
         val dateString = sharedPreferences.getString("date", "")
-        if(dateString == null) {
+        if(dateString == null || dateString == "") {
             startLoginActivity()
             return
         }

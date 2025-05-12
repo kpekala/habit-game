@@ -2,11 +2,13 @@ package com.example.habitgamenative
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.habitgamenative.game.GameActivity
 import com.example.habitgamenative.services.AuthResponse
 import com.example.habitgamenative.services.LoginListener
 import com.example.habitgamenative.services.LoginService
@@ -43,7 +45,7 @@ class LoginActivity : Activity(), LoginListener {
     }
 
     override fun onSuccess(response: AuthResponse) {
-
+        startActivity(Intent(this, GameActivity::class.java))
     }
 
     override fun onError(msg: String) {

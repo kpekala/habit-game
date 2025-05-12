@@ -32,6 +32,7 @@ class LoginService(var sharedPreferences: SharedPreferences) {
                     sharedPreferences.edit {
                         putString("token", authResponse?.token)
                         putString("date", authResponse?.tokenExpirationDate)
+                        putString("email", emailAddress)
                     }
                     println("Token: ${authResponse?.token}")
                     println("date: ${authResponse?.tokenExpirationDate}")
