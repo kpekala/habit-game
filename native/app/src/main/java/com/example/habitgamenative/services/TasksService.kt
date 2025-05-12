@@ -138,6 +138,7 @@ class TasksService(private val sharedPreferences: SharedPreferences) {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         Log.d("Upload", "Success: ${response.body()}")
+                        onSuccess()
                     } else {
                         Log.e("Upload", "Error: ${response.code()}")
                     }

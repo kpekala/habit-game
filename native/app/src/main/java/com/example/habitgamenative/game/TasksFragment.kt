@@ -174,14 +174,16 @@ class TasksFragment : Fragment(), GetTasksListener {
             taskLocation, "${photoId}.${getImageExtensionFromUri(requireContext(), newImageUri!!)}"
         )
 
-        tasksService.addTask(request, {
-            if(photoId != null) {
+        tasksService.addTask(request) {
+            if (photoId != null) {
                 val file = getFileFromUri(requireContext(), newImageUri!!)
                 tasksService.uploadPhoto(file, photoId) {
                     tasksService.fetchTasks(this)
                 }
+            } else {
+                tasksService.fetchTasks(this)
             }
-        })
+        }
 
     }
 
@@ -196,7 +198,7 @@ class TasksFragment : Fragment(), GetTasksListener {
         return tempFile
     }
 
-    fun getImageExtensionFromUri(context: Context, uri: Uri): String? {
+    private fun getImageExtensionFromUri(context: Context, uri: Uri): String? {
         val contentResolver = context.contentResolver
         val mimeType = contentResolver.getType(uri)
 
@@ -210,7 +212,7 @@ class TasksFragment : Fragment(), GetTasksListener {
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .setPositiveButton("Finish", { dialog, id ->
-                tasksService.finishTask(position, {response ->  onTaskFinished(position)})
+                tasksService.finishTask(task.id, {response ->  onTaskFinished(position)})
             })
             .setNegativeButton("Cancel", { dialog, id ->
 
