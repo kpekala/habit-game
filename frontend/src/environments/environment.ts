@@ -1,3 +1,3 @@
 export const environment = {
-  backendPath: 'http://10.0.2.2:8080/',
+  backendPath: 'https://192.168.0.103:8443/',
 };
