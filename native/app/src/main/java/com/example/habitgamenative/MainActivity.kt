@@ -8,6 +8,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import com.example.habitgamenative.game.GameActivity
 import java.time.Instant
+import java.time.OffsetDateTime
+
+
 
 class MainActivity : ComponentActivity() {
 
@@ -27,9 +30,10 @@ class MainActivity : ComponentActivity() {
             startLoginActivity()
             return
         }
-        val expirationInstant = Instant.parse(dateString)
+        val odt = OffsetDateTime.parse(dateString)
+        val instant = odt.toInstant()
 
-        if(Instant.now().isAfter(expirationInstant)) {
+        if(Instant.now().isAfter(instant)) {
             startLoginActivity()
         } else {
             startActivity(Intent(this, GameActivity::class.java))

@@ -2,14 +2,9 @@
     <div class="tasks-card">
         <app-tasks-list [taskType]="1"></app-tasks-list>
     </div>
-    
-    <div class="tasks-card">
-        <app-tasks-list [taskType]="2"></app-tasks-list>
-    </div>
     @if (showNewLevelCard) {
-        <app-card (onClose)="onCloseNewLevelCard()">
-            <app-new-level [level]="newlvl"></app-new-level>
-        </app-card>
+    <app-card (onClose)="onCloseNewLevelCard()">
+        <app-new-level [level]="newlvl"></app-new-level>
+    </app-card>
     }
-    
 </div>

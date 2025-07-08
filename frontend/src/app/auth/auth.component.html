@@ -1,31 +1,39 @@
 <div class="auth-container">
+    <p style="color: black">{{ responseEnd }}</p>
     <div class="auth-card">
         <h1 class="auth-card__logo">
-            {{isLoginView ? 'Welcome back!': 'Hello there!'}}
+            {{ isLoginView ? 'Welcome back!' : 'Hello there!' }}
         </h1>
         <div class="auth-card__form-container">
-            <form [formGroup]="authForm" class="auth-card__form" (ngSubmit)="onAuthButtonClicked()">
+            <form
+                [formGroup]="authForm"
+                class="auth-card__form"
+                (ngSubmit)="onAuthButtonClicked()"
+            >
                 <div class="auth-card__input-container">
                     <div>
                         <label class="form-label">Email address</label>
                     </div>
                     <div class="input-container">
-                        <input type="email"
-                        class="form-control"
-                        formControlName="email"
-                        placeholder="Email address"/>
+                        <input
+                            type="email"
+                            class="form-control"
+                            formControlName="email"
+                            placeholder="Email address"
+                        />
                     </div>
-                    
                 </div>
                 <div *ngIf="!isLoginView" class="auth-card__input-container">
                     <div>
                         <label class="form-label">Name</label>
                     </div>
                     <div>
-                        <input type="text"
-                        class="form-control"
-                        formControlName="name"
-                        placeholder="Name"/>
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="name"
+                            placeholder="Name"
+                        />
                     </div>
                 </div>
 
@@ -34,27 +42,35 @@
                         <label class="form-label">Passport</label>
                     </div>
                     <div>
-                        <input type="password"
-                        class="form-control"
-                        formControlName="password"
-                        placeholder="Passport"/>
+                        <input
+                            type="password"
+                            class="form-control"
+                            formControlName="password"
+                            placeholder="Passport"
+                        />
                     </div>
                 </div>
 
-
                 <div class="auth-card__button-container">
-                    <app-button [label]="isLoginView ? 'Login' : 'Sign up'" [disabled]="!authForm.valid || isLoading">
+                    <app-button
+                        [label]="isLoginView ? 'Login' : 'Sign up'"
+                        [disabled]="!authForm.valid || isLoading"
+                    >
                     </app-button>
                 </div>
                 @if(errorMessage !== '') {
-                    <p class="auth-card__error">{{errorMessage}}</p>
-                    
+                <p class="auth-card__error">{{ errorMessage }}</p>
+
                 }
 
                 <div class="auth-card__change-method">
-                    {{isLoginView ? 'Don\'t have an account? ': 'Already have an account?'}} 
+                    {{
+                        isLoginView
+                            ? "Don't have an account? "
+                            : 'Already have an account?'
+                    }}
                     <span class="login-text-button" (click)="changeMethod()">
-                        {{isLoginView ? 'Sign up' : 'Login'}}
+                        {{ isLoginView ? 'Sign up' : 'Login' }}
                     </span>
                 </div>
             </form>

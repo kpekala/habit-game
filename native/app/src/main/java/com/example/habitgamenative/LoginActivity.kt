@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.core.view.ViewCompat
@@ -36,6 +38,11 @@ class LoginActivity : Activity(), LoginListener {
         passwordInput = findViewById(R.id.editTextTextPassword)
 
         setupListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        Log.d("onResume", SystemClock.uptimeMillis().toString())
     }
 
     private fun setupListeners() {

@@ -22,10 +22,9 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -82,24 +81,18 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void setUpTasks() {
-        var sampleTasks = List.of(Task.builder()
-                        .title("First task!")
-                        .description("Lorem ipsum")
-                        .difficulty(Task.Difficulty.MEDIUM)
-                        .location(new Geolocation(null, 52.237049f, 21.017532f, "Warsaw"))
-                        .deadline(new Date()).build(),
-                Task.builder()
-                        .title("Do 20 push-ups")
-                        .description("Just do it")
-                        .difficulty(Task.Difficulty.HARD)
-                        .location(new Geolocation(null, 52.237049f, 21.017532f, "Warsaw"))
-                        .deadline(new Date()).build(),
-                Task.builder()
-                        .title("Do 50 push-ups")
-                        .description("its going to be hard asf")
-                        .difficulty(Task.Difficulty.HARD)
-                        .location(new Geolocation(null, 52.237049f, 21.017532f, "Warsaw"))
-                        .deadline(new Date()).build());
+        var tasks = new ArrayList<Task>();
+        for(int i=0; i<1000; i++) {
+            byte[] array = new byte[30]; // length is bounded by 7
+            new Random().nextBytes(array);
+            String generatedString = new String(array, Charset.forName("UTF-8"));
+            tasks.add(Task.builder()
+                    .title(generatedString)
+                    .description("its going to be hard asf")
+                    .difficulty(Task.Difficulty.HARD)
+                    .location(new Geolocation(null, 52.237049f, 21.017532f, "Warsaw"))
+                    .deadline(new Date()).build());
+        }
 
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -108,7 +101,7 @@ public class DataInitializer implements CommandLineRunner {
 
                 var user = userRepository.findByEmailAddress("test@test.pl").orElseThrow(UserNotFoundException::new);
 
-                sampleTasks.forEach(task -> {
+                tasks.forEach(task -> {
                     user.addTask(task);
                     task.setUser(user);
                     taskRepository.save(task);

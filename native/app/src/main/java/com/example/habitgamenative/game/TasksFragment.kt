@@ -254,10 +254,10 @@ class TasksFragment : Fragment(), GetTasksListener {
             openTaskDialog(position)
         }
 
-        listHabits = view.findViewById(R.id.listHabits)
-        listHabits.layoutManager = LinearLayoutManager(view.context)
-        listHabits.adapter = TextListAdapter(listOf(), {position: Int -> {
-        }})
+//        listHabits = view.findViewById(R.id.listHabits)
+//        listHabits.layoutManager = LinearLayoutManager(view.context)
+//        listHabits.adapter = TextListAdapter(listOf(), {position: Int -> {
+//        }})
     }
 
     private fun getLocation() {
